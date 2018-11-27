@@ -1,0 +1,82 @@
+{
+  "_from": "@k3rn31p4nic/google-translate-api@~1.0.4",
+  "_id": "@k3rn31p4nic/google-translate-api@1.0.4",
+  "_inBundle": false,
+  "_integrity": "sha512-35CutyG0yuGiHW5HDx9gaCRCanRwo6R+YODeq+BEzD9TkGPkw6sLxb0kVEK7Vt1LWpE3BOySx9I7WZrw96TJ6Q==",
+  "_location": "/@k3rn31p4nic/google-translate-api",
+  "_phantomChildren": {
+    "@sindresorhus/is": "0.7.0",
+    "cacheable-request": "2.1.4",
+    "decompress-response": "3.3.0",
+    "duplexer3": "0.1.4",
+    "get-stream": "3.0.0",
+    "into-stream": "3.1.0",
+    "is-retry-allowed": "1.1.0",
+    "isurl": "1.0.0",
+    "lowercase-keys": "1.0.1",
+    "mimic-response": "1.0.1",
+    "p-cancelable": "0.4.1",
+    "p-timeout": "2.0.1",
+    "pify": "3.0.0",
+    "safe-buffer": "5.1.2",
+    "timed-out": "4.0.1",
+    "url-to-options": "1.0.1"
+  },
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@k3rn31p4nic/google-translate-api@~1.0.4",
+    "name": "@k3rn31p4nic/google-translate-api",
+    "escapedName": "@k3rn31p4nic%2fgoogle-translate-api",
+    "scope": "@k3rn31p4nic",
+    "rawSpec": "~1.0.4",
+    "saveSpec": null,
+    "fetchSpec": "~1.0.4"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@k3rn31p4nic/google-translate-api/-/google-translate-api-1.0.4.tgz",
+  "_shasum": "37dc94b9826f7062bc6bd06f51d68a2317cd3170",
+  "_spec": "@k3rn31p4nic/google-translate-api@~1.0.4",
+  "_where": "/home/ubuntu/workspace",
+  "author": {
+    "name": "Sankarsan Kampa",
+    "url": "a.k.a. k3rn31p4nic"
+  },
+  "bugs": {
+    "url": "https://github.com/k3rn31p4nic/google-translate-api/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "got": "^8.1.0"
+  },
+  "deprecated": false,
+  "description": "A Node.JS library to consume Google Translate for free.",
+  "devDependencies": {
+    "eslint": "^4.17.0"
+  },
+  "homepage": "https://github.com/k3rn31p4nic/google-translate-api#readme",
+  "keywords": [
+    "google translate api",
+    "google translate",
+    "google api",
+    "translate api",
+    "google",
+    "translate",
+    "api"
+  ],
+  "license": "GPL-3.0",
+  "main": "src/index.js",
+  "name": "@k3rn31p4nic/google-translate-api",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/k3rn31p4nic/google-translate-api.git"
+  },
+  "scripts": {
+    "start": "node .",
+    "test": "npm run test:lint",
+    "test:lint": "eslint ."
+  },
+  "version": "1.0.4"
+}

@@ -1,0 +1,37 @@
+{
+    "build": {
+        "@saveall": true
+    },
+    "format": {
+        "jsbeautify": {
+            "@formatOnSave": true,
+            "@indent_inner_html": true,
+            "@jslinthappy": true,
+            "@keeparrayindentation": true
+        }
+    },
+    "javascript": {
+        "@use_jsbeautify": true
+    },
+    "language": {
+        "tern_defs": {
+            "json()": {
+                "browser": {
+                    "enabled": true
+                },
+                "ecma5": {
+                    "enabled": true
+                },
+                "jQuery": {
+                    "enabled": true
+                }
+            }
+        }
+    },
+    "run": {
+        "configs": {
+            "@inited": "true",
+            "json()": {}
+        }
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "token": "Mzk3MzQ2NTY4MDg2MjI0OTA2.DlLs1g.aYHptFKbifIOD29Lp-RJIQAxBqU",
+    "prefix": "$",
+    "files": ["mp3", "mp4", "wav", "ogg"],
+    "fileloc": "./sounds",
+    "owner": "155622262660268033",
+    "writestats": 1,
+    "addcmd": {
+        "enable": 0,
+        "acceptedformats": ["mp3", "mp4", "wav", "ogg"],
+        "allowedusers": []
+    }
+}
