@@ -6,22 +6,22 @@
 
 const request = require('request-promise-native');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async(Bastion, message, args) => {
   try {
     if (args.length < 1) {
       /**
-      * The command was ran with invalid parameters.
-      * @fires commandUsage
-      */
+       * The command was ran with invalid parameters.
+       * @fires commandUsage
+       */
       return Bastion.emit('commandUsage', message, this.help);
     }
 
     args = encodeURI(args.join(' '));
     if (!/^(http[s]?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)$/i.test(args)) {
       /**
-      * Error condition is encountered.
-      * @fires error
-      */
+       * Error condition is encountered.
+       * @fires error
+       */
       return Bastion.emit('error', Bastion.strings.error(message.guild.language, 'invalidInput'), Bastion.strings.error(message.guild.language, 'invalidInput', true, 'URL'), message.channel);
     }
 
@@ -75,5 +75,5 @@ exports.help = {
   userTextPermission: '',
   userVoicePermission: '',
   usage: 'shorten <URL>',
-  example: [ 'shorten https://bastionbot.org/SomeLongURL' ]
+  example: ['shorten [url]']
 };

@@ -30,14 +30,34 @@ exports.exec = (Bastion, message, args) => {
       }
       else {
         request(metroUrl, function (error, response, html) {
+
           if (!error) {
             var $ = cheerio.load(html);
             var data = $('.verse');
+            var output = data.contents().text();
+            var myfields = [];
+            var array = output.split('\n');
+            var tmp = 0;
+            var sttmp = '';
+            for (var i = 0; i <= array.length; i++) {
+              sttmp += array[i] + ' \n ';
+              tmp++;
+              if (tmp == 18) {
+                myfields.push({ name: '------------------------------------------------', value: sttmp });
+                tmp = 0;
+                sttmp = '';
+              }
+            }
+
             message.channel.send({
               embed: {
                 color: 3447003,
-                title: 'Lyrics for your requested song',
-                description: data.text()
+                title: "YOUR FUCKING LYRICS ",
+                fields: myfields,
+                footer: {
+                  "icon_url": message.author.avatarURL,
+                  text: "Requested by " + message.author.username + " || Powered by MetroLyrics"
+                }
               }
             });
           }
@@ -45,14 +65,15 @@ exports.exec = (Bastion, message, args) => {
             message.channel.send('lyrics not found')
           }
         });
+
       }
     }
     else {
       message.channel.send('lyrics not found');
     }
   });
-}
 
+}
 
 exports.help = {
   name: 'lyrics',

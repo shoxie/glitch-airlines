@@ -37,6 +37,7 @@
     "gamedig": "~1.0.46",
     "hirez.js": "~2.0.0",
     "kitsu": "~6.5.0",
+    "thesaurus-com":"1.2.0",
     "locke": "github:TheBastionBot/Locke#v0.9.0",
     "lzutf8": "~0.5.5",
     "mathjs": "~5.4.0",

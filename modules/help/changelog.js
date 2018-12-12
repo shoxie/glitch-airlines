@@ -5,41 +5,40 @@
  */
 
 exports.exec = (Bastion, message) => {
-  const CHANGES = require('../../changes.json');
+  message.channel.send({
+    embed: {
+      color: 3447003,
+      title: 'Changelog',
+      fields: [{
+          name: "Version",
+          value: "2.0 alpha rc-5"
+      },
+        {
+          name: "Up-to-date version",
+          value: "2.0 alpha rc-5"
+      },
+        {
+          name: 'Changes',
+          value: 'Removed thesaurus command.'
+        },
 
-  let changes = [];
-  for (let section in CHANGES) {
-    if (CHANGES.hasOwnProperty(section)) {
-      if (section === 'date' || section === 'image' || !CHANGES[section].length) continue;
-
-      changes.push({
-        name: section,
-        value: `- ${CHANGES[section].join('\n- ')}`
-      });
+        {
+          name: "Developer",
+          value: "whiterose"
+      },
+        {
+          name: 'New features upcoming',
+          value: 'AFK, book, membersOnly, mentionRole, moveMembers, music, reactionAnnouncements, reactionPinning, relayDirectMessages, roleDescription, roleEmoji'
+      }
+    ]
     }
-  }
+  });
 
-  changes.push(
-    {
-      name: '\u200B',
-      value: '\u200B'
-    },
-    {
-      name: 'Missed an update?',
-      value: '[Check out our previous change logs](https://github.com/TheBastionBot/Bastion/releases).'
-        + '\nJoin **Time Bureau Council** and never miss an update: https://discord.gg/YDsHng6'
-    },
-    {
-      name: 'Support Kara\'s Development',
-      value: '[Support the development of Kara] to keep it running forever and get cool rewards!'
-    }
-  );
 
- 
 };
 
 exports.config = {
-  aliases: [ 'clog', 'changes' ],
+  aliases: ['clog', 'changes'],
   enabled: false
 };
 

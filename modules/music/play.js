@@ -147,7 +147,7 @@ exports.exec = (Bastion, message, args) => {
               title: e.title,
               thumbnail: '',
               duration: e.duration,
-              requester: message.author.tag
+              requester: message.author.username
             });
           });
         }
@@ -217,7 +217,7 @@ exports.exec = (Bastion, message, args) => {
         title: info.title,
         thumbnail: info.thumbnail,
         duration: info.duration,
-        requester: message.author.tag
+        requester: message.author.username
       });
       const test = info.title;
       console.log(test)
@@ -234,14 +234,14 @@ exports.exec = (Bastion, message, args) => {
       textChannel.send({
         embed: {
           color: Bastion.colors.GREEN,
-          title: 'Chị Thảo đã nhận được yêu cầu.',
+          title: 'Request confirmed.',
           url: info.id ? `https://youtu.be/${info.id}` : '',
           description: info.title,
           thumbnail: {
             url: info.thumbnail
           },
           footer: {
-            text: `Vị trí: ${message.guild.music.songs.length} • Thời lượng: ${info.duration || 'N/A'} • Người yêu cầu: ${message.author.tag}`
+            text: `Position: ${message.guild.music.songs.length} • Duration: ${info.duration || 'N/A'} • Requester: ${message.author.tag}`
           }
         }
       }).catch(e => {
@@ -305,7 +305,7 @@ function startStreamDispatcher(guild, connection) {
 
     let description;
     if (guild.music.songs[0] === undefined) {
-      description = 'Thảo đang rời khỏi voiceChannel.';
+      description = 'Leaving voiceChannel.';
     }
     else {
       guild.music.songs = [];
@@ -336,14 +336,14 @@ function startStreamDispatcher(guild, connection) {
   guild.music.textChannel.send({
     embed: {
       color: guild.client.colors.BLUE,
-      title: 'Chị Thảo đang trình bày ca khúc',
+      title: 'Playing',
       url: guild.music.songs[0].id ? `https://youtu.be/${guild.music.songs[0].id}` : '',
       description: guild.music.songs[0].title,
       thumbnail: {
         url: guild.music.songs[0].thumbnail
       },
       footer: {
-        text: `🔉 ${guild.music.dispatcher.volume * 50}% • Thời lượng: ${guild.music.songs[0].duration || 'N/A'} • Người yêu cầu: ${guild.music.songs[0].requester}`
+        text: `🔉 ${guild.music.dispatcher.volume * 50}% • Duration: ${guild.music.songs[0].duration || 'N/A'} • Requester: ${guild.music.songs[0].requester}`
       }
     }
   }).catch(e => {

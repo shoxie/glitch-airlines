@@ -4,13 +4,13 @@
  * @license MIT
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async(Bastion, message, args) => {
   try {
     if (!args.url || !/^(https?:\/\/)((([-a-z0-9]{1,})?(-?)+[-a-z0-9]{1,})(\.))+([a-z]{1,63})\/((([a-z0-9._\-~#%])+\/)+)?([a-z0-9._\-~#%]+)\.(jpg|jpeg|gif|png)$/i.test(args.url) || !args.name) {
       /**
-      * The command was ran with invalid parameters.
-      * @fires commandUsage
-      */
+       * The command was ran with invalid parameters.
+       * @fires commandUsage
+       */
       return Bastion.emit('commandUsage', message, this.help);
     }
 
@@ -48,5 +48,5 @@ exports.help = {
   userTextPermission: 'MANAGE_EMOJIS',
   userVoicePermission: '',
   usage: 'createEmoji <EmojiURL> -n <EmojiName>',
-  example: [ 'createEmoji https://bastionbot.org/assets/images/bastion.png -n BastionBot' ]
+  example: ['createEmoji [link] -n [name]']
 };
