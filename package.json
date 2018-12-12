@@ -2,7 +2,6 @@
   "name": "bastion",
   "version": "7.0.0-alpha.85",
   "description": "Give awesome perks to your Discord server!",
-  "url": "https://bastionbot.org/",
   "main": "index.js",
   "scripts": {
     "build:commandStrings": "node -r ./utils/globals.js utils/generateCommandStrings.js",
