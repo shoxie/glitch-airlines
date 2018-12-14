@@ -74,5 +74,5 @@ exports.help = {
   userTextPermission: '',
   userVoicePermission: '',
   usage: 'capture <url>',
-  example: [ 'capture BastionBot.org' ]
+  example: [ 'capture google.com' ]
 };
