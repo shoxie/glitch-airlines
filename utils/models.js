@@ -4,7 +4,7 @@
  * @license GPL-3.0
  */
 
-const logger = xrequire('./handlers/logHandler');
+const logger = require('./handlers/logHandler');
 const fs = require('fs');
 const YAML = require('yaml');
 
