@@ -15,15 +15,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/TheBastionBot/Bastion.git"
+    "url": "https://github.com/shoxie/glitch-airlines"
   },
-  "author": "Sankarsan Kampa",
-  "authorUrl": "https://sankarsankampa.com",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/TheBastionBot/Bastion/issues"
-  },
-  "homepage": "https://bastionbot.org",
   "dependencies": {
     "@k3rn31p4nic/google-translate-api": "~1.0.5",
     "array-back": "^3.0.1",
