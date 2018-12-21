@@ -4,7 +4,7 @@
  * @license GPL-3.0
  */
 
-const request = xrequire('request-promise-native');
+const request = require('request-promise-native');
 
 exports.exec = async (Bastion, message, args) => {
   if (!args.book) {
