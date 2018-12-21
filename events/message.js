@@ -16,12 +16,11 @@ const handleConversation = require('../handlers/conversationHandler');
 const handleDirectMessage = require('../handlers/directMessageHandler');
 let recentLevelUps = [];
 let recentUsers = {};
-const Cleverbot = require("cleverbot-node");
 
 
 module.exports = async message => {
   try {
-    
+
 
 		/**
      * Filter Bastion's credentials from the message
@@ -188,9 +187,9 @@ module.exports = async message => {
        */
       handleDirectMessage(message);
     }
- 
+
   }
-  
+
   catch (e) {
     message.client.log.error(e);
   }
