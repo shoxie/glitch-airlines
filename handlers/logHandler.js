@@ -4,7 +4,7 @@
  * @license GPL-3.0
  */
 
-const COLOR = xrequire('chalk');
+const COLOR = require('chalk');
 
 /* eslint-disable no-console*/
 /**
