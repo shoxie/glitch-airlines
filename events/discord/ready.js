@@ -10,20 +10,7 @@ module.exports = async Bastion => {
   try {
     // Sanity check
     let application = await Bastion.fetchApplication();
-    if (!Bastion.methods.isPublicBastion(Bastion) && application.botPublic) {
-      let errorCode = 0xBAADB002;
-
-      if (Bastion.shard) {
-        await Bastion.shard.broadcastEval(`this.destroy().then(() => process.exitCode = ${errorCode})`);
-      }
-      else {
-        await Bastion.destroy();
-        process.exitCode = errorCode;
-        process.exit(errorCode);
-      }
-
-      return Bastion.log.error(`FATAL ERROR: 0x${errorCode.toString(16).toUpperCase()}\nPlease contact the support @ Bastion HQ: https://discord.gg/fzx8fkt`);
-    }
+  
 
     Bastion.monitors.exec(__filename.slice(__dirname.length + 1, -3), Bastion);
 
