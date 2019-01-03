@@ -1,0 +1,15 @@
+---
+shardCount: 1
+prefix:
+  - "."
+status: online
+game:
+  type: Playing
+  name:
+    - "with songs"
+    - "with wrenches"
+  interval: 60
+music:
+  status: true
+  passes: 1
+logLevel: 6
