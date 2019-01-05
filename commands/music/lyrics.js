@@ -1,68 +1,89 @@
-/**
- * @file lyrics command
- * @author Sankarsan Kampa (a.k.a k3rn31p4nic)
- * @license GPL-3.0
- */
+var express = require('express');
+var router = express.Router();
 
-exports.exec = async (Bastion, message, args) => {
-  if (!message.guild.music.enabled) {
-    if (Bastion.user.id === '267035345537728512') {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'musicDisabledPublic'), message.channel);
+var request = require('request');
+var cheerio = require('cheerio');
+
+
+exports.exec = (Bastion, message, args) => {
+  var query = args;
+  var searchUrl = "https://www.google.co.in/search?q=" + query + "+metrolyrics";
+  var metroUrl;
+  request(searchUrl, function (error, response, html) {
+    //  console.log(response);
+    if (!error) {
+      console.log(searchUrl);
+      var $ = cheerio.load(html);
+
+      var links = $('a', '.r');
+
+      $(links).each(function (i, link) {
+        var text = $(links).text();
+        if (text.search("MetroLyrics") !== -1) {
+          metroUrl = $(link).attr('href').substring(7);
+          console.log(metroUrl);
+          return false;
+        }
+      });
+      if (!metroUrl || metroUrl.length < 3) {
+        message.channel.send('lyrics not found');
+      }
+      else {
+        request(metroUrl, function (error, response, html) {
+
+          if (!error) {
+            var $ = cheerio.load(html);
+            var data = $('.verse');
+            var output = data.contents().text();
+            var myfields = [];
+            var array = output.split('\n');
+            var tmp = 0;
+            var sttmp = '';
+            for (var i = 0; i <= array.length; i++) {
+              sttmp += array[i] + ' \n ';
+              tmp++;
+              if (tmp == 18) {
+                myfields.push({ name: '------------------------------------------------', value: sttmp });
+                tmp = 0;
+                sttmp = '';
+              }
+            }
+
+            message.channel.send({
+              embed: {
+                color: 3447003,
+                title: "YOUR FUCKING LYRICS ",
+                fields: myfields,
+                footer: {
+                  "icon_url": message.author.avatarURL,
+                  text: "Requested by " + message.author.username + " || Powered by MetroLyrics"
+                }
+              }
+            });
+          }
+          else {
+            message.channel.send('lyrics not found')
+          }
+        });
+
+      }
     }
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'musicDisabled'), message.channel);
-  }
-
-  if (!args.song) {
-    return Bastion.emit('commandUsage', message, this.help);
-  }
-
-  let response = await Bastion.methods.makeBWAPIRequest(`/song/${args.song.join(' ')}`);
-
-  if (response.error) {
-    return await message.channel.send({
-      embed: {
-        color: Bastion.colors.RED,
-        title: 'Not Found',
-        description: `No lyrics was found for **${args.song.join(' ').toTitleCase()}**.\nIf you think you are searching for the right song, try adding the artist's name to the search term and try again.`
-      }
-    });
-  }
-
-  await message.channel.send({
-    embed: {
-      color: Bastion.colors.BLUE,
-      author: {
-        name: response.artist.name,
-        icon_url: response.artist.image
-      },
-      title: response.name,
-      description: response.lyrics.length > 2048
-        ? `${response.lyrics.substring(0, 2045)}...`
-        : response.lyrics,
-      thumbnail: {
-        url: response.image
-      },
-      footer: {
-        text: 'Powered by Genius'
-      }
+    else {
+      message.channel.send('lyrics not found');
     }
   });
-};
 
-exports.config = {
-  aliases: [],
-  enabled: true,
-  argsDefinitions: [
-    { name: 'song', type: String, multiple: true, defaultOption: true }
-  ]
-};
+}
 
 exports.help = {
   name: 'lyrics',
-  description: 'Shows the lyrics of the specified song.',
   botPermission: '',
   userTextPermission: '',
   userVoicePermission: '',
-  usage: 'lyrics <SONG NAME> [ARTIST NAME]',
-  example: [ 'lyrics Something just like this', 'lyrics Shape of you - Ed Sheeran' ]
+  usage: 'show lyrics',
+  example: []
+};
+exports.config = {
+  aliases: [],
+  enabled: true
 };
