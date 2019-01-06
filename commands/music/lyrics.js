@@ -26,7 +26,12 @@ exports.exec = (Bastion, message, args) => {
         }
       });
       if (!metroUrl || metroUrl.length < 3) {
-        message.channel.send('lyrics not found');
+        message.channel.send({
+          embed: {
+            color: 0xff0000,
+            description: 'Lyrics not found'
+          }
+        });
       }
       else {
         request(metroUrl, function (error, response, html) {
@@ -52,7 +57,7 @@ exports.exec = (Bastion, message, args) => {
             message.channel.send({
               embed: {
                 color: 3447003,
-                title: "YOUR FUCKING LYRICS ",
+                title: "LYRICS FOUND",
                 fields: myfields,
                 footer: {
                   "icon_url": message.author.avatarURL,
@@ -62,14 +67,24 @@ exports.exec = (Bastion, message, args) => {
             });
           }
           else {
-            message.channel.send('lyrics not found')
+            message.channel.send({
+              embed: {
+                color: 0xff0000,
+                description: 'Lyrics not found'
+              }
+            });
           }
         });
 
       }
     }
     else {
-      message.channel.send('lyrics not found');
+      message.channel.send({
+        embed: {
+          color: 0xff0000,
+          description: 'Lyrics not found'
+        }
+      });
     }
   });
 
