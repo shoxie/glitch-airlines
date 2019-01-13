@@ -1,6 +1,6 @@
 /**
  * @file ready event
- * @author Sankarsan Kampa (a.k.a k3rn31p4nic)
+ * @author Kara
  * @license GPL-3.0
  */
 
@@ -10,7 +10,7 @@ module.exports = async Bastion => {
   try {
     // Sanity check
     let application = await Bastion.fetchApplication();
-  
+
 
     Bastion.monitors.exec(__filename.slice(__dirname.length + 1, -3), Bastion);
 
