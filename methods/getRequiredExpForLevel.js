@@ -1,9 +1,3 @@
-/**
- * @file getRequiredExpForLevel
- * @author Kara
- * @license GPL-3.0
- */
-
 module.exports = (level = 0) => {
   level = parseInt(level, 10);
 

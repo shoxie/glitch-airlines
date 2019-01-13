@@ -1,9 +1,3 @@
-/**
- * @file selfDestruct command
- * @author Kara
- * @license GPL-3.0
- */
-
 exports.exec = async (Bastion, message, args) => {
   if (!args.content) {
     return Bastion.emit('commandUsage', message, this.help);
@@ -14,7 +8,7 @@ exports.exec = async (Bastion, message, args) => {
     return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'selfDestructTimeout', minTimeout, maxTimeout), message.channel);
   }
 
-  if (message.deletable) {
+  if (message.content && message.deletable) {
     await message.delete().catch(() => {});
   }
 

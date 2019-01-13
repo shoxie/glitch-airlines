@@ -1,9 +1,3 @@
-/**
- * @file message event
- * @author Kara
- * @license GPL-3.0
- */
-
 const credentialsFilter = xrequire('./filters/credentialsFilter');
 const emojiFilter = xrequire('./filters/emojiFilter');
 const wordFilter = xrequire('./filters/wordFilter');
@@ -66,7 +60,7 @@ module.exports = async message => {
        * Check if the message author is blacklisted
        */
       let settingsModel = await message.client.database.models.settings.findOne({
-        attributes: ['blacklistedUsers'],
+        attributes: [ 'blacklistedUsers' ],
         where: {
           botID: message.client.user.id
         }
@@ -104,31 +98,12 @@ module.exports = async message => {
          */
         handleConversation(message);
       }
-      let guildsettings = await message.client.database.models.guild.findOne({
-        attributes: ['musicTextChannel', 'prefix'],
-        where: {
-          guildID: message.guild.id
-        }
-      });
-      //console.log(guildSettings.musicTextChannel);
 
-      let msg = message.content.toUpperCase();
-      if (message.channel.id === guildsettings.musicTextChannel) {
-        let sender = message.author;
-        var botids = ['430371264750944283', '397346568086224906'];
-        if (sender.id === botids) return;
-        if (msg.startsWith(`${guildsettings.prefix}`)) {
-          return;
-        }
-        else {
-          message.delete();
-        }
-      }
       /**
        * Set message for voting, if it's a voting channel.
        */
       let textChannelModel = await message.client.database.models.textChannel.findOne({
-        attributes: ['votingChannel'],
+        attributes: [ 'votingChannel' ],
         where: {
           channelID: message.channel.id,
           guildID: message.guild.id
@@ -153,9 +128,7 @@ module.exports = async message => {
         let usersAFK = message.mentions.users.filter(user => message.guild.usersAFK.includes(user.id) && message.channel.permissionsFor(user).has('MANAGE_GUILD'));
         for (let user of usersAFK) {
           user = user[1];
-          if (['idle', 'offline'].includes(user.presence.status)) {
-            message.channel.send(`**${user.tag}** is currently away from keyboard. ${user.username} will get back to you later.`).catch(() => {});
-          }
+          message.channel.send(`**${user.tag}** is currently away from keyboard. ${user.username} will get back to you later.`).catch(() => {});
         }
       }
     }

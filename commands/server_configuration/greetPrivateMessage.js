@@ -1,9 +1,3 @@
-/**
- * @file greetPrivateMessage command
- * @author Kara
- * @license GPL-3.0
- */
-
 exports.exec = async (Bastion, message, args) => {
   if (!args.text && !args.embed) {
     let guildModel = await Bastion.database.models.guild.findOne({
@@ -102,5 +96,5 @@ exports.help = {
   userTextPermission: 'MANAGE_GUILD',
   userVoicePermission: '',
   usage: 'greetPrivateMessage [MESSAGE] [--embed EMBED_OBJECT]',
-  example: [ 'greetPrivateMessage', 'greetPrivateMessage Hello $user! Welcome to $server.', 'greetPrivateMessage Hello $user! --embed { "title": "$user", "description": "Welcome to $server." }' ]
+  example: [ 'greetPrivateMessage', 'greetPrivateMessage Hello {author}! Welcome to {server}.', 'greetPrivateMessage Hello {author}! --embed { "title": "{author}", "description": "Welcome to {server}." }' ]
 };
