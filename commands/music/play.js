@@ -145,7 +145,7 @@ exports.exec = async(Bastion, message, args) => {
         '--simulate',
         '--no-warnings',
         '--format=bestaudio[protocol^=http]',
-        `--user-agent=KaraDiscordBot/v${Bastion.package.version} (https://bastionbot.org)`,
+        `--user-agent=BastionDiscordBot/v${Bastion.package.version} (https://bastionbot.org)`,
         '--referer=https://bastionbot.org',
         '--youtube-skip-dash-manifest'
       ];
@@ -261,7 +261,7 @@ async function startStreamDispatcher(guild, connection) {
       '--simulate',
       '--no-warnings',
       '--format=bestaudio[protocol^=http]',
-      '--user-agent=KaraDiscordBot (https://bastionbot.org)',
+      '--user-agent=BastionDiscordBot (https://bastionbot.org)',
       '--referer=https://bastionbot.org',
       '--youtube-skip-dash-manifest'
     ];
