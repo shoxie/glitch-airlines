@@ -1,9 +1,3 @@
-/**
- * @file play command
- * @author Sankarsan Kampa (a.k.a k3rn31p4nic)
- * @license GPL-3.0
- */
-
 const util = xrequire('util');
 const youtubeDL = xrequire('youtube-dl');
 const getSongInfo = util.promisify(youtubeDL.getInfo);
