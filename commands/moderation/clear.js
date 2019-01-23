@@ -59,7 +59,7 @@ exports.exec = async (Bastion, message, args) => {
 };
 
 exports.config = {
-  aliases: [ 'clr', 'purge' ],
+  aliases: [ 'clr', 'prune' ],
   enabled: true,
   argsDefinitions: [
     { name: 'amount', type: Number, alias: 'n', defaultValue: 100, defaultOption: true },
