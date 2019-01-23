@@ -1,11 +1,8 @@
 const fs = require("fs");
 const Discord = require("discord.js");
 
-exports.exec = (Bastion, message, args) => {
-  const fs = require("fs");
 
-
-  exports.run = (Bastion, message, args) => {
+  exports.exec = (Bastion, message, args) => {
     if (!isNaN(args[0])) {
       let path = './data/doctors/' + args[0] + '.json';
       fs.readFile(path, (err, data) => {
@@ -38,7 +35,7 @@ exports.exec = (Bastion, message, args) => {
     });
   }
 
-}
+
 
 
 
