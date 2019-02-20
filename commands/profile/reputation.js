@@ -1,9 +1,3 @@
-/**
- * @file reputation command
- * @author Kara
- * @license GPL-3.0
- */
-
 let recentUsers = [];
 const COOLDOWN = 12;
 
@@ -31,7 +25,7 @@ exports.exec = async (Bastion, message, args) => {
 
     let [ guildMemberModel, initialized ] = await message.client.database.models.guildMember.findOrBuild({
       where: {
-        userID: message.author.id,
+        userID: user.id,
         guildID: message.guild.id
       },
       defaults: {
@@ -48,7 +42,7 @@ exports.exec = async (Bastion, message, args) => {
       },
       {
         where: {
-          userID: message.author.id,
+          userID: user.id,
           guildID: message.guild.id
         },
         fields: [ 'karma' ]
