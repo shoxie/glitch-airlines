@@ -1,9 +1,3 @@
-/**
- * @file echo command
- * @author Kara
- * @license GPL-3.0
- */
-
 exports.exec = async (Bastion, message, args) => {
   if (args.length < 1) {
     return Bastion.emit('commandUsage', message, this.help);
@@ -11,10 +5,10 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.DEFAULT,
+      color: Bastion.colors.BLUE,
       description: args.join(' '),
       footer: {
-        text: `${!Bastion.credentials.ownerId.includes(message.author.id) ? '' : Bastion.i18n.info(message.guild.language, 'endorsementMessage')}`
+        text: `${Bastion.credentials.ownerId.includes(message.author.id) ? '' : Bastion.i18n.info(message.guild.language, 'endorsementMessage')}`
       }
     }
   });
