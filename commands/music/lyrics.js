@@ -31,7 +31,8 @@ exports.exec = (Bastion, message, args) => {
             color: 0xff0000,
             description: 'Lyrics not found'
           }
-        });
+          });
+          lyricsvietnam();
       }
       else {
         request(metroUrl, function (error, response, html) {
@@ -73,6 +74,7 @@ exports.exec = (Bastion, message, args) => {
                 description: 'Lyrics not found'
               }
             });
+              lyricsvietnam();
           }
         });
 
@@ -85,6 +87,8 @@ exports.exec = (Bastion, message, args) => {
           description: 'Lyrics not found'
         }
       });
+        lyricsvietnam();
+
     }
   });
 
@@ -102,3 +106,18 @@ exports.config = {
   aliases: [],
   enabled: true
 };
+function lyricsvietnam(body, error, response, args) {
+    var searchQuery = args + ' nhaccuatui';
+    let searchLink;
+    google.search(searchQuery, 1, function (url_list) {
+        var searchLink = url_list[1];
+    }
+    var options = {
+        url: searchLink,
+    }
+    request(options, function (body, error, response) {
+        var cheers = cheerio.load(body);
+        var data = cheers(body).find('p#divLyric');
+        var text = data.eq(0).text();
+    });
+}
