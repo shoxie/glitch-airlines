@@ -2,8 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\commands",
-    "\\commands\\music"
+    "\\commands\\games",
+    "\\commands\\music",
+    "\\events\\self",
+    "\\monitors\\modules"
   ],
-  "SelectedNode": "\\commands\\music\\lyrics.js",
+  "SelectedNode": "\\commands\\games\\acrophobia.js",
   "PreviewInSolutionExplorer": false
 }

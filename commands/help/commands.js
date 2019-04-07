@@ -52,11 +52,8 @@ exports.exec = async (Bastion, message, args) => {
         {
           name: 'Need more details?',
           value: 'Check out the help message of the command, using the `help <command>` command.'
-        },
-        {
-          name: 'Want the complete list?',
-          value: 'To get a complete list of all the commands with details, visit [my website](https://bastionbot.org/) and check out the commands page: https://bastionbot.org/commands.'
         }
+        
       ],
       footer: {
         text: `Did you know? There are ${Bastion.commands.size} commands in this version of Kara!`
