@@ -4,7 +4,7 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   if (message.channel.poll && message.channel.poll.collector) {
     let pollRes = message.channel.poll.collector.collected;
     let pollMessage = message.channel.poll.message;
@@ -14,7 +14,7 @@ exports.exec = async (Bastion, message) => {
     if (pollRes.length === 0) {
       return await message.channel.send({
         embed: {
-          color: Bastion.colors.RED,
+          color: Kara.colors.RED,
           title: 'Poll Status',
           description: 'No votes have been given yet. You can vote by sending the corresponding number of the option.'
         }
@@ -41,7 +41,7 @@ exports.exec = async (Bastion, message) => {
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.BLUE,
+        color: Kara.colors.BLUE,
         title: 'Poll Status',
         description: `Poll results for **${pollMessage[0]}**`,
         fields: result

@@ -4,8 +4,8 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
-  let patrons = await Bastion.methods.getPatrons();
+exports.exec = async (Kara, message, args) => {
+  let patrons = await Kara.methods.getPatrons();
   patrons = patrons.filter(patron => !patron.declined_since).map(patron => patron.full_name);
 
   let noOfPages = patrons.length / 50;
@@ -13,7 +13,7 @@ exports.exec = async (Bastion, message, args) => {
   i = i - 1;
 
   let description;
-  if (Bastion.user.id === '267035345537728512') {
+  if (Kara.user.id === '267035345537728512') {
     description = 'These are the awesome people who continuously support the development of the Kara bot project, by being my patron, on [Patreon](https://patreon.com/bastionbot).\nIf you want to support the development of Kara too, [be my Patron](https://patreon.com/bePatron?c=754397)';
   }
   else {

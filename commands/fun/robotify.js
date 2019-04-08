@@ -6,7 +6,7 @@
 
 const request = xrequire('request-promise-native');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   let string = args.length ? args.join(' ') : message.author.tag;
 
   let options = {

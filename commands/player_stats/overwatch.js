@@ -6,23 +6,23 @@
 
 // const moment = xrequire('moment');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.battletag) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   if (args.region && !/^(us|eu|kr|cn)$/.test(args.region.toLowerCase())) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'invalidRegion', '`US`, `EU`, `KR` and `CN`'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'invalidRegion', '`US`, `EU`, `KR` and `CN`'), message.channel);
   }
   if (args.platform && !/^(pc|psn|xbl)$/.test(args.platform.toLowerCase())) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'invalidPlatform', '`PC`, `PSN`, `XBL`'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'invalidPlatform', '`PC`, `PSN`, `XBL`'), message.channel);
   }
 
 
-  let stats = await Bastion.methods.makeBWAPIRequest(`/gamestats/overwatch/${args.platform}/${args.region}/${args.battletag.replace('#', '-')}`);
+  let stats = await Kara.methods.makeBWAPIRequest(`/gamestats/overwatch/${args.platform}/${args.region}/${args.battletag.replace('#', '-')}`);
 
   if (stats.error) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'notFound', 'player'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'notFound', 'player'), message.channel);
   }
 
   let fieldsData = [
@@ -98,7 +98,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       author: {
         name: args.battletag,
         url: `https://playoverwatch.com/en-us/career/${args.platform}/${args.region}/${args.battletag.replace('#', '-')}`,

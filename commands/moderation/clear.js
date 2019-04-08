@@ -4,7 +4,7 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   await message.delete().catch(() => {});
 
 
@@ -36,24 +36,24 @@ exports.exec = async (Bastion, message, args) => {
 
   let clearedMessages = await message.channel.bulkDelete(messages, true);
   if (!clearedMessages.size) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'noDeletableMessage'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'noDeletableMessage'), message.channel);
   }
 
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.GREEN,
+      color: Kara.colors.GREEN,
       description: `I've cleared ${clearedMessages.size}${args.nonpinned ? ' non pinned' : ''} messages from ${user ? user : args.bots ? 'BOTs' : 'everyone'}${args.time ? ` sent in the past ${args.time} minutes` : ''}.`
     }
   }).then(msg => {
     msg.delete(10000).catch(() => {});
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 
 
   let reason = 'No reason given';
-  Bastion.emit('moderationLog', message, this.help.name, message.channel, reason, {
+  Kara.emit('moderationLog', message, this.help.name, message.channel, reason, {
     cleared: `${clearedMessages.size}${args.nonpinned ? ' non pinned' : ''} messages from ${user ? user : args.bots ? 'BOTs' : 'everyone'}${args.time ? ` sent in the past ${args.time} minutes.` : ''}`
   });
 };

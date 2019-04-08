@@ -4,12 +4,12 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.domains || !args.domains.length) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
-  let guildModel = await Bastion.database.models.guild.findOne({
+  let guildModel = await Kara.database.models.guild.findOne({
     attributes: [ 'whitelistedDomains' ],
     where: {
       guildID: message.guild.id
@@ -19,7 +19,7 @@ exports.exec = async (Bastion, message, args) => {
   let whitelistDomains = guildModel.dataValues.whitelistedDomains.concat(args.domains);
   whitelistDomains = [ ...new Set(whitelistDomains) ];
 
-  await Bastion.database.models.guild.update({
+  await Kara.database.models.guild.update({
     whitelistedDomains: whitelistDomains
   },
   {
@@ -31,12 +31,12 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.GREEN,
+      color: Kara.colors.GREEN,
       title: 'Added Domains to Whitelist',
       description: args.domains.join('\n')
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

@@ -6,9 +6,9 @@
 
 const fs = xrequire('fs');
 
-exports.exec = (Bastion, message, args) => {
+exports.exec = (Kara, message, args) => {
   if (!args.name && !args.list) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   if (args.name) {
@@ -35,7 +35,7 @@ exports.exec = (Bastion, message, args) => {
       // Send the list of emojis available.
       await message.channel.send({
         embed: {
-          color: Bastion.colors.BLUE,
+          color: Kara.colors.BLUE,
           title: 'Kara Emojis',
           description: emojis.join(', ')
         }

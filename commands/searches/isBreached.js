@@ -4,18 +4,18 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.name) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   args.name = args.name.join('');
 
-  let breachedSite = await Bastion.methods.makeBWAPIRequest(`/pwned/site/${args.name}`);
+  let breachedSite = await Kara.methods.makeBWAPIRequest(`/pwned/site/${args.name}`);
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       author: {
         name: breachedSite.Title,
         url: `http://${breachedSite.Domain}`

@@ -1,11 +1,11 @@
 /**
- * @file The starting point of Bastion
+ * @file The starting point of Kara
  * @author Kara
  * @license GPL-3.0
  */
 
 const Tesseract = xrequire('tesseract');
-const BASTION = new Tesseract.Client({
+const KARA = new Tesseract.Client({
   settingsDirectory: './settings',
   monitorsDirectory: './monitors',
   disabledEvents: [
@@ -16,13 +16,13 @@ const BASTION = new Tesseract.Client({
   ]
 });
 
-if (BASTION.shard) process.title = `Bastion-Shard-${BASTION.shard.id}`;
-else process.title = 'BastionBot';
+if (KARA.shard) process.title = `Kara-Shard-${KARA.shard.id}`;
+else process.title = 'KaraBot';
 
-BASTION.package = xrequire('./package.json');
-BASTION.Constants = Tesseract.Constants;
-BASTION.colors = Tesseract.Constants.Colors;
-BASTION.permissions = Tesseract.Permissions.FLAGS;
+KARA.package = xrequire('./package.json');
+KARA.Constants = Tesseract.Constants;
+KARA.colors = Tesseract.Constants.Colors;
+KARA.permissions = Tesseract.Permissions.FLAGS;
 
 xrequire('./prototypes/Number.prototype');
 xrequire('./prototypes/Number');
@@ -32,32 +32,32 @@ xrequire('./prototypes/Array');
 xrequire('./prototypes/Object');
 
 const WebhookHandler = xrequire('./handlers/webhookHandler.js');
-BASTION.webhook = new WebhookHandler(BASTION.credentials.webhooks);
-BASTION.log = xrequire('./handlers/logHandler');
-BASTION.methods = xrequire('./handlers/methodHandler');
+KARA.webhook = new WebhookHandler(KARA.credentials.webhooks);
+KARA.log = xrequire('./handlers/logHandler');
+KARA.methods = xrequire('./handlers/methodHandler');
 
 const StringHandler = xrequire('./handlers/stringHandler');
-BASTION.i18n = new StringHandler();
+KARA.i18n = new StringHandler();
 
 const Sequelize = xrequire('sequelize');
-BASTION.database = new Sequelize(BASTION.credentials.database.URI, {
+KARA.database = new Sequelize(KARA.credentials.database.URI, {
   operatorsAliases: false,
   logging: false
 });
-BASTION.database.authenticate().then(() => {
+KARA.database.authenticate().then(() => {
   // Populate Database/Implement model definitions
-  xrequire('./utils/models')(Sequelize, BASTION.database);
+  xrequire('./utils/models')(Sequelize, KARA.database);
 
-  // Load Bastion Events
-  xrequire('./handlers/eventHandler')(BASTION);
+  // Load Kara Events
+  xrequire('./handlers/eventHandler')(KARA);
 
-  // Load Bastion Modules
+  // Load Kara Modules
   const Modules = xrequire('./handlers/moduleHandler');
-  BASTION.commands = Modules.commands;
-  BASTION.aliases = Modules.aliases;
+  KARA.commands = Modules.commands;
+  KARA.aliases = Modules.aliases;
 
-  // Start Bastion
-  BASTION.login(BASTION.credentials.token).then(() => {
+  // Start Kara
+  KARA.login(KARA.credentials.token).then(() => {
     /**
      * Using <Model>.findOrCreate() won't require the use of
      * <ModelInstance>.save() but <Model>.findOrBuild() is used instead because
@@ -67,21 +67,21 @@ BASTION.database.authenticate().then(() => {
      * specifically if one transaction inserts and another tries to select
      * before the first one has committed. TimeoutError is thrown instead.
      */
-    BASTION.database.models.settings.findOrBuild({
+    KARA.database.models.settings.findOrBuild({
       where: {
-        botID: BASTION.user.id
+        botID: KARA.user.id
       }
     }).spread((settingsModel, initialized) => {
       if (initialized) {
         return settingsModel.save();
       }
-    }).catch(BASTION.log.error);
+    }).catch(KARA.log.error);
   }).catch(e => {
-    BASTION.log.error(e.toString());
+    KARA.log.error(e.toString());
     process.exit(1);
   });
 }).catch(err => {
-  BASTION.log.error(err);
+  KARA.log.error(err);
 });
 
 process.on('unhandledRejection', rejection => {

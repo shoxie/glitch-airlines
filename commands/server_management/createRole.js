@@ -4,12 +4,12 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.name) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
-  if (!Bastion.resolver.resolveColor(args.color)) {
+  if (!Kara.resolver.resolveColor(args.color)) {
     args.color = 0;
   }
 
@@ -17,7 +17,7 @@ exports.exec = async (Bastion, message, args) => {
   args.name = args.name.join(' ');
 
   if (!args.name.length.inRange(0, maxLength)) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'roleNameLength', maxLength), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'roleNameLength', maxLength), message.channel);
   }
 
   let data = roleData(args.name, args.color);
@@ -25,14 +25,14 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.GREEN,
-      description: Bastion.i18n.info(message.guild.language, 'createRole', message.author.tag, role.name),
+      color: Kara.colors.GREEN,
+      description: Kara.i18n.info(message.guild.language, 'createRole', message.author.tag, role.name),
       footer: {
         text: `ID: ${role.id}`
       }
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

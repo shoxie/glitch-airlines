@@ -4,7 +4,7 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   let fields = [];
   let permissions = message.guild.me.permissions.serialize();
   for (let permission in permissions) {
@@ -17,8 +17,8 @@ exports.exec = async (Bastion, message) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
-      title: `Permissions for ${Bastion.user.tag}`,
+      color: Kara.colors.BLUE,
+      title: `Permissions for ${Kara.user.tag}`,
       description: 'Permissions I have in this channel and server.',
       fields: fields
     }

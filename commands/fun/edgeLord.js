@@ -4,10 +4,10 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       description: 'What the heck did you just hecking say about me,' +
                    'you little bitch? I\'ll have you know I graduated top ' +
                    'of my class of Shadow School, and I\'m a certified ' +

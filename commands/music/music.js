@@ -4,7 +4,7 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.id) args.id = message.guild.id;
 
   let guildModel = await message.client.database.models.guild.findOne({
@@ -15,7 +15,7 @@ exports.exec = async (Bastion, message, args) => {
   });
 
   if (!guildModel) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'notFound', 'server'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'notFound', 'server'), message.channel);
   }
 
   let musicStatus = !guildModel.dataValues.music;
@@ -30,16 +30,16 @@ exports.exec = async (Bastion, message, args) => {
     fields: [ 'music' ]
   });
 
-  let guild = Bastion.resolver.resolveGuild(args.id);
+  let guild = Kara.resolver.resolveGuild(args.id);
   let guildDetails = guild ? `**${guild.name}** / ${args.id}` : `**${args.id}**`;
 
   await message.channel.send({
     embed: {
-      color: musicStatus ? Bastion.colors.GREEN : Bastion.colors.RED,
+      color: musicStatus ? Kara.colors.GREEN : Kara.colors.RED,
       description: `Music support has been ${musicStatus ? 'enabled' : 'disabled'} in the server ${guildDetails}`
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

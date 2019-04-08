@@ -5,7 +5,7 @@ var request = require('request');
 var cheerio = require('cheerio');
 
 
-exports.exec = (Bastion, message, args) => {
+exports.exec = (Kara, message, args) => {
   var query = args;
   var searchUrl = "https://www.google.co.in/search?q=" + query + "+metrolyrics";
   var metroUrl;

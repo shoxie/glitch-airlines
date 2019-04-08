@@ -4,9 +4,9 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.role) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   let role = message.mentions.roles.first();
@@ -23,7 +23,7 @@ exports.exec = async (Bastion, message, args) => {
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.BLUE,
+        color: Kara.colors.BLUE,
         title: `Members in ${role.name} role:\n`,
         description: members.slice(i * 10, (i * 10) + 10).join('\n'),
         thumbnail: {
@@ -36,7 +36,7 @@ exports.exec = async (Bastion, message, args) => {
     });
   }
   else {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'roleNotFound'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'roleNotFound'), message.channel);
   }
 };
 

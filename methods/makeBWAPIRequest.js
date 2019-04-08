@@ -4,10 +4,10 @@
  * @license GPL-3.0
  */
 
-const BastionWebAPI = xrequire('bwapi');
-const BWAPI = new BastionWebAPI({
+const KaraWebAPI = xrequire('bwapi');
+const BWAPI = new KaraWebAPI({
   headers: {
-    'User-Agent': 'Bastion Discord Bot (https://bastionbot.org)'
+    'User-Agent': 'Kara Discord Bot (https://bastionbot.org)'
   }
 });
 

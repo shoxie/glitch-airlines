@@ -6,7 +6,7 @@
 
 const request = require('request-promise-native');
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   let options = {
     url: 'http://api.giphy.com/v1/gifs/search',
     qs: {
@@ -21,12 +21,12 @@ exports.exec = async (Bastion, message) => {
   let response = await request(options);
 
   if (!response.data.length) {
-    return Bastion.emit('error', Bastion.strings.error(message.guild.language, 'notFound'), Bastion.strings.error(message.guild.language, 'notFound', true, 'image'), message.channel);
+    return Kara.emit('error', Kara.strings.error(message.guild.language, 'notFound'), Kara.strings.error(message.guild.language, 'notFound', true, 'image'), message.channel);
   }
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: `${message.author.tag} is tickling you.`,
       image: {
         url: response.data[Math.floor(Math.random() * response.data.length)].images.original.url

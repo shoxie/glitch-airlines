@@ -4,9 +4,9 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.length) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   for (let i = 0; i < args.length; i++) {
@@ -16,10 +16,10 @@ exports.exec = async (Bastion, message, args) => {
   }
   args = args.filter(r => message.guild.roles.get(r));
   if (!args.length) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'roleNotFound'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'roleNotFound'), message.channel);
   }
 
-  let guildModel = await Bastion.database.models.guild.findOne({
+  let guildModel = await Kara.database.models.guild.findOne({
     attributes: [ 'autoAssignableRoles' ],
     where: {
       guildID: message.guild.id
@@ -34,7 +34,7 @@ exports.exec = async (Bastion, message, args) => {
   roles = roles.filter(r => message.guild.roles.get(r));
   roles = [ ...new Set(roles) ];
 
-  await Bastion.database.models.guild.update({
+  await Kara.database.models.guild.update({
     autoAssignableRoles: roles
   },
   {
@@ -51,12 +51,12 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.GREEN,
+      color: Kara.colors.GREEN,
       title: 'Added auto assignable roles',
       description: roleNames.join(', ')
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

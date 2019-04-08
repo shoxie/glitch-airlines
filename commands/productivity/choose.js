@@ -4,16 +4,16 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (args.length < 1 || !/^(.+( ?\/ ?.+[^/])+)$/i.test(args = args.join(' '))) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   args = args.split('/');
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: 'In my opinion',
       description: args.getRandom()
     }

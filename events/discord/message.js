@@ -22,7 +22,7 @@ module.exports = async message => {
     message.client.monitors.exec(__filename.slice(__dirname.length + 1, -3), message);
 
     /**
-     * Filter Bastion's credentials from the message
+     * Filter Kara's credentials from the message
      */
     if (await credentialsFilter(message)) return;
 
@@ -91,16 +91,16 @@ module.exports = async message => {
       }
 
       /**
-       * Handles Bastion's commands
+       * Handles Kara's commands
        */
       handleCommand(message);
 
       /**
-       * Check if the message starts with mentioning Bastion
+       * Check if the message starts with mentioning Kara
        */
       if (message.content.startsWith(`<@${message.client.credentials.botId}>`) || message.content.startsWith(`<@!${message.client.credentials.botId}>`)) {
         /**
-         * Handles conversations with Bastion
+         * Handles conversations with Kara
          */
         handleConversation(message);
       }
@@ -161,7 +161,7 @@ module.exports = async message => {
     }
     else {
       /**
-       * Handles direct messages sent to Bastion
+       * Handles direct messages sent to Kara
        */
       handleDirectMessage(message);
     }

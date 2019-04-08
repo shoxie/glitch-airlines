@@ -4,10 +4,10 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   await message.channel.send({
     embed: {
-      color: Bastion.colors.DARK_GREEN,
+      color: Kara.colors.DARK_GREEN,
       title: 'Support Kara\'s development',
       description: '**Share your appreciation and get cool rewards!**' +
                    '\nDonate to support the development of Kara and keep it running forever.' +

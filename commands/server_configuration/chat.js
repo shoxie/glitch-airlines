@@ -4,8 +4,8 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
-  let guildModel = await Bastion.database.models.guild.findOne({
+exports.exec = async (Kara, message) => {
+  let guildModel = await Kara.database.models.guild.findOne({
     attributes: [ 'chat' ],
     where: {
       guildID: message.guild.id
@@ -14,7 +14,7 @@ exports.exec = async (Bastion, message) => {
 
   let color, chatStats;
   if (guildModel.dataValues.chat) {
-    await Bastion.database.models.guild.update({
+    await Kara.database.models.guild.update({
       chat: false
     },
     {
@@ -23,11 +23,11 @@ exports.exec = async (Bastion, message) => {
       },
       fields: [ 'chat' ]
     });
-    color = Bastion.colors.RED;
-    chatStats = Bastion.i18n.info(message.guild.language, 'disableChat', message.author.tag);
+    color = Kara.colors.RED;
+    chatStats = Kara.i18n.info(message.guild.language, 'disableChat', message.author.tag);
   }
   else {
-    await Bastion.database.models.guild.update({
+    await Kara.database.models.guild.update({
       chat: true
     },
     {
@@ -36,8 +36,8 @@ exports.exec = async (Bastion, message) => {
       },
       fields: [ 'chat' ]
     });
-    color = Bastion.colors.GREEN;
-    chatStats = Bastion.i18n.info(message.guild.language, 'enableChat', message.author.tag);
+    color = Kara.colors.GREEN;
+    chatStats = Kara.i18n.info(message.guild.language, 'enableChat', message.author.tag);
   }
 
   await message.channel.send({
@@ -46,7 +46,7 @@ exports.exec = async (Bastion, message) => {
       description: chatStats
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

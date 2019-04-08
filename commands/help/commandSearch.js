@@ -4,20 +4,20 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.length || args.join('').length < 2) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   args = args.join('').toLowerCase();
-  let commands = Bastion.commands.map(c => c.help.name.toLowerCase()).filter(c => c.includes(args));
+  let commands = Kara.commands.map(c => c.help.name.toLowerCase()).filter(c => c.includes(args));
   if (commands.length === 0) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'notFound', 'command'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'notFound', 'command'), message.channel);
   }
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.GOLD,
+      color: Kara.colors.GOLD,
       title: 'Command Search',
       description: `Found ${commands.length} commands containing *${args}*.`,
       fields: [

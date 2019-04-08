@@ -4,9 +4,9 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.player || !args.mode) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   let gameModes = [
@@ -14,16 +14,16 @@ exports.exec = async (Bastion, message, args) => {
   ];
   let modeRegExp = new RegExp(`^(${gameModes.join('|')})$`, 'i');
   if (!modeRegExp.test(args.mode)) {
-    return Bastion.emit('error', '', `You have entered an invalid game mode. Valid game modes are: ${gameModes.join(', ').toUpperCase()}`, message.channel);
+    return Kara.emit('error', '', `You have entered an invalid game mode. Valid game modes are: ${gameModes.join(', ').toUpperCase()}`, message.channel);
   }
 
-  let stats = await Bastion.methods.makeBWAPIRequest(`/gamestats/pubg/steam/${args.player}/lifetime`);
+  let stats = await Kara.methods.makeBWAPIRequest(`/gamestats/pubg/steam/${args.player}/lifetime`);
 
   stats = stats.data.attributes.gameModeStats[args.mode.toLowerCase()];
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       author: {
         name: args.player
       },

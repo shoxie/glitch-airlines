@@ -2,7 +2,7 @@ const fs = require("fs");
 const Discord = require("discord.js");
 
 
-  exports.exec = (Bastion, message, args) => {
+  exports.exec = (Kara, message, args) => {
     if (!isNaN(args[0])) {
       let path = './data/doctors/' + args[0] + '.json';
       fs.readFile(path, (err, data) => {

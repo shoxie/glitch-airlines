@@ -4,8 +4,8 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
-  let guildModel = await Bastion.database.models.guild.findOne({
+exports.exec = async (Kara, message) => {
+  let guildModel = await Kara.database.models.guild.findOne({
     attributes: [ 'filterWords' ],
     where: {
       guildID: message.guild.id
@@ -14,7 +14,7 @@ exports.exec = async (Bastion, message) => {
 
   let color, filterWordStats;
   if (guildModel.dataValues.filterWords) {
-    await Bastion.database.models.guild.update({
+    await Kara.database.models.guild.update({
       filterWords: false
     },
     {
@@ -23,11 +23,11 @@ exports.exec = async (Bastion, message) => {
       },
       fields: [ 'filterWords' ]
     });
-    color = Bastion.colors.RED;
-    filterWordStats = Bastion.i18n.info(message.guild.language, 'disableWordFilter', message.author.tag);
+    color = Kara.colors.RED;
+    filterWordStats = Kara.i18n.info(message.guild.language, 'disableWordFilter', message.author.tag);
   }
   else {
-    await Bastion.database.models.guild.update({
+    await Kara.database.models.guild.update({
       filterWords: true
     },
     {
@@ -36,8 +36,8 @@ exports.exec = async (Bastion, message) => {
       },
       fields: [ 'filterWords' ]
     });
-    color = Bastion.colors.GREEN;
-    filterWordStats = Bastion.i18n.info(message.guild.language, 'enableWordFilter', message.author.tag);
+    color = Kara.colors.GREEN;
+    filterWordStats = Kara.i18n.info(message.guild.language, 'enableWordFilter', message.author.tag);
   }
 
   await message.channel.send({
@@ -46,7 +46,7 @@ exports.exec = async (Bastion, message) => {
       description: filterWordStats
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

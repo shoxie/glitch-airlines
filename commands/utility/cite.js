@@ -4,10 +4,10 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   try {
     if (!args.message || !(parseInt(args.message) < 9223372036854775807)) {
-      return Bastion.emit('commandUsage', message, this.help);
+      return Kara.emit('commandUsage', message, this.help);
     }
 
     let channel = message.mentions.channels.first();
@@ -27,7 +27,7 @@ exports.exec = async (Bastion, message, args) => {
     if (!image && !citedMessage.content) {
       return await message.channel.send({
         embed: {
-          color: Bastion.colors.BLUE,
+          color: Kara.colors.BLUE,
           author: {
             name: `${citedMessage.author.tag} ${message.channel.id === citedMessage.channel.id ? '' : `in #${citedMessage.channel.name}`}`,
             icon_url: citedMessage.author.displayAvatarURL
@@ -46,7 +46,7 @@ exports.exec = async (Bastion, message, args) => {
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.BLUE,
+        color: Kara.colors.BLUE,
         author: {
           name: `${citedMessage.author.tag} ${message.channel.id === citedMessage.channel.id ? '' : `in #${citedMessage.channel.name}`}`,
           icon_url: citedMessage.author.displayAvatarURL
@@ -67,7 +67,7 @@ exports.exec = async (Bastion, message, args) => {
   }
   catch (e) {
     if (e.toString().includes('Unknown Message')) {
-      Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'messageNotFound'), message.channel);
+      Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'messageNotFound'), message.channel);
     }
     else {
       throw e;

@@ -4,29 +4,29 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (args.status && /^(?:online|idle|dnd|invisible)$/i.test(args.status)) {
-    await Bastion.user.setStatus(args.status);
+    await Kara.user.setStatus(args.status);
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.GREEN,
-        description: `${Bastion.user.username}'s status is now set to **${args.status}**`
+        color: Kara.colors.GREEN,
+        description: `${Kara.user.username}'s status is now set to **${args.status}**`
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
   }
   else {
-    await Bastion.user.setStatus(Bastion.configurations.status);
+    await Kara.user.setStatus(Kara.configurations.status);
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.GREEN,
-        description: `${Bastion.user.username}'s status is now set to the default status **${Bastion.configurations.status}**`
+        color: Kara.colors.GREEN,
+        description: `${Kara.user.username}'s status is now set to the default status **${Kara.configurations.status}**`
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
   }
 };

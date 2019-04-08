@@ -4,23 +4,23 @@
  * @license GPL-3.0
  */
 
-module.exports = async Bastion => {
+module.exports = async Kara => {
   try {
-    let reactionRolesGroupModels = await Bastion.database.models.reactionRolesGroup.findAll({
+    let reactionRolesGroupModels = await Kara.database.models.reactionRolesGroup.findAll({
       attributes: [ 'messageID', 'channelID', 'guildID' ]
     });
 
     let reactionRolesGroups = reactionRolesGroupModels.map(model => model.dataValues);
 
     for (let group of reactionRolesGroups) {
-      if (!Bastion.channels.has(group.channelID)) return;
-      let channel = Bastion.channels.get(group.channelID);
+      if (!Kara.channels.has(group.channelID)) return;
+      let channel = Kara.channels.get(group.channelID);
       if (!channel.messages.has(group.messageID)) {
         await channel.fetchMessage(group.messageID);
       }
     }
   }
   catch (e) {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   }
 };

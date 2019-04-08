@@ -4,19 +4,19 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.length) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       author: {
         name: message.author.tag
       },
       title: 'ROT13 Encoded',
-      description: Bastion.methods.rot(args.join(' '), 13),
+      description: Kara.methods.rot(args.join(' '), 13),
       footer: {
         text: 'Encoded your message in ROT13.'
       }

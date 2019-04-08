@@ -4,10 +4,10 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   let user = message.mentions.users.first();
   if (!user) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   let punches = [
@@ -20,7 +20,7 @@ exports.exec = async (Bastion, message) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       description: `${message.author.username} punched ${user.username}! :punch:`,
       image: {
         url: punches[Math.floor(Math.random() * punches.length)]

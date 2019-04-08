@@ -4,22 +4,22 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!message.guild.music.enabled) {
-    if (Bastion.user.id === '267035345537728512') {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'musicDisabledPublic'), message.channel);
+    if (Kara.user.id === '267035345537728512') {
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'musicDisabledPublic'), message.channel);
     }
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'musicDisabled'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'musicDisabled'), message.channel);
   }
 
   let role;
   if (args.id || message.mentions.roles.size) {
     args.id = args.id.join(' ');
 
-    role = message.mentions.roles.first() || await Bastion.utils.resolver.resolveRole(message.guild, args.id);
+    role = message.mentions.roles.first() || await Kara.utils.resolver.resolveRole(message.guild, args.id);
 
     if (!role) {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'roleNotFound'), message.channel);
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'roleNotFound'), message.channel);
     }
   }
   else {
@@ -38,11 +38,11 @@ exports.exec = async (Bastion, message, args) => {
 
   return message.channel.send({
     embed: {
-      color: role ? Bastion.colors.GREEN : Bastion.colors.RED,
-      description: role ? Bastion.i18n.info(message.guild.language, 'addMusicMasterRole', message.author.tag, role.name) : Bastion.i18n.info(message.guild.language, 'removeMusicMasterRole', message.author.tag)
+      color: role ? Kara.colors.GREEN : Kara.colors.RED,
+      description: role ? Kara.i18n.info(message.guild.language, 'addMusicMasterRole', message.author.tag, role.name) : Kara.i18n.info(message.guild.language, 'removeMusicMasterRole', message.author.tag)
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

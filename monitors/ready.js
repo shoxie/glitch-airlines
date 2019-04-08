@@ -1,10 +1,10 @@
 const guildCount = require('./modules/guildCount');
 
-module.exports = async (Bastion) => {
+module.exports = async (Kara) => {
   try {
-    await guildCount(Bastion);
+    await guildCount(Kara);
   }
   catch (e) {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   }
 };

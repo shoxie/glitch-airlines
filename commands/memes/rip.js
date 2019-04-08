@@ -4,10 +4,10 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: `R.I.P ${args.length ? args.join(' ') : 'Everything'}`,
       image: {
         url: 'https://resources.bastionbot.org/images/tombstone_rip.png'

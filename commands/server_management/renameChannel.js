@@ -4,9 +4,9 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.old || !args.new) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   let minLength = 2, maxLength = 100;
@@ -14,7 +14,7 @@ exports.exec = async (Bastion, message, args) => {
   args.new = args.new.join(' ');
 
   if (!args.new.length.inRange(minLength, maxLength)) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'channelNameLength', minLength, maxLength), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'channelNameLength', minLength, maxLength), message.channel);
   }
 
   let channel = message.channel;
@@ -28,27 +28,27 @@ exports.exec = async (Bastion, message, args) => {
   }
 
   if (!channel) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'channelNotFound'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'channelNotFound'), message.channel);
   }
 
   if (!channel.permissionsFor(message.member).has(this.help.userTextPermission)) {
-    return Bastion.emit('userMissingPermissions', this.help.userTextPermission);
+    return Kara.emit('userMissingPermissions', this.help.userTextPermission);
   }
   if (!channel.permissionsFor(message.guild.me).has(this.help.botPermission)) {
-    return Bastion.emit('bastionMissingPermissions', this.help.botPermission, message);
+    return Kara.emit('bastionMissingPermissions', this.help.botPermission, message);
   }
 
   await channel.setName(args.new);
   await message.channel.send({
     embed: {
-      color: Bastion.colors.ORANGE,
-      description: Bastion.i18n.info(message.guild.language, 'renameChannel', message.author.tag, channel.type, args.old, args.new),
+      color: Kara.colors.ORANGE,
+      description: Kara.i18n.info(message.guild.language, 'renameChannel', message.author.tag, channel.type, args.old, args.new),
       footer: {
         text: `ID: ${channel.id}`
       }
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

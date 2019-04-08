@@ -4,13 +4,13 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   let user;
   if (message.mentions.users.size) {
     user = message.mentions.users.first();
   }
   else if (args.id) {
-    user = await Bastion.utils.fetchMember(message.guild, args.id);
+    user = await Kara.utils.fetchMember(message.guild, args.id);
     if (user) {
       user = user.user;
     }
@@ -21,7 +21,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       fields: [
         {
           name: 'Avatar',

@@ -4,13 +4,13 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   let user, member;
   if (message.mentions.users.size) {
     user = message.mentions.users.first();
   }
   else if (args.id) {
-    member = await Bastion.utils.fetchMember(message.guild, args.id);
+    member = await Kara.utils.fetchMember(message.guild, args.id);
     if (member) {
       user = member.user;
     }
@@ -19,7 +19,7 @@ exports.exec = async (Bastion, message, args) => {
     user = message.author;
   }
   if (!member) {
-    member = await Bastion.utils.fetchMember(message.guild, user.id);
+    member = await Kara.utils.fetchMember(message.guild, user.id);
   }
   let nick = member.nickname;
   if (!nick) {
@@ -40,7 +40,7 @@ exports.exec = async (Bastion, message, args) => {
   }
   let activity;
   if (user.presence.game) {
-    activity = `${Bastion.Constants.ActivityTypes[user.presence.game.type]} ${user.presence.game.name}`;
+    activity = `${Kara.Constants.ActivityTypes[user.presence.game.type]} ${user.presence.game.name}`;
   }
   else {
     activity = 'None';
@@ -48,11 +48,11 @@ exports.exec = async (Bastion, message, args) => {
   let roles = member.roles.map(r => r.name).slice(1).join('\n');
   if (roles.length === 0) roles = '-';
 
-  let mutualGuilds = await Bastion.methods.getMutualGuilds(user);
+  let mutualGuilds = await Kara.methods.getMutualGuilds(user);
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: `${user.bot ? 'Bot' : 'User'} Info`,
       fields: [
         {

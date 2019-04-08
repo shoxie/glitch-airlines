@@ -6,9 +6,9 @@
 
 const request = xrequire('request-promise-native');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.length) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   let options = {
@@ -27,7 +27,7 @@ exports.exec = async (Bastion, message, args) => {
   if (response.data.length) {
     await message.channel.send({
       embed: {
-        color: Bastion.colors.BLUE,
+        color: Kara.colors.BLUE,
         title: `GIF Search for ${args.join(' ')}`.slice(0, 256),
         image: {
           url: response.data.getRandom().images.original.url
@@ -39,7 +39,7 @@ exports.exec = async (Bastion, message, args) => {
     });
   }
   else {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'notFound', 'image'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'notFound', 'image'), message.channel);
   }
 };
 

@@ -6,7 +6,7 @@
 
 const quotes = xrequire('./assets/quotes.json');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   // Get a random quote
   let index = Number.random(1, Object.keys(quotes).length);
 
@@ -34,7 +34,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       description: `*"${quotes[index].quote}"*\n\n**${quotes[index].author}**`,
       footer: {
         text: `Quote Number: ${index}`

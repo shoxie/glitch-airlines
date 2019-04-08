@@ -4,7 +4,7 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   let invite = await message.channel.createInvite({
     maxAge: args.age * 60,
     maxUses: args.uses

@@ -4,11 +4,11 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   if (!message.guild.activities || !message.guild.activities.songs) {
     return await message.channel.send({
       embed: {
-        color: Bastion.colors.RED,
+        color: Kara.colors.RED,
         title: 'I don\'t have enough data to show anything useful.',
         description: 'It looks like song activity in this server is a little light. Wait for people to start listening to some songs and check back later!'
       }
@@ -30,7 +30,7 @@ exports.exec = async (Bastion, message) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: 'Most played songs in this Server',
       fields: songStats,
       footer: {

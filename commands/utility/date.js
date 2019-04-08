@@ -6,26 +6,26 @@
 
 const location = xrequire('weather-js');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.length) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   await location.find({ search: args.join(' ') }, async (err, result) => {
     if (err) {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'notFound', 'location'), message.channel);
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'notFound', 'location'), message.channel);
     }
 
     if (!result || !result.length) {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'connection'), message.channel);
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'connection'), message.channel);
     }
 
-    let date = Bastion.methods.timezoneOffsetToDate(parseFloat(result[0].location.timezone)).toUTCString();
+    let date = Kara.methods.timezoneOffsetToDate(parseFloat(result[0].location.timezone)).toUTCString();
     date = date.substring(0, date.length - 4);
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.BLUE,
+        color: Kara.colors.BLUE,
         fields: [
           {
             name: 'Location',

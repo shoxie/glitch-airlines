@@ -4,27 +4,27 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!message.member.hasPermission('CHANGE_NICKNAME')) return;
 
   let description;
 
   if (args.length) {
     await message.guild.me.setNickname(args.join(' '));
-    description = `${Bastion.user.username}'s nick is now set to **${args.join(' ')}** on this server.`;
+    description = `${Kara.user.username}'s nick is now set to **${args.join(' ')}** on this server.`;
   }
   else {
     await message.guild.me.setNickname('');
-    description = `${Bastion.user.username}'s nick has been reset on this server.`;
+    description = `${Kara.user.username}'s nick has been reset on this server.`;
   }
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.GREEN,
+      color: Kara.colors.GREEN,
       description: description
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

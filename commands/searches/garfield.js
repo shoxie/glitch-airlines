@@ -4,10 +4,10 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   let lastDate = Date.now() - 86400000;
   let startDate = 267062400000;
-  let comicDate = new Date(Bastion.methods.getRandomInt(startDate, lastDate));
+  let comicDate = new Date(Kara.methods.getRandomInt(startDate, lastDate));
 
   let year = comicDate.getUTCFullYear();
   let month = comicDate.getUTCMonth() + 1;

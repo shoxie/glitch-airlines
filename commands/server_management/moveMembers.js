@@ -4,9 +4,9 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.from || !args.to) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
 
@@ -15,7 +15,7 @@ exports.exec = async (Bastion, message, args) => {
   let destinationVoiceChannel = voiceChannels.get(args.to);
 
   if (!sourceVoiceChannel || !destinationVoiceChannel) {
-    return Bastion.emit('error', '', 'Invalid voice channel(s). Please recheck the IDs of the Voice Channels.', message.channel);
+    return Kara.emit('error', '', 'Invalid voice channel(s). Please recheck the IDs of the Voice Channels.', message.channel);
   }
 
   if (!sourceVoiceChannel.permissionsFor(message.member).has('MOVE_MEMBERS')) return;
@@ -24,17 +24,17 @@ exports.exec = async (Bastion, message, args) => {
 
   let sourceVoiceChannelMembers = sourceVoiceChannel.members.array();
   for (let member of sourceVoiceChannelMembers) {
-    await member.setVoiceChannel(destinationVoiceChannel).catch((e) => Bastion.log.error(e));
+    await member.setVoiceChannel(destinationVoiceChannel).catch((e) => Kara.log.error(e));
   }
 
 
   message.channel.send({
     embed: {
-      color: Bastion.colors.GREEN,
+      color: Kara.colors.GREEN,
       description: `${message.author.tag} moved all the members from **${sourceVoiceChannel.name}** Voice Channel to **${destinationVoiceChannel.name}** Voice Channel.`
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

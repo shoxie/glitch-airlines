@@ -7,9 +7,9 @@
 const request = xrequire('request-promise-native');
 let activeChannels = [];
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (activeChannels.includes(message.channel.id))  {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'isGameInUse', 'trivia'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'isGameInUse', 'trivia'), message.channel);
   }
 
   let difficulties = [ 'easy', 'medium', 'hard' ];
@@ -23,14 +23,14 @@ exports.exec = async (Bastion, message, args) => {
   let response = await request(options);
 
   if (!response) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'connection'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'connection'), message.channel);
   }
 
   response = response.results[0];
 
   let question = await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: 'Trivia - True/False',
       description: decodeURIComponent(response.question),
       fields: [
@@ -66,11 +66,11 @@ exports.exec = async (Bastion, message, args) => {
   trivia.on('collect', ans => {
     let color, description;
     if (ans.content.toLowerCase() === response.correct_answer.toLowerCase()) {
-      color = Bastion.colors.BLUE;
+      color = Kara.colors.BLUE;
       description = `${ans.author.tag} you're absolutely right.`;
     }
     else {
-      color = Bastion.colors.RED;
+      color = Kara.colors.RED;
       description = `Unfortunately, you're wrong ${ans.author.tag}`;
     }
 
@@ -80,7 +80,7 @@ exports.exec = async (Bastion, message, args) => {
         description: description
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
   });
 
@@ -90,14 +90,14 @@ exports.exec = async (Bastion, message, args) => {
     if (reason === 'time') {
       message.channel.send({
         embed: {
-          color: Bastion.colors.RED,
+          color: Kara.colors.RED,
           title: 'Trivia Ended',
           description: 'Trivia was ended as no one was able to answer within 60 seconds.'
         }
       }).then(() => {
         question.delete().catch(() => {});
       }).catch(e => {
-        Bastion.log.error(e);
+        Kara.log.error(e);
       });
     }
   });

@@ -4,9 +4,9 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.number) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   let guildModel = await message.client.database.models.guild.findOne({
@@ -34,7 +34,7 @@ exports.exec = async (Bastion, message, args) => {
 
   if (modMessage && modMessage.embeds.length) {
     let embed = {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: modMessage.embeds[0].title,
       description: modMessage.embeds[0].description,
       fields: modMessage.embeds[0].fields.map(field => {

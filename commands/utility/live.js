@@ -4,12 +4,12 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   let streamers = Array.from(message.guild.presences.filter(p => p.game && p.game.streaming === true).keys());
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.DARK_PURPLE,
+      color: Kara.colors.DARK_PURPLE,
       title: 'Users Streaming',
       description: !streamers.length ? 'No one is currently streaming in this server.' : streamers.length > 10 ? `<@${streamers.splice(0, 10).join('>\n<@')}>\nand ${streamers.length - 10} others are now live.` : `<@${streamers.join('>\n<@')}>`
     }

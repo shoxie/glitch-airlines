@@ -4,11 +4,11 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   let nonAnimatedEmojis = message.guild.emojis.filter(emoji => !emoji.animated);
   let guildEmojis = nonAnimatedEmojis.size > 0 ? nonAnimatedEmojis.size > 25 ? `${nonAnimatedEmojis.map(e => `<:${e.name}:${e.id}>`).splice(0, 25).join(' ')} and ${nonAnimatedEmojis.size - 25} more.` : nonAnimatedEmojis.map(e => `<:${e.name}:${e.id}>`).join(' ') : '-';
 
-  let guildModel = await Bastion.database.models.guild.findOne({
+  let guildModel = await Kara.database.models.guild.findOne({
     attributes: [ 'premium', 'description' ],
     where: {
       guildID: message.guild.id
@@ -16,12 +16,12 @@ exports.exec = async (Bastion, message) => {
   });
   let guildDescription;
   if (guildModel && guildModel.dataValues.description) {
-    guildDescription = await Bastion.utils.decompressString(guildModel.dataValues.description);
+    guildDescription = await Kara.utils.decompressString(guildModel.dataValues.description);
   }
 
   message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       author: {
         name: message.guild.name
       },

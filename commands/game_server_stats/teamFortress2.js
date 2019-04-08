@@ -6,10 +6,10 @@
 
 const source = xrequire('gamedig');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   try {
     if (!/^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(:0*(?:6553[0-5]|655[0-2][0-9]|65[0-4][0-9]{2}|6[0-4][0-9]{3}|[1-5][0-9]{4}|[1-9][0-9]{1,3}|[0-9]))?$/.test(args.address)) {
-      return Bastion.emit('commandUsage', message, this.help);
+      return Kara.emit('commandUsage', message, this.help);
     }
 
     args.address = args.address.split(':');
@@ -94,7 +94,7 @@ exports.exec = async (Bastion, message, args) => {
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.BLUE,
+        color: Kara.colors.BLUE,
         title: data.name,
         description: '[Team Fortress 2](https://store.steampowered.com/app/440/)',
         fields: stats,
@@ -104,7 +104,7 @@ exports.exec = async (Bastion, message, args) => {
   }
   catch (e) {
     if (e.toString() === 'UDP Watchdog Timeout') {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'invalidIPPort'), message.channel);
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'invalidIPPort'), message.channel);
     }
     throw e;
   }

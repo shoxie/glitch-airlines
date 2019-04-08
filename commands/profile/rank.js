@@ -4,12 +4,12 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   args = message.mentions.users.first() || message.author;
-  let guildMemberModel = await Bastion.database.models.guildMember.findOne({
+  let guildMemberModel = await Kara.database.models.guildMember.findOne({
     attributes: [
-      [ Bastion.database.literal('(SELECT COUNT(*) FROM guildMembers)'), 'total' ],
-      [ Bastion.database.literal('(SELECT COUNT(*) FROM guildMembers AS member WHERE member.experiencePoints * 1 > guildMember.experiencePoints * 1)'), 'rank' ]
+      [ Kara.database.literal('(SELECT COUNT(*) FROM guildMembers)'), 'total' ],
+      [ Kara.database.literal('(SELECT COUNT(*) FROM guildMembers AS member WHERE member.experiencePoints * 1 > guildMember.experiencePoints * 1)'), 'rank' ]
     ],
     where: {
       userID: args.id,
@@ -26,7 +26,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       description: description
     }
   });

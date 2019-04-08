@@ -4,19 +4,19 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.location) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   args.location = args.location.join(' ');
 
   let charLimit = 20;
   if (args.location.length > charLimit) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'locationRange', charLimit), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'locationRange', charLimit), message.channel);
   }
 
-  let userModel = await Bastion.database.models.user.findOne({
+  let userModel = await Kara.database.models.user.findOne({
     attributes: [ 'location' ],
     where: {
       userID: message.author.id
@@ -29,11 +29,11 @@ exports.exec = async (Bastion, message, args) => {
         description: `<@${message.author.id}> you didn't had a profile yet. I've now created your profile. Now you can use the command again to set your location.`
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
   }
 
-  await Bastion.database.models.user.update({
+  await Kara.database.models.user.update({
     location: args.location
   },
   {
@@ -45,12 +45,12 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.GREEN,
+      color: Kara.colors.GREEN,
       title: 'Location Set',
       description: `${message.author.tag}, your location has been set to ${args.location}.`
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

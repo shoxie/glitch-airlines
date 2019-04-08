@@ -1,6 +1,6 @@
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.text && !args.embed) {
-    let guildModel = await Bastion.database.models.guild.findOne({
+    let guildModel = await Kara.database.models.guild.findOne({
       attributes: [ 'farewell', 'farewellMessage' ],
       where: {
         guildID: message.guild.id
@@ -23,7 +23,7 @@ exports.exec = async (Bastion, message, args) => {
       else if (text) {
         await message.channel.send({
           embed: {
-            color: Bastion.colors.BLUE,
+            color: Kara.colors.BLUE,
             description: text,
             footer: {
               text: guildModel.dataValues.farewell ? 'Farewell Message Preview' : 'Farewells are currently disabled. You can enable it using the `farewell` command.'
@@ -38,7 +38,7 @@ exports.exec = async (Bastion, message, args) => {
     else {
       await message.channel.send({
         embed: {
-          color: Bastion.colors.BLUE,
+          color: Kara.colors.BLUE,
           title: 'Farewell Message',
           description: `Not set. See the help message for this command to see how to set a farewell message to farewell users leaving the server: \`help ${this.help.name}\``
         }
@@ -58,7 +58,7 @@ exports.exec = async (Bastion, message, args) => {
       delete responseObject.footer;
     }
 
-    await Bastion.database.models.guild.update({
+    await Kara.database.models.guild.update({
       farewellMessage: responseObject
     },
     {
@@ -70,12 +70,12 @@ exports.exec = async (Bastion, message, args) => {
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.GREEN,
+        color: Kara.colors.GREEN,
         title: 'Farewell Message',
         description: `Successfully set the farewell message. Use the \`${this.help.name}\` command without any arguments to see a preview of the farewell message.`
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
   }
 };

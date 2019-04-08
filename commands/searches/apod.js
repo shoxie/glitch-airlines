@@ -4,12 +4,12 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
-  let response = await Bastion.methods.makeBWAPIRequest('/nasa/apod');
+exports.exec = async (Kara, message) => {
+  let response = await Kara.methods.makeBWAPIRequest('/nasa/apod');
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       author: {
         name: 'Astronomy Picture of the Day',
         url: 'http://apod.nasa.gov/'

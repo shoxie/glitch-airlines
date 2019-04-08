@@ -4,21 +4,21 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
-  if (Bastion.shard) {
-    await Bastion.shard.broadcastEval('this.reloadSettings()');
+exports.exec = async (Kara, message) => {
+  if (Kara.shard) {
+    await Kara.shard.broadcastEval('this.reloadSettings()');
   }
   else {
-    Bastion.reloadSettings();
+    Kara.reloadSettings();
   }
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.GREEN,
+      color: Kara.colors.GREEN,
       description: 'Successfully reloaded all the settings.'
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

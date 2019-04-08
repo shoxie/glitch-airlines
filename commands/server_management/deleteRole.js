@@ -4,9 +4,9 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.mention && !args.id && !args.name) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   let role = message.mentions.roles.first();
@@ -19,20 +19,20 @@ exports.exec = async (Bastion, message, args) => {
     }
   }
 
-  if (role && message.author.id !== message.guild.ownerID && message.member.highestRole.comparePositionTo(role) <= 0) return Bastion.log.info('User doesn\'t have permission to use this command on that role.');
+  if (role && message.author.id !== message.guild.ownerID && message.member.highestRole.comparePositionTo(role) <= 0) return Kara.log.info('User doesn\'t have permission to use this command on that role.');
   else if (!role) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'roleNotFound'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'roleNotFound'), message.channel);
   }
 
   await role.delete();
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.RED,
-      description: Bastion.i18n.info(message.guild.language, 'deleteRole', message.author.tag, role.name)
+      color: Kara.colors.RED,
+      description: Kara.i18n.info(message.guild.language, 'deleteRole', message.author.tag, role.name)
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

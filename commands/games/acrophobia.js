@@ -6,9 +6,9 @@
 
 let activeChannels = {};
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   if (activeChannels.hasOwnProperty(message.channel.id))  {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'isGameInUse', 'acrophobia'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'isGameInUse', 'acrophobia'), message.channel);
   }
 
   activeChannels[message.channel.id] = {};
@@ -18,12 +18,12 @@ exports.exec = async (Bastion, message) => {
   let acroLen = Number.random(3, 6);
   let acronym = [];
   for (let i = 0; i < acroLen; i++) {
-    acronym.push(Bastion.methods.getRandomChar(true).toUpperCase());
+    acronym.push(Kara.methods.getRandomChar(true).toUpperCase());
   }
 
   let startMessage = await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: 'Acrophobia',
       description: `Game started by ${message.author}. Create a sentence with this acronym: **${acronym.join('. ')}.**`,
       footer: {
@@ -52,11 +52,11 @@ exports.exec = async (Bastion, message) => {
       activeChannels[message.channel.id].usersSubmitted.push(msg.author.id);
 
       submissions.delete(5000).catch(e => {
-        Bastion.log.error(e);
+        Kara.log.error(e);
       });
     }
     catch (e) {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     }
   });
 
@@ -65,12 +65,12 @@ exports.exec = async (Bastion, message) => {
       if (collection.size === 0) {
         await message.channel.send({
           embed: {
-            color: Bastion.colors.RED,
+            color: Kara.colors.RED,
             title: 'Acrophobia',
             description: 'Game ended. Unfortunately, no submissions were made for this acronym.'
           }
         }).catch(e => {
-          Bastion.log.error(e);
+          Kara.log.error(e);
         });
 
         delete activeChannels[message.channel.id];
@@ -84,7 +84,7 @@ exports.exec = async (Bastion, message) => {
 
         let submissionMessage = await startMessage.channel.send({
           embed: {
-            color: Bastion.colors.BLUE,
+            color: Kara.colors.BLUE,
             title: 'Acrophobia',
             description: 'Submissions closed',
             fields: [
@@ -98,7 +98,7 @@ exports.exec = async (Bastion, message) => {
             }
           }
         }).catch(e => {
-          Bastion.log.error(e);
+          Kara.log.error(e);
         });
 
         startMessage.delete().catch(() => {});
@@ -112,7 +112,7 @@ exports.exec = async (Bastion, message) => {
           try {
             if (vote.deletable) {
               vote.delete().catch(e => {
-                Bastion.log.error(e);
+                Kara.log.error(e);
               });
             }
 
@@ -129,7 +129,7 @@ exports.exec = async (Bastion, message) => {
             thankingMessage.delete(5000).catch(() => {});
           }
           catch (e) {
-            Bastion.log.error(e);
+            Kara.log.error(e);
           }
         });
 
@@ -137,12 +137,12 @@ exports.exec = async (Bastion, message) => {
           if (votes.size === 0) {
             startMessage.channel.send({
               embed: {
-                color: Bastion.colors.RED,
+                color: Kara.colors.RED,
                 title: 'Acrophobia',
                 description: 'Game ended. Unfortunately, no votes were given for any submissions.'
               }
             }).catch(e => {
-              Bastion.log.error(e);
+              Kara.log.error(e);
             });
 
             delete activeChannels[message.channel.id];
@@ -163,7 +163,7 @@ exports.exec = async (Bastion, message) => {
 
             startMessage.channel.send({
               embed: {
-                color: Bastion.colors.BLUE,
+                color: Kara.colors.BLUE,
                 title: 'Acrophobia',
                 description: `Game Ended. ${collection.map(s => s.author)[winningVoteIndex - 1]} won by ${count[winningVoteIndex] - 1} of ${votes.length - collection.size} votes`,
                 fields: [
@@ -174,7 +174,7 @@ exports.exec = async (Bastion, message) => {
                 ]
               }
             }).catch(e => {
-              Bastion.log.error(e);
+              Kara.log.error(e);
             });
 
             delete activeChannels[message.channel.id];
@@ -184,7 +184,7 @@ exports.exec = async (Bastion, message) => {
       }
     }
     catch (e) {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     }
   });
 };

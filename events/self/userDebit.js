@@ -16,7 +16,7 @@ module.exports = async (member, amount) => {
 
     /*
      * If the user doesn't have a profile, create their profile
-     * & add Bastion Currencies.
+     * & add Kara Currencies.
      */
     if (!guildMemberModel) {
       return await member.client.database.models.guildMember.create({
@@ -30,7 +30,7 @@ module.exports = async (member, amount) => {
     }
 
     /*
-     * Add the given amount of Bastion Currencies to the user's account.
+     * Add the given amount of Kara Currencies to the user's account.
      */
     await member.client.database.models.guildMember.update({
       bastionCurrencies: parseInt(guildMemberModel.dataValues.bastionCurrencies) + parseInt(amount)

@@ -4,13 +4,13 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (args.length < 2 || !(parseInt(args[0]) < 9223372036854775807)) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
-  if (Bastion.shard) {
-    await Bastion.shard.broadcastEval(`
+  if (Kara.shard) {
+    await Kara.shard.broadcastEval(`
       let channel = this.channels.get('${args[0]}');
       if (channel) {
         channel.send({
@@ -23,17 +23,17 @@ exports.exec = async (Bastion, message, args) => {
     `);
   }
   else {
-    let channel = Bastion.channels.get(args[0]);
+    let channel = Kara.channels.get(args[0]);
     if (channel) {
       await channel.send({
         embed: {
-          color: Bastion.colors.BLUE,
+          color: Kara.colors.BLUE,
           description: args.slice(1).join(' ')
         }
       });
     }
     else {
-      Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'notFound', 'channel'), message.channel);
+      Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'notFound', 'channel'), message.channel);
     }
   }
 };

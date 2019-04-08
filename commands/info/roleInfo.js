@@ -4,9 +4,9 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.length) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   let role = message.mentions.roles.first();
@@ -15,7 +15,7 @@ exports.exec = async (Bastion, message, args) => {
   }
 
   if (!role) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'roleNotFound'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'roleNotFound'), message.channel);
   }
   let permissions = [];
   let serializedPermissions = role.serialize();
@@ -25,7 +25,7 @@ exports.exec = async (Bastion, message, args) => {
     }
   }
 
-  let roleModel = await Bastion.database.models.role.findOne({
+  let roleModel = await Kara.database.models.role.findOne({
     attributes: [ 'description' ],
     where: {
       roleID: role.id,
@@ -34,12 +34,12 @@ exports.exec = async (Bastion, message, args) => {
   });
   let roleDescription;
   if (roleModel && roleModel.dataValues.description) {
-    roleDescription = await Bastion.utils.decompressString(roleModel.dataValues.description);
+    roleDescription = await Kara.utils.decompressString(roleModel.dataValues.description);
   }
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       author: {
         name: role.name
       },

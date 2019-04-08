@@ -4,13 +4,13 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   
   if (!message.guild.music.enabled) {
-    if (Bastion.user.id === '267035345537728512') {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'musicDisabledPublic'), message.channel);
+    if (Kara.user.id === '267035345537728512') {
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'musicDisabledPublic'), message.channel);
     }
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'musicDisabled'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'musicDisabled'), message.channel);
   }
 
   let musicTextChannel, musicVoiceChannel, color, description;
@@ -26,8 +26,8 @@ exports.exec = async (Bastion, message, args) => {
       },
       fields: [ 'musicTextChannel', 'musicVoiceChannel' ]
     });
-    color = Bastion.colors.RED;
-    description = Bastion.i18n.info(message.guild.language, 'removeMusicChannels', message.author.tag);
+    color = Kara.colors.RED;
+    description = Kara.i18n.info(message.guild.language, 'removeMusicChannels', message.author.tag);
   }
   else if (args.id) {
     musicTextChannel = message.channel;
@@ -43,11 +43,11 @@ exports.exec = async (Bastion, message, args) => {
         },
         fields: [ 'musicTextChannel', 'musicVoiceChannel' ]
       });
-      color = Bastion.colors.GREEN;
-      description = Bastion.i18n.info(message.guild.language, 'addMusicChannels', message.author.tag, musicTextChannel, musicVoiceChannel.name);
+      color = Kara.colors.GREEN;
+      description = Kara.i18n.info(message.guild.language, 'addMusicChannels', message.author.tag, musicTextChannel, musicVoiceChannel.name);
     }
     else {
-      color = Bastion.colors.RED;
+      color = Kara.colors.RED;
       description = 'Invalid voice channel ID for music channel.';
     }
   }
@@ -60,12 +60,12 @@ exports.exec = async (Bastion, message, args) => {
     }
 
     if (!musicTextChannel || !musicVoiceChannel) {
-      color = Bastion.colors.RED;
+      color = Kara.colors.RED;
       description = 'Music channels have not been set.';
     }
     else {
-      color = Bastion.colors.BLUE;
-      description = Bastion.i18n.info(message.guild.language, 'musicChannels', musicTextChannel, musicVoiceChannel.name);
+      color = Kara.colors.BLUE;
+      description = Kara.i18n.info(message.guild.language, 'musicChannels', musicTextChannel, musicVoiceChannel.name);
     }
   }
 
@@ -76,7 +76,7 @@ exports.exec = async (Bastion, message, args) => {
       description: description
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

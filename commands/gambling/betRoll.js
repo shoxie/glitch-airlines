@@ -6,22 +6,22 @@
 
 let recentUsers = [];
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   let cooldown = 60;
 
   if (recentUsers.includes(message.author.id)) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'gamblingCooldown', message.author, cooldown), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'gamblingCooldown', message.author, cooldown), message.channel);
   }
 
   if (!args.money || args.money < 1 || !/^(one|two|three|four|five|six)$/i.test(args.outcome)) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   args.money = parseInt(args.money);
 
   let minAmount = 5;
   if (args.money < minAmount) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'minBet', minAmount), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'minBet', minAmount), message.channel);
   }
 
   let outcomes = [
@@ -45,7 +45,7 @@ exports.exec = async (Bastion, message, args) => {
   guildMemberModel.dataValues.bastionCurrencies = parseInt(guildMemberModel.dataValues.bastionCurrencies);
 
   if (args.money > guildMemberModel.dataValues.bastionCurrencies) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'insufficientBalance', guildMemberModel.dataValues.bastionCurrencies), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'insufficientBalance', guildMemberModel.dataValues.bastionCurrencies), message.channel);
   }
 
   recentUsers.push(message.author.id);
@@ -55,12 +55,12 @@ exports.exec = async (Bastion, message, args) => {
     let prize = args.money < 50 ? args.money + outcomes.length : args.money < 100 ? args.money : args.money * 2;
     result = `Congratulations! You won the bet.\nYou won **${prize}** $.`;
 
-    Bastion.emit('userDebit', message.member, prize);
+    Kara.emit('userDebit', message.member, prize);
   }
   else {
     result = 'Sorry, you lost the bet. Better luck next time.';
 
-    Bastion.emit('userCredit', message.member, args.money);
+    Kara.emit('userCredit', message.member, args.money);
   }
 
   setTimeout(() => {
@@ -69,12 +69,12 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: `Rolled :${outcome}:`,
       description: result
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

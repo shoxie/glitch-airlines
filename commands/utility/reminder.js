@@ -7,39 +7,39 @@
 const moment = xrequire('moment');
 const remindUsers = {};
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (args.cancel) {
-    Bastion.clearTimeout(remindUsers[message.author.id]);
+    Kara.clearTimeout(remindUsers[message.author.id]);
     delete remindUsers[message.author.id];
 
     return await message.channel.send({
       embed: {
-        color: Bastion.colors.GREEN,
-        description: Bastion.i18n.info(message.guild.language, 'deleteReminder', message.author.tag)
+        color: Kara.colors.GREEN,
+        description: Kara.i18n.info(message.guild.language, 'deleteReminder', message.author.tag)
       }
     });
   }
 
   if (!args.duration || !args.message) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   let duration = moment.duration(`PT${args.duration.toUpperCase()}`).asMilliseconds(),
     maxDelay = 24 * 60 * 60 * 1000, minDelay = 60 * 1000;
 
   if (duration > maxDelay || duration < minDelay) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   if (remindUsers.hasOwnProperty(message.author.id)) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'isReminderInUse', 'reminder --cancel'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'isReminderInUse', 'reminder --cancel'), message.channel);
   }
 
-  remindUsers[message.author.id] = Bastion.setTimeout(async () => {
+  remindUsers[message.author.id] = Kara.setTimeout(async () => {
     let authorDMChannel = await message.author.createDM();
     await authorDMChannel.send({
       embed: {
-        color: Bastion.colors.BLUE,
+        color: Kara.colors.BLUE,
         title: 'Reminder',
         description: args.message.join(' '),
         timestamp: new Date()
@@ -51,12 +51,12 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.GREEN,
+      color: Kara.colors.GREEN,
       title: 'Reminder Set',
-      description: Bastion.i18n.info(message.guild.language, 'addReminder', message.author.tag, args.message.join(' '), moment.duration(duration).humanize())
+      description: Kara.i18n.info(message.guild.language, 'addReminder', message.author.tag, args.message.join(' '), moment.duration(duration).humanize())
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

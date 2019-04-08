@@ -1,5 +1,5 @@
 /**
- * @file isPublicBastion
+ * @file isPublicKara
  * @author Kara
  * @license GPL-3.0
  */

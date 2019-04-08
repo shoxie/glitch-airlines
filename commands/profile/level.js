@@ -4,10 +4,10 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   args = message.mentions.users.first() || message.author;
 
-  let guildMemberModel = await Bastion.database.models.guildMember.findOne({
+  let guildMemberModel = await Kara.database.models.guildMember.findOne({
     attributes: [ 'experiencePoints', 'level' ],
     where: {
       userID: args.id,
@@ -22,11 +22,11 @@ exports.exec = async (Bastion, message, args) => {
   }
 
   let description = message.author.id === args.id ? `**${args.tag}** you are currently in level **${level}**.` : `**${args.tag}** is currently in level **${level}**.`;
-  let footer = message.author.id === args.id && guildMemberModel.dataValues.experiencePoints !== '44444444444444' ? `Wanna go to the next level? Just gain ${Bastion.methods.getRequiredExpForLevel(parseInt(level, 10) + 1) - xp + 1} more XP.` : null;
+  let footer = message.author.id === args.id && guildMemberModel.dataValues.experiencePoints !== '44444444444444' ? `Wanna go to the next level? Just gain ${Kara.methods.getRequiredExpForLevel(parseInt(level, 10) + 1) - xp + 1} more XP.` : null;
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       description: description,
       footer: {
         text: footer

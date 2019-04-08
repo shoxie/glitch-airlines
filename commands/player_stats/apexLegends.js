@@ -1,9 +1,9 @@
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.player) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
-  let stats = await Bastion.methods.makeBWAPIRequest(`/gamestats/apexlegends/${args.platform = 5}/${args.player}`);
+  let stats = await Kara.methods.makeBWAPIRequest(`/gamestats/apexlegends/${args.platform = 5}/${args.player}`);
   stats = stats.data;
 
   let fields = stats.stats.map(stat => ({
@@ -17,7 +17,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       author: {
         name: stats.metadata.platformUserHandle
       },

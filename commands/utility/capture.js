@@ -4,16 +4,16 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.url) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   if (!/^(http[s]?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)$/.test(args.url)) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'invalidInput', 'URL'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'invalidInput', 'URL'), message.channel);
   }
 
-  let webshot = await Bastion.methods.makeBWAPIRequest('/url/capture', {
+  let webshot = await Kara.methods.makeBWAPIRequest('/url/capture', {
     encoding: null,
     qs: {
       url: args.url

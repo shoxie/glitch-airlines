@@ -4,9 +4,9 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.cronExp || !args.command) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   let cronExpLength = 6, cronConstraints = [];
@@ -18,16 +18,16 @@ exports.exec = async (Bastion, message, args) => {
   cronConstraints[5] = new RegExp(/^[0-7]|\*|[0-7](?:,[0-7]){1,6}$/);
 
   if (args.cronExp.length !== cronExpLength) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'invalidInput', '`cron` expression'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'invalidInput', '`cron` expression'), message.channel);
   }
   for (let i = 0; i < cronExpLength; i++) {
     if (!cronConstraints[i].test(args.cronExp[i])) {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'invalidInput', '`cron` expression'), message.channel);
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'invalidInput', '`cron` expression'), message.channel);
     }
   }
 
-  if (!Bastion.commands.has(args.command) && !Bastion.aliases.has(args.command)) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'notFound', 'command'), message.channel);
+  if (!Kara.commands.has(args.command) && !Kara.aliases.has(args.command)) {
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'notFound', 'command'), message.channel);
   }
 
   args.cronExp = args.cronExp.join(' ');
@@ -35,7 +35,7 @@ exports.exec = async (Bastion, message, args) => {
 
   let scheduledStatus = await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: 'Scheduled Command',
       description: `\`\`\`${args.cronExp} ${args.command} ${args.arguments}\`\`\``,
       footer: {
@@ -44,7 +44,7 @@ exports.exec = async (Bastion, message, args) => {
     }
   });
 
-  await Bastion.database.models.scheduledCommand.create({
+  await Kara.database.models.scheduledCommand.create({
     guildID: message.guild.id,
     channelID: message.channel.id,
     messageID: scheduledStatus.id,

@@ -4,7 +4,7 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!('giveaways' in message.guild)) {
     message.guild.giveaways = new Map();
   }
@@ -15,7 +15,7 @@ exports.exec = async (Bastion, message, args) => {
 
     // Verify whether timeout is within 12 hours
     if (!args.timeout.inRange(1, 12)) {
-      return Bastion.emit('error', '', 'Giveaway can only run for at least an hour and at most 12 hours.', message.channel);
+      return Kara.emit('error', '', 'Giveaway can only run for at least an hour and at most 12 hours.', message.channel);
     }
 
     // Generate a random reaction for the giveaway message
@@ -25,7 +25,7 @@ exports.exec = async (Bastion, message, args) => {
     // Send the giveaway message and add the reaction to it
     let giveawayMessage = await message.channel.send({
       embed: {
-        color: Bastion.colors.BLUE,
+        color: Kara.colors.BLUE,
         author: {
           name: 'GIVEAWAY!'
         },
@@ -43,7 +43,7 @@ exports.exec = async (Bastion, message, args) => {
     let giveawayMessageID = giveawayMessage.id;
 
     // Start giveaway timeout
-    let giveaway = Bastion.setTimeout(async () => {
+    let giveaway = Kara.setTimeout(async () => {
       // Fetch the giveaway message to get new reactions
       giveawayMessage = await message.channel.fetchMessage(giveawayMessageID);
 
@@ -56,7 +56,7 @@ exports.exec = async (Bastion, message, args) => {
       // Get random users (winners) from the participants
       let winners;
       if (participants.length) {
-        winners = Bastion.methods.getRandomElements(participants, args.winners, true);
+        winners = Kara.methods.getRandomElements(participants, args.winners, true);
       }
 
       // If there're winners declare the result
@@ -64,7 +64,7 @@ exports.exec = async (Bastion, message, args) => {
         // Declare the result in the channel
         await giveawayMessage.edit({
           embed: {
-            color: Bastion.colors.BLUE,
+            color: Kara.colors.BLUE,
             author: {
               name: 'GIVEAWAY Ended'
             },
@@ -90,7 +90,7 @@ exports.exec = async (Bastion, message, args) => {
       else {
         await giveawayMessage.edit({
           embed: {
-            color: Bastion.colors.RED,
+            color: Kara.colors.RED,
             title: 'Giveaway Event Ended',
             description: `Unfortunately, no one participated and apparently there's no winner for **${args.item}**. 😕`,
             footer: {
@@ -113,14 +113,14 @@ exports.exec = async (Bastion, message, args) => {
   }
   else if (args.reroll) {
     if (message.guild.giveaways.has(args.reroll)) {
-      return Bastion.emit('error', Bastion.i18n.error(message.guild.language, 'notFound'), 'That giveaway is currently running in this server. You can only reroll concluded or abruptly stopped giveaways.', message.channel);
+      return Kara.emit('error', Kara.i18n.error(message.guild.language, 'notFound'), 'That giveaway is currently running in this server. You can only reroll concluded or abruptly stopped giveaways.', message.channel);
     }
 
     // Fetch the giveaway message to get new reactions
     let giveawayMessage = await message.channel.fetchMessage(args.reroll);
 
     // Check if it's a valid giveaway message
-    if (giveawayMessage.author.id !== Bastion.user.id || giveawayMessage.embeds.length !== 1 || !giveawayMessage.embeds[0].author.name.startsWith('GIVEAWAY')) return;
+    if (giveawayMessage.author.id !== Kara.user.id || giveawayMessage.embeds.length !== 1 || !giveawayMessage.embeds[0].author.name.startsWith('GIVEAWAY')) return;
 
     let giveawayItem = giveawayMessage.embeds[0].title;
     let reaction = giveawayMessage.reactions.filter(reaction => reaction.me).first();
@@ -136,7 +136,7 @@ exports.exec = async (Bastion, message, args) => {
     // Get random users (winners) from the participants
     let winners;
     if (participants.length) {
-      winners = Bastion.methods.getRandomElements(participants, args.winners, true);
+      winners = Kara.methods.getRandomElements(participants, args.winners, true);
     }
 
     // If there're winners declare the result
@@ -144,7 +144,7 @@ exports.exec = async (Bastion, message, args) => {
       // Declare the result in the channel
       await giveawayMessage.edit({
         embed: {
-          color: Bastion.colors.BLUE,
+          color: Kara.colors.BLUE,
           author: {
             name: 'GIVEAWAY Rerolled!'
           },
@@ -170,7 +170,7 @@ exports.exec = async (Bastion, message, args) => {
     else {
       await giveawayMessage.edit({
         embed: {
-          color: Bastion.colors.RED,
+          color: Kara.colors.RED,
           title: 'Giveaway Event Rerolled',
           description: `Unfortunately, no one participated and apparently there's no winner for **${giveawayItem}**. 😕`,
           footer: {
@@ -187,7 +187,7 @@ exports.exec = async (Bastion, message, args) => {
   else if (args.end) {
     if (message.guild.giveaways.has(args.end)) {
       // Clear the giveaway timeout
-      Bastion.clearTimeout(message.guild.giveaways.get(args.end));
+      Kara.clearTimeout(message.guild.giveaways.get(args.end));
 
       // Remove the giveaway details from cache
       message.guild.giveaways.delete(args.end);
@@ -198,20 +198,20 @@ exports.exec = async (Bastion, message, args) => {
 
       await message.channel.send({
         embed: {
-          color: Bastion.colors.RED,
+          color: Kara.colors.RED,
           title: 'Giveaway Cancelled',
           description: `The giveaway event with ID **${args.end}** has been cancelled by ${message.author.tag}`
         }
       }).catch(e => {
-        Bastion.log.error(e);
+        Kara.log.error(e);
       });
     }
     else {
-      return Bastion.emit('error', '', 'There\'s no giveaway running in this server for the specified ID.', message.channel);
+      return Kara.emit('error', '', 'There\'s no giveaway running in this server for the specified ID.', message.channel);
     }
   }
   else {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 };
 

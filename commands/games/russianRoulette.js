@@ -5,7 +5,7 @@
  */
 
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   args = isNaN(args = parseInt(args[0])) ? 1 : args > 7 ? 7 : args;
 
   const outcomes = [
@@ -19,7 +19,7 @@ exports.exec = async (Bastion, message, args) => {
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.BLUE,
+        color: Kara.colors.BLUE,
         title: `Round ${i + 1}`,
         description: outcome
       }

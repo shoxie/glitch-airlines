@@ -4,8 +4,8 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
-  if (!message.guild.available) return Bastion.log.info(`${message.guild.name} Guild is not available. It generally indicates a server outage.`);
+exports.exec = async (Kara, message, args) => {
+  if (!message.guild.available) return Kara.log.info(`${message.guild.name} Guild is not available. It generally indicates a server outage.`);
 
   let muteRole = message.guild.roles.find(role => role.name === 'Kara:mute'), mutedMembers = [];
   if (muteRole) {
@@ -21,7 +21,7 @@ exports.exec = async (Bastion, message, args) => {
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.BLUE,
+        color: Kara.colors.BLUE,
         title: 'Muted Users',
         description: mutedMembers.join('\n'),
         footer: {
@@ -33,7 +33,7 @@ exports.exec = async (Bastion, message, args) => {
   else {
     await message.channel.send({
       embed: {
-        color: Bastion.colors.RED,
+        color: Kara.colors.RED,
         description: 'The list\'s empty! No one is currently muted in this server.'
       }
     });

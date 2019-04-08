@@ -19,14 +19,14 @@ const hirez = new HiRez({
 
 let generatedSession = null;
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.player) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   if (!generatedSession) {
     let session = await hirez.paladins('pc').session.generate().catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
     generatedSession = session;
 

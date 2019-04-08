@@ -6,9 +6,9 @@
 
 const wd = xrequire('word-definition');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.length) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   for (let i = 0; i < args.length - 1; i++) {
@@ -28,7 +28,7 @@ exports.exec = async (Bastion, message, args) => {
     if (data.err) {
       embed = {
         embed: {
-          color: Bastion.colors.RED,
+          color: Kara.colors.RED,
           description: `No definition found for **${data.word}** in **${lang.toUpperCase()}** Dictionary.`
         }
       };
@@ -36,7 +36,7 @@ exports.exec = async (Bastion, message, args) => {
     else {
       embed = {
         embed: {
-          color: Bastion.colors.BLUE,
+          color: Kara.colors.BLUE,
           title: data.word,
           description: `*${data.category}*\n\n${data.definition}`,
           footer: {

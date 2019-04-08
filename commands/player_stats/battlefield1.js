@@ -6,9 +6,9 @@
 
 const request = xrequire('request-promise-native');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.name) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   args.platform = args.platform.toLowerCase();
@@ -24,7 +24,7 @@ exports.exec = async (Bastion, message, args) => {
 
   let options = {
     headers: {
-      'TRN-Api-Key': Bastion.credentials.battlefieldAPIKey
+      'TRN-Api-Key': Kara.credentials.battlefieldAPIKey
     },
     url: `https://battlefieldtracker.com/bf1/api/Stats/BasicStats?platform=${args.platform}&displayName=${args.name}&game=tunguska`,
     json: true
@@ -33,7 +33,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: 'Battlefield 1 - Stats',
       author: {
         name: response.profile.displayName,

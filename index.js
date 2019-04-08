@@ -1,5 +1,5 @@
 /**
- * @file The starting point of Bastion
+ * @file The starting point of Kara
  * @author Kara
  * @license GPL-3.0
  */
@@ -15,7 +15,7 @@ const credentialsFile = fs.readFileSync('./settings/credentials.yaml', 'utf8');
 const configurations = YAML.parse(configurationsFile);
 const credentials = YAML.parse(credentialsFile);
 
-const Manager = new Tesseract.ShardingManager('./bastion.js', {
+const Manager = new Tesseract.ShardingManager('./kara.js', {
   totalShards: configurations.shardCount,
   token: credentials.token
 });
@@ -27,4 +27,4 @@ Manager.on('launch', shard => {
   log.info(`Launching Shard ${shard.id} [ ${shard.id + 1} of ${Manager.totalShards} ]`);
 });
 const thinhBot = require('./discord_bot/bot.js');
-thinhBot(BASTION, require('./settings/config.json'));
+thinhBot(KARA, require('./discord_bot/config.json'));

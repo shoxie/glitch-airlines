@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd "$(dirname "$0")" || cd . || (echo "This script should be run where Bastion is located." && exit 1)
+cd "$(dirname "$0")" || cd . || (echo "This script should be run where Kara is located." && exit 1)
 
 
 echo
@@ -72,8 +72,8 @@ case $1 in
 esac
 
 echo
-print::message "Get Help/Support in Bastion HQ: https://discord.gg/fzx8fkt"
-print::message "Join Bastion HQ and stay updated on important announcements, new releases, giveaways, etc."
+print::message "Get Help/Support in Kara HQ: https://discord.gg/fzx8fkt"
+print::message "Join Kara HQ and stay updated on important announcements, new releases, giveaways, etc."
 echo
 
 # EOF

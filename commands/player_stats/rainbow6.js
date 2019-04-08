@@ -7,15 +7,15 @@
 const RainbowSix = xrequire('rainbowsix-api-node');
 const r6 = new RainbowSix();
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (args.length < 2) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
   if (!/^(uplay|ps4|xone)$/.test(args[0] = args[0].toLowerCase())) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'invalidPlatform', '`Uplay`, `PS4` and `XOne`'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'invalidPlatform', '`Uplay`, `PS4` and `XOne`'), message.channel);
   }
   if (!/^[a-zA-Z][\w-. ]{2,14}$/.test(args[1] = args.slice(1).join(' '))) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'invalidInput', 'username'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'invalidInput', 'username'), message.channel);
   }
 
   let data = await r6.stats(args[1], args[0]);
@@ -131,7 +131,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: 'Rainbow 6',
       url: `https://r6stats.com/stats/${args[0]}/${encodeURIComponent(args[1])}`,
       fields: stats,

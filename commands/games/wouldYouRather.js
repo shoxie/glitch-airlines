@@ -6,10 +6,10 @@
 
 const question = xrequire('./assets/wouldYouRather.json');
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       description: question.getRandom()
     }
   });

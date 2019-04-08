@@ -2,22 +2,22 @@ const util = xrequire('util');
 const youtubeDL = xrequire('youtube-dl');
 const getSongInfo = util.promisify(youtubeDL.getInfo);
 
-exports.exec = async(Bastion, message, args) => {
+exports.exec = async(Kara, message, args) => {
   try {
     if (!message.guild.music.enabled) {
-      if (Bastion.user.id === '267035345537728512') {
-        return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'musicDisabledPublic'), message.channel);
+      if (Kara.user.id === '267035345537728512') {
+        return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'musicDisabledPublic'), message.channel);
       }
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'musicDisabled'), message.channel);
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'musicDisabled'), message.channel);
     }
 
     if (message.guild.music.textChannelID && message.guild.music.textChannelID !== message.channel.id) {
-      return Bastion.log.info('Music channels have been set, so music commands will only work in the Music Text Channel.');
+      return Kara.log.info('Music channels have been set, so music commands will only work in the Music Text Channel.');
     }
 
 
     if (!args.song && !args.playlist) {
-      return Bastion.emit('commandUsage', message, this.help);
+      return Kara.emit('commandUsage', message, this.help);
     }
 
 
@@ -28,7 +28,7 @@ exports.exec = async(Bastion, message, args) => {
       voiceChannel = voiceConnection.channel;
       textChannel = message.guild.music.textChannel || message.channel;
 
-      vcStats = Bastion.i18n.error(message.guild.language, 'userNoSameVC', message.author.tag);
+      vcStats = Kara.i18n.error(message.guild.language, 'userNoSameVC', message.author.tag);
     }
     else {
       if (message.guild.music.textChannelID && message.guild.music.voiceChannelID) {
@@ -36,25 +36,25 @@ exports.exec = async(Bastion, message, args) => {
         textChannel = message.guild.channels.filter(c => c.type === 'text').get(message.guild.music.textChannelID);
 
         if (!voiceChannel || !textChannel) {
-          return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'invalidMusicChannel'), message.channel);
+          return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'invalidMusicChannel'), message.channel);
         }
 
-        vcStats = Bastion.i18n.error(message.guild.language, 'userNoMusicChannel', message.author.tag, voiceChannel.name);
+        vcStats = Kara.i18n.error(message.guild.language, 'userNoMusicChannel', message.author.tag, voiceChannel.name);
       }
-      else if (Bastion.credentials.ownerId.includes(message.author.id) || message.member.roles.has(message.guild.music.masterRoleID)) {
+      else if (Kara.credentials.ownerId.includes(message.author.id) || message.member.roles.has(message.guild.music.masterRoleID)) {
         voiceChannel = message.member.voiceChannel;
         textChannel = message.channel;
 
         if (!voiceChannel) {
-          return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'userNoVC', message.author.tag), message.channel);
+          return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'userNoVC', message.author.tag), message.channel);
         }
       }
       else {
-        return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'musicChannelNotFound'), message.channel);
+        return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'musicChannelNotFound'), message.channel);
       }
 
       if (!voiceChannel.joinable) {
-        return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'noPermission', 'join', voiceChannel.name), message.channel);
+        return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'noPermission', 'join', voiceChannel.name), message.channel);
       }
 
       voiceConnection = await voiceChannel.join();
@@ -62,13 +62,13 @@ exports.exec = async(Bastion, message, args) => {
 
 
     if (!voiceChannel.speakable) {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'noPermission', 'speak', `in ${voiceChannel.name}`), message.channel);
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'noPermission', 'speak', `in ${voiceChannel.name}`), message.channel);
     }
     if (textChannel.id !== message.channel.id) {
-      return Bastion.log.info(`Music commands will only work in the ${textChannel.name} text channel for this session.`);
+      return Kara.log.info(`Music commands will only work in the ${textChannel.name} text channel for this session.`);
     }
     if (!voiceChannel.members.get(message.author.id)) {
-      return Bastion.emit('error', '', vcStats, message.channel);
+      return Kara.emit('error', '', vcStats, message.channel);
     }
 
     message.guild.me.setMute(false).catch(() => {});
@@ -94,7 +94,7 @@ exports.exec = async(Bastion, message, args) => {
 
     if (args.playlist) {
       // Kara Playlist
-      let playlistModel = await Bastion.database.models.playlist.findOne({
+      let playlistModel = await Kara.database.models.playlist.findOne({
         attributes: ['songs'],
         where: {
           guildID: message.guild.id,
@@ -104,7 +104,7 @@ exports.exec = async(Bastion, message, args) => {
       });
 
       if (!playlistModel || !playlistModel.dataValues.songs.length) {
-        return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'playlistNotFound'), message.channel);
+        return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'playlistNotFound'), message.channel);
       }
 
       let songs = playlistModel.dataValues.songs;
@@ -116,11 +116,11 @@ exports.exec = async(Bastion, message, args) => {
 
       await message.channel.send({
         embed: {
-          color: Bastion.colors.GREEN,
+          color: Kara.colors.GREEN,
           description: `Added ${songs.length} songs to the queue from your playlist.`
         }
       }).catch(e => {
-        Bastion.log.error(e);
+        Kara.log.error(e);
       });
     }
     else {
@@ -139,7 +139,7 @@ exports.exec = async(Bastion, message, args) => {
         '--simulate',
         '--no-warnings',
         '--format=bestaudio[protocol^=http]',
-        `--user-agent=BastionDiscordBot/v${Bastion.package.version} (https://bastionbot.org)`,
+        `--user-agent=KaraDiscordBot/v${Kara.package.version} (https://bastionbot.org)`,
         '--referer=https://bastionbot.org',
         '--youtube-skip-dash-manifest'
       ];
@@ -150,8 +150,8 @@ exports.exec = async(Bastion, message, args) => {
       );
 
       if (!songInfo || (!playlist && (!songInfo.format_id || songInfo.format_id.startsWith('0')))) {
-        Bastion.log.error(songInfo);
-        return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'notFound', 'result'), message.channel);
+        Kara.log.error(songInfo);
+        return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'notFound', 'result'), message.channel);
       }
 
       if (playlist) {
@@ -168,11 +168,11 @@ exports.exec = async(Bastion, message, args) => {
 
         await message.channel.send({
           embed: {
-            color: Bastion.colors.GREEN,
+            color: Kara.colors.GREEN,
             description: `Added ${songInfo.length} songs to the queue from the YouTube playlist.`
           }
         }).catch(e => {
-          Bastion.log.error(e);
+          Kara.log.error(e);
         });
       }
       else {
@@ -187,7 +187,7 @@ exports.exec = async(Bastion, message, args) => {
 
         await textChannel.send({
           embed: {
-            color: Bastion.colors.GREEN,
+            color: Kara.colors.GREEN,
             title: 'Added to the queue',
             url: songInfo.id ? `https://youtu.be/${songInfo.id}` : '',
             description: songInfo.title,
@@ -199,7 +199,7 @@ exports.exec = async(Bastion, message, args) => {
             }
           }
         }).catch(e => {
-          Bastion.log.error(e);
+          Kara.log.error(e);
         });
       }
     }
@@ -209,12 +209,12 @@ exports.exec = async(Bastion, message, args) => {
       await startStreamDispatcher(message.guild, voiceConnection);
     }
 
-    voiceConnection.on('error', Bastion.log.error);
-    voiceConnection.on('failed', Bastion.log.error);
+    voiceConnection.on('error', Kara.log.error);
+    voiceConnection.on('failed', Kara.log.error);
   }
   catch (e) {
-    Bastion.log.error(e);
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'notFound', 'result'), message.channel);
+    Kara.log.error(e);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'notFound', 'result'), message.channel);
   }
 };
 
@@ -255,7 +255,7 @@ async function startStreamDispatcher(guild, connection) {
       '--simulate',
       '--no-warnings',
       '--format=bestaudio[protocol^=http]',
-      '--user-agent=BastionDiscordBot (https://bastionbot.org)',
+      '--user-agent=KaraDiscordBot (https://bastionbot.org)',
       '--referer=https://bastionbot.org',
       '--youtube-skip-dash-manifest'
     ];

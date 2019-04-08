@@ -4,13 +4,13 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
-  let buyableRoleModels = await Bastion.database.models.role.findAll({
+exports.exec = async (Kara, message) => {
+  let buyableRoleModels = await Kara.database.models.role.findAll({
     attributes: [ 'roleID', 'price' ],
     where: {
       guildID: message.guild.id,
       price: {
-        [Bastion.database.Op.not]: null
+        [Kara.database.Op.not]: null
       }
     }
   });
@@ -31,7 +31,7 @@ exports.exec = async (Bastion, message) => {
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.BLUE,
+        color: Kara.colors.BLUE,
         title: 'Role Store',
         description: 'Buy a role using the `buyRole` command.\nUse `help buyRole` command for more info.',
         fields: fields
@@ -41,7 +41,7 @@ exports.exec = async (Bastion, message) => {
   else {
     await message.channel.send({
       embed: {
-        color: Bastion.colors.RED,
+        color: Kara.colors.RED,
         title: 'Role Store',
         description: 'No role\'s for sale in this server at this time.'
       }

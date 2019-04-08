@@ -7,16 +7,16 @@
 const typingArticles = xrequire('./assets/typingArticles.json');
 let activeChannels = [];
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   if (activeChannels.includes(message.channel.id)) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'isGameInUse', 'typing'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'isGameInUse', 'typing'), message.channel);
   }
 
   activeChannels.push(message.channel.id);
 
   let gameStatsMessage = await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: 'Typing Game',
       description: `Game started by ${message.author}. Type the following text and send in this channel ASAP. The first one to do so will be the winner.\nAnd please do not Copy & Paste the text, play fairly.`,
       footer: {
@@ -43,11 +43,11 @@ exports.exec = async (Bastion, message) => {
   collector.on('end', async (collection, reason) => {
     let color, result;
     if (reason === 'time') {
-      color = Bastion.colors.RED;
+      color = Kara.colors.RED;
       result = 'Game ended. Unfortunately, no one was able to type the article on time.';
     }
     else {
-      color = Bastion.colors.BLUE;
+      color = Kara.colors.BLUE;
       result = `Game ended. Congratulations ${collection.map(m => m.author)[0]}! You won it.`;
     }
 
@@ -58,7 +58,7 @@ exports.exec = async (Bastion, message) => {
         description: result
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
 
     gameStatsMessage.delete().catch(() => {});

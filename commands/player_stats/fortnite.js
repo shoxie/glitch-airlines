@@ -6,9 +6,9 @@
 
 const request = xrequire('request-promise-native');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.player) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   // If user doesn't provide the platform, default to PC
@@ -19,22 +19,22 @@ exports.exec = async (Bastion, message, args) => {
     let platforms = [ 'pc', 'xbl', 'psn' ]; // Available platforms for the game
     // If the platform is not valid, return the available platforms
     if (!platforms.includes(args.platform = args.platform.toLowerCase())) {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'invalidPlatform', `${platforms.join(', ').toUpperCase()}`), message.channel);
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'invalidPlatform', `${platforms.join(', ').toUpperCase()}`), message.channel);
     }
   }
 
   let options = {
     uri: `https://api.fortnitetracker.com/v1/profile/${args.platform}/${encodeURIComponent(args.player.join(' '))}`,
     headers: {
-      'TRN-Api-Key': Bastion.credentials.fortniteAPIKey,
-      'User-Agent': `Kara/${Bastion.package.version} (${Bastion.user.tag}; ${Bastion.user.id}) https://bastionbot.org`
+      'TRN-Api-Key': Kara.credentials.fortniteAPIKey,
+      'User-Agent': `Kara/${Kara.package.version} (${Kara.user.tag}; ${Kara.user.id}) https://bastionbot.org`
     },
     json: true
   };
 
   let player = await request(options);
   if (player.error) {
-    return Bastion.emit('error', 'Error', player.error, message.channel);
+    return Kara.emit('error', 'Error', player.error, message.channel);
   }
 
   let stats = player.lifeTimeStats.map(stat => {
@@ -47,7 +47,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       author: {
         name: player.epicUserHandle
       },

@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-exports.exec = (Bastion, message) => {
+exports.exec = (Kara, message) => {
   message.channel.send({
     embed: {
       color: 3447003,

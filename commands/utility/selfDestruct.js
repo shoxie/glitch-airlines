@@ -1,11 +1,11 @@
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.content) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   let minTimeout = 5, maxTimeout = 600;
   if (!args.timeout.inRange(minTimeout, maxTimeout)) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'selfDestructTimeout', minTimeout, maxTimeout), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'selfDestructTimeout', minTimeout, maxTimeout), message.channel);
   }
 
   if (message.content && message.deletable) {
@@ -14,10 +14,10 @@ exports.exec = async (Bastion, message, args) => {
 
   let secretMessage = await message.channel.send({
     embed: {
-      color: Bastion.colors.DEFAULT,
+      color: Kara.colors.DEFAULT,
       description: args.content.join(' '),
       footer: {
-        text: `${Bastion.credentials.ownerId.includes(message.author.id) ? '' : Bastion.i18n.info(message.guild.language, 'endorsementMessage')}`
+        text: `${Kara.credentials.ownerId.includes(message.author.id) ? '' : Kara.i18n.info(message.guild.language, 'endorsementMessage')}`
       }
     }
   });

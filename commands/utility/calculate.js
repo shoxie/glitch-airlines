@@ -6,22 +6,22 @@
 
 const mathjs = xrequire('mathjs');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.length) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   try {
     await message.channel.send({
       embed: {
-        color: Bastion.colors.BLUE,
+        color: Kara.colors.BLUE,
         title: 'Result:',
         description: mathjs.eval(args.join(' ')).toFixed(2)
       }
     });
   }
   catch (error) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'invalidInput', 'mathematical expression'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'invalidInput', 'mathematical expression'), message.channel);
   }
 };
 

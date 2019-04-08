@@ -4,11 +4,11 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   let description, color;
 
   if (args.remove) {
-    await Bastion.database.models.guild.update({
+    await Kara.database.models.guild.update({
       announcementChannel: null
     },
     {
@@ -17,11 +17,11 @@ exports.exec = async (Bastion, message, args) => {
       },
       fields: [ 'announcementChannel' ]
     });
-    description = Bastion.i18n.info(message.guild.language, 'disableAnnouncementChannel', message.author.tag);
-    color = Bastion.colors.RED;
+    description = Kara.i18n.info(message.guild.language, 'disableAnnouncementChannel', message.author.tag);
+    color = Kara.colors.RED;
   }
   else {
-    await Bastion.database.models.guild.update({
+    await Kara.database.models.guild.update({
       announcementChannel: message.channel.id
     },
     {
@@ -30,8 +30,8 @@ exports.exec = async (Bastion, message, args) => {
       },
       fields: [ 'announcementChannel' ]
     });
-    description = Bastion.i18n.info(message.guild.language, 'enableAnnouncementChannel', message.author.tag);
-    color = Bastion.colors.GREEN;
+    description = Kara.i18n.info(message.guild.language, 'enableAnnouncementChannel', message.author.tag);
+    color = Kara.colors.GREEN;
   }
 
   await message.channel.send({
@@ -40,7 +40,7 @@ exports.exec = async (Bastion, message, args) => {
       description: description
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

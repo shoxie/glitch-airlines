@@ -4,10 +4,10 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   let spinning = await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       description: `${message.author.tag} is spinning a fidget spinner...`,
       image: {
         url: 'https://i.imgur.com/KJJxVi4.gif'
@@ -19,11 +19,11 @@ exports.exec = async (Bastion, message) => {
   setTimeout(() => {
     spinning.edit({
       embed: {
-        color: Bastion.colors.BLUE,
+        color: Kara.colors.BLUE,
         description: `${message.author.tag}, you spinned the fidget spinner for ${timeout.toFixed(2)} seconds.`
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
   }, timeout * 1000);
 };

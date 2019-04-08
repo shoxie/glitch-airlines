@@ -4,7 +4,7 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   let outcomes = [
     'ROCK',
     'PAPER',
@@ -13,7 +13,7 @@ exports.exec = async (Bastion, message, args) => {
   let userOutcome = args.join(' ').toUpperCase();
 
   if (!outcomes.includes(userOutcome)) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   let botOutcome = outcomes[Math.floor(Math.random() * outcomes.length)];
@@ -40,7 +40,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       description: `You chose **${userOutcome}**, I chose **${botOutcome}**. *${result}*`
     }
   });

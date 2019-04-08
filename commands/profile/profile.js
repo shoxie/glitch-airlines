@@ -6,13 +6,13 @@
 
 const specialIDs = xrequire('./assets/specialIDs.json');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   let user;
   if (message.mentions.users.size) {
     user = message.mentions.users.first();
   }
   else if (args.id) {
-    user = await Bastion.utils.fetchMember(message.guild, args.id);
+    user = await Kara.utils.fetchMember(message.guild, args.id);
     if (user) {
       user = user.user;
     }
@@ -21,9 +21,9 @@ exports.exec = async (Bastion, message, args) => {
     user = message.author;
   }
 
-  let guildMemberModel = await Bastion.database.models.guildMember.findOne({
-    attributes: Object.keys(Bastion.database.models.guildMember.attributes).concat([
-      [ Bastion.database.literal(`(SELECT COUNT(*) FROM guildMembers AS member WHERE member.guildID = ${message.guild.id} AND member.experiencePoints * 1 > guildMember.experiencePoints * 1)`), 'rank' ]
+  let guildMemberModel = await Kara.database.models.guildMember.findOne({
+    attributes: Object.keys(Kara.database.models.guildMember.attributes).concat([
+      [ Kara.database.literal(`(SELECT COUNT(*) FROM guildMembers AS member WHERE member.guildID = ${message.guild.id} AND member.experiencePoints * 1 > guildMember.experiencePoints * 1)`), 'rank' ]
     ]),
     where: {
       userID: user.id,
@@ -31,7 +31,7 @@ exports.exec = async (Bastion, message, args) => {
     }
   });
 
-  let userModel = await Bastion.database.models.user.findOne({
+  let userModel = await Kara.database.models.user.findOne({
     attributes: [ 'avatar', 'info', 'birthDate', 'color', 'location' ],
     where: {
       userID: user.id
@@ -39,19 +39,19 @@ exports.exec = async (Bastion, message, args) => {
   });
 
   if (!guildMemberModel) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'profileNotCreated', `<@${user.id}>`), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'profileNotCreated', `<@${user.id}>`), message.channel);
   }
 
   let info;
   if (userModel && userModel.dataValues.info) {
-    info = await Bastion.utils.decompressString(userModel.dataValues.info);
+    info = await Kara.utils.decompressString(userModel.dataValues.info);
   }
   else {
     info = `No info has been set. ${user.id === message.author.id ? 'Set your info using `setInfo` command.' : ''}`;
   }
 
   let rank = parseInt(guildMemberModel.dataValues.rank) + 1;
-  let totalExp = Bastion.methods.getRequiredExpForLevel(parseInt(guildMemberModel.dataValues.level, 10) + 1);
+  let totalExp = Kara.methods.getRequiredExpForLevel(parseInt(guildMemberModel.dataValues.level, 10) + 1);
   let progress = guildMemberModel.dataValues.experiencePoints / totalExp * 100;
 
   let profileData = [
@@ -77,7 +77,7 @@ exports.exec = async (Bastion, message, args) => {
     },
     {
       name: `Progress - ${Math.round(progress)}%`,
-      value: Bastion.methods.generateProgressBar(progress, 35)
+      value: Kara.methods.generateProgressBar(progress, 35)
     }
   ];
 
@@ -98,7 +98,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: userModel.dataValues.color ? userModel.dataValues.color : Bastion.colors.BLUE,
+      color: userModel.dataValues.color ? userModel.dataValues.color : Kara.colors.BLUE,
       author: {
         name: user.tag,
         icon_url: await getUserIcon(user)

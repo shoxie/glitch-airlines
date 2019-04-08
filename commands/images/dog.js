@@ -6,7 +6,7 @@
 
 const request = xrequire('request-promise-native');
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   let baseURL = 'http://random.dog';
 
   let options = {

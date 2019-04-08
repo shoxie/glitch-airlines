@@ -8,18 +8,18 @@ const CronJob = xrequire('cron').CronJob;
 const request = xrequire('request-promise-native');
 
 /**
- * Handles Bastion's scheduled commands
- * @param {Bastion} Bastion Bastion Discord client object
+ * Handles Kara's scheduled commands
+ * @param {Kara} Kara Kara Discord client object
  * @returns {void}
  */
-module.exports = Bastion => {
+module.exports = Kara => {
   try {
     let job = new CronJob('0 * * * * *',
       async () => {
         try {
-          for (let guild of Bastion.guilds) {
+          for (let guild of Kara.guilds) {
             guild = guild[1];
-            let streamersModel = await Bastion.database.models.streamers.findOne({
+            let streamersModel = await Kara.database.models.streamers.findOne({
               attributes: [ 'channelID', 'twitch' ],
               where: {
                 guildID: guild.id
@@ -31,7 +31,7 @@ module.exports = Bastion => {
 
               let options = {
                 headers: {
-                  'Client-ID': Bastion.credentials.twitchClientID,
+                  'Client-ID': Kara.credentials.twitchClientID,
                   'Accept': 'Accept: application/vnd.twitchtv.v3+json'
                 },
                 url: `https://api.twitch.tv/kraken/streams/?channel=${twitchStreamers.join(',')}`,
@@ -65,9 +65,9 @@ module.exports = Bastion => {
                    * to `lastStreamers`.
                    */
                   if (!guild.lastStreamers.includes(stream._id)) {
-                    await Bastion.channels.get(streamersModel.dataValues.channelID).send({
+                    await Kara.channels.get(streamersModel.dataValues.channelID).send({
                       embed: {
-                        color: Bastion.colors.PURPLE,
+                        color: Kara.colors.PURPLE,
                         author: {
                           name: stream.channel.display_name,
                           url: stream.channel.url,
@@ -103,7 +103,7 @@ module.exports = Bastion => {
           }
         }
         catch (e) {
-          Bastion.log.error(e);
+          Kara.log.error(e);
         }
       },
       () => {},
@@ -112,6 +112,6 @@ module.exports = Bastion => {
     job.start();
   }
   catch (e) {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   }
 };

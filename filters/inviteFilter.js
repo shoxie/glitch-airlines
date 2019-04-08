@@ -96,7 +96,7 @@ function hasDiscordInvite(string) {
 }
 
 /**
- * Deletes the message with the invite URL (if Bastion has permission)
+ * Deletes the message with the invite URL (if Kara has permission)
  * and warns the user
  * @param {String} message Discord.js message object
  * @returns {true} If the message was filtered

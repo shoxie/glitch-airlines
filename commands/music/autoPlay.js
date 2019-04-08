@@ -4,15 +4,15 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   if (!message.guild.music.enabled) {
-    if (Bastion.user.id === '267035345537728512') {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'musicDisabledPublic'), message.channel);
+    if (Kara.user.id === '267035345537728512') {
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'musicDisabledPublic'), message.channel);
     }
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'musicDisabled'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'musicDisabled'), message.channel);
   }
 
-  let guildModel = await Bastion.database.models.guild.findOne({
+  let guildModel = await Kara.database.models.guild.findOne({
     attributes: [ 'musicAutoPlay' ],
     where: {
       guildID: message.guild.id
@@ -22,16 +22,16 @@ exports.exec = async (Bastion, message) => {
   let enabled, color, autoPlayStatus;
   if (guildModel.dataValues.musicAutoPlay) {
     enabled = false;
-    color = Bastion.colors.RED;
-    autoPlayStatus = Bastion.i18n.info(message.guild.language, 'disableMusicAutoPlay', message.author.tag);
+    color = Kara.colors.RED;
+    autoPlayStatus = Kara.i18n.info(message.guild.language, 'disableMusicAutoPlay', message.author.tag);
   }
   else {
     enabled = true;
-    color = Bastion.colors.GREEN;
-    autoPlayStatus = Bastion.i18n.info(message.guild.language, 'enableMusicAutoPlay', message.author.tag);
+    color = Kara.colors.GREEN;
+    autoPlayStatus = Kara.i18n.info(message.guild.language, 'enableMusicAutoPlay', message.author.tag);
   }
 
-  await Bastion.database.models.guild.update({
+  await Kara.database.models.guild.update({
     musicAutoPlay: enabled
   },
   {
@@ -47,7 +47,7 @@ exports.exec = async (Bastion, message) => {
       description: autoPlayStatus
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

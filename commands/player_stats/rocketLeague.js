@@ -6,9 +6,9 @@
 
 const request = xrequire('request-promise-native');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.player) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   // If user doesn't provide the platform, default to Steam
@@ -19,12 +19,12 @@ exports.exec = async (Bastion, message, args) => {
     let platforms = [ 'steam', 'ps4', 'xboxone' ]; // Available platforms for the game
     // If the platform is not valid, return the available platforms
     if (!platforms.includes(args.platform = args.platform.toLowerCase())) {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'invalidPlatform', `${platforms.join(', ').toUpperCase()}`), message.channel);
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'invalidPlatform', `${platforms.join(', ').toUpperCase()}`), message.channel);
     }
   }
 
   if (args.platform === 'steam') {
-    let { steamID64 } = await Bastion.methods.makeBWAPIRequest(`/steam/profile/${args.player}`);
+    let { steamID64 } = await Kara.methods.makeBWAPIRequest(`/steam/profile/${args.player}`);
 
     args.player = steamID64;
   }
@@ -45,8 +45,8 @@ exports.exec = async (Bastion, message, args) => {
     let options = {
       url: endpoint,
       headers: {
-        'Authorization': `Token ${Bastion.credentials.rocketLeagueUserToken}`,
-        'User-Agent': `Kara/${Bastion.package.version} (${Bastion.user.tag}; ${Bastion.user.id}) https://bastionbot.org`
+        'Authorization': `Token ${Kara.credentials.rocketLeagueUserToken}`,
+        'User-Agent': `Kara/${Kara.package.version} (${Kara.user.tag}; ${Kara.user.id}) https://bastionbot.org`
       },
       json: true
     };
@@ -65,7 +65,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       author: {
         name: args.player
       },

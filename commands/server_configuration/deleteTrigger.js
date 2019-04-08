@@ -4,12 +4,12 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args[0]) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
-  await Bastion.database.models.trigger.destroy({
+  await Kara.database.models.trigger.destroy({
     where: {
       trigger: args.join(' '),
       guildID: message.guild.id
@@ -18,12 +18,12 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.RED,
+      color: Kara.colors.RED,
       title: 'Trigger deleted',
       description: args.join(' ')
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

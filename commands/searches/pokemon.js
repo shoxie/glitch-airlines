@@ -10,7 +10,7 @@ const pokedex = new Pokedex({
   version: 'v1'
 });
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   let pokemon;
   if (args.name) {
     pokemon = await pokedex.getPokemonByName(encodeURIComponent(args.name.join(' ')));
@@ -19,7 +19,7 @@ exports.exec = async (Bastion, message, args) => {
     pokemon = await pokedex.getPokemonByNumber(args.number);
   }
   else {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   pokemon = pokemon[0];
@@ -99,7 +99,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: pokemon.name,
       description: `Discovered in generation ${pokemon.gen}`,
       fields: fields,

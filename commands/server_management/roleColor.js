@@ -4,9 +4,9 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.name || !args.color) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   args.color = args.color.join('_').toUpperCase();
@@ -35,15 +35,15 @@ exports.exec = async (Bastion, message, args) => {
     'RANDOM'
   ];
   if (!colors.includes(args.color)) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'invalidRoleColor', colors.join(', ').replace(/_/g, ' ').toTitleCase()), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'invalidRoleColor', colors.join(', ').replace(/_/g, ' ').toTitleCase()), message.channel);
   }
 
   args.name = args.name.join(' ');
 
   let role = message.guild.roles.find(role => role.name === args.name);
-  if (role && message.author.id !== message.guild.ownerID && message.member.highestRole.comparePositionTo(role) <= 0) return Bastion.log.info('User doesn\'t have permission to use this command on that role.');
+  if (role && message.author.id !== message.guild.ownerID && message.member.highestRole.comparePositionTo(role) <= 0) return Kara.log.info('User doesn\'t have permission to use this command on that role.');
   else if (!role) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'roleNotFound'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'roleNotFound'), message.channel);
   }
 
   await role.setColor(args.color);
@@ -51,10 +51,10 @@ exports.exec = async (Bastion, message, args) => {
   await message.channel.send({
     embed: {
       color: role.color,
-      description: Bastion.i18n.info(message.guild.language, 'updateRoleColor', message.author.tag, role.name, args.color.toTitleCase())
+      description: Kara.i18n.info(message.guild.language, 'updateRoleColor', message.author.tag, role.name, args.color.toTitleCase())
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

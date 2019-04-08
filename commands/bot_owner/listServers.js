@@ -4,8 +4,8 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
-  let guilds = Array.from(Bastion.guilds.values());
+exports.exec = async (Kara, message, args) => {
+  let guilds = Array.from(Kara.guilds.values());
 
   let totalGuilds = guilds.length;
   let noOfPages = totalGuilds / 2;
@@ -25,9 +25,9 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: 'Server List',
-      description: `Kara is connected to **${totalGuilds}** servers${Bastion.shard ? `, in Shard ${Bastion.shard.id}` : ''}.`,
+      description: `Kara is connected to **${totalGuilds}** servers${Kara.shard ? `, in Shard ${Kara.shard.id}` : ''}.`,
       fields: fields,
       footer: {
         text: `Page: ${p + 1} of ${noOfPages > parseInt(noOfPages) ? parseInt(noOfPages) + 1 : parseInt(noOfPages)}`

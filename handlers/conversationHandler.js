@@ -7,7 +7,7 @@
 const request = require('request-promise-native');
 
 /**
- * Handles conversations with Bastion
+ * Handles conversations with Kara
  * @param {Message} message Discord.js message object
  * @returns {void}
  */
@@ -30,7 +30,7 @@ module.exports = async message => {
     let options = {
       url: 'https://bchat.glitch.me/api',
       headers: {
-        'User-Agent': 'Bastion Discord Bot (https://bastionbot.org)'
+        'User-Agent': 'Kara Discord Bot (https://bastionbot.org)'
       },
       qs: {
         message: message.content

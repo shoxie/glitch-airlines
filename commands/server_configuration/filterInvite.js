@@ -4,8 +4,8 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
-  let guildModel = await Bastion.database.models.guild.findOne({
+exports.exec = async (Kara, message) => {
+  let guildModel = await Kara.database.models.guild.findOne({
     attributes: [ 'filterInvites' ],
     where: {
       guildID: message.guild.id
@@ -14,7 +14,7 @@ exports.exec = async (Bastion, message) => {
 
   let color, filterInviteStats;
   if (guildModel.dataValues.filterInvites) {
-    await Bastion.database.models.guild.update({
+    await Kara.database.models.guild.update({
       filterInvites: false
     },
     {
@@ -23,11 +23,11 @@ exports.exec = async (Bastion, message) => {
       },
       fields: [ 'filterInvites' ]
     });
-    color = Bastion.colors.RED;
-    filterInviteStats = Bastion.i18n.info(message.guild.language, 'disableInviteFilter', message.author.tag);
+    color = Kara.colors.RED;
+    filterInviteStats = Kara.i18n.info(message.guild.language, 'disableInviteFilter', message.author.tag);
   }
   else {
-    await Bastion.database.models.guild.update({
+    await Kara.database.models.guild.update({
       filterInvites: true
     },
     {
@@ -36,8 +36,8 @@ exports.exec = async (Bastion, message) => {
       },
       fields: [ 'filterInvites' ]
     });
-    color = Bastion.colors.GREEN;
-    filterInviteStats = Bastion.i18n.info(message.guild.language, 'enableInviteFilter', message.author.tag);
+    color = Kara.colors.GREEN;
+    filterInviteStats = Kara.i18n.info(message.guild.language, 'enableInviteFilter', message.author.tag);
   }
 
   await message.channel.send({
@@ -46,7 +46,7 @@ exports.exec = async (Bastion, message) => {
       description: filterInviteStats
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

@@ -4,23 +4,23 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.users) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   // Filter users with invalid snowflake.
-  args.users = args.users.filter(userID => Bastion.methods.isSnowflake(userID));
+  args.users = args.users.filter(userID => Kara.methods.isSnowflake(userID));
   // Include mentioned users too.
   args.users = args.users.concat(message.mentions.users.map(user => user.id));
   if (!args.users.length) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'notFound', 'user'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'notFound', 'user'), message.channel);
   }
 
-  let settingsModel = await Bastion.database.models.settings.findOne({
+  let settingsModel = await Kara.database.models.settings.findOne({
     attributes: [ 'blacklistedUsers' ],
     where: {
-      botID: Bastion.user.id
+      botID: Kara.user.id
     }
   });
 
@@ -32,7 +32,7 @@ exports.exec = async (Bastion, message, args) => {
       args.users = args.users.filter(user => settingsModel.dataValues.blacklistedUsers.includes(user));
 
       if (!args.users.length) {
-        return Bastion.emit('error', '', 'The specified users have not been blacklisted.', message.channel);
+        return Kara.emit('error', '', 'The specified users have not been blacklisted.', message.channel);
       }
 
       filteredUsers = args.users;
@@ -47,7 +47,7 @@ exports.exec = async (Bastion, message, args) => {
       args.users = args.users.filter(user => !settingsModel.dataValues.blacklistedUsers.includes(user));
 
       if (!args.users.length) {
-        return Bastion.emit('error', '', 'The specified users have already been blacklisted.', message.channel);
+        return Kara.emit('error', '', 'The specified users have already been blacklisted.', message.channel);
       }
 
       filteredUsers = args.users;
@@ -55,24 +55,24 @@ exports.exec = async (Bastion, message, args) => {
     }
   }
 
-  await Bastion.database.models.settings.update({
+  await Kara.database.models.settings.update({
     blacklistedUsers: args.users
   },
   {
     where: {
-      botID: Bastion.user.id
+      botID: Kara.user.id
     },
     fields: [ 'blacklistedUsers' ]
   });
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.GREEN,
+      color: Kara.colors.GREEN,
       title: title,
       description: filteredUsers ? filteredUsers.join(', ') : args.users.join(' ')
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

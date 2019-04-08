@@ -6,18 +6,18 @@
 
 const weather = xrequire('weather-js');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.length) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   await weather.find({ search: args.join(' '), degreeType: 'C' }, async (err, result) => {
     if (err) {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'weatherNotFound'), message.channel);
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'weatherNotFound'), message.channel);
     }
 
     if (!result || !result.length) {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'connection'), message.channel);
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'connection'), message.channel);
     }
 
     let fields = [];
@@ -30,7 +30,7 @@ exports.exec = async (Bastion, message, args) => {
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.BLUE,
+        color: Kara.colors.BLUE,
         title: 'Weather Forecast',
         description: result[0].location.name,
         fields: fields,

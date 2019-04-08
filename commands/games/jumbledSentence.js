@@ -6,9 +6,9 @@
 
 let activeChannels = [];
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   if (activeChannels.includes(message.channel.id)) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'isGameInUse', 'jumbled sentence'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'isGameInUse', 'jumbled sentence'), message.channel);
   }
 
   let quotes = xrequire('./assets/quotes.json');
@@ -19,7 +19,7 @@ exports.exec = async (Bastion, message) => {
 
   let question = await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       description: `Here's your jumbled sentence:\n**${jumbledSentence}**\nFirst person to unscramble it within 5 minutes wins the game.`
     }
   });
@@ -35,14 +35,14 @@ exports.exec = async (Bastion, message) => {
     if (reason === 'time') {
       message.channel.send({
         embed: {
-          color: Bastion.colors.RED,
+          color: Kara.colors.RED,
           title: 'Jumbled Sentence',
           description: 'The game was ended as no one was able to answer within the given 5 minutes.'
         }
       }).then(() => {
         question.delete().catch(() => {});
       }).catch(e => {
-        Bastion.log.error(e);
+        Kara.log.error(e);
       });
     }
     else if (reason === 'matchesLimit') {
@@ -50,14 +50,14 @@ exports.exec = async (Bastion, message) => {
 
       message.channel.send({
         embed: {
-          color: Bastion.colors.BLUE,
+          color: Kara.colors.BLUE,
           title: 'Jumbled Sentence',
           description: `Congratulations ${answer.author}! You solved the jumbled sentence.`
         }
       }).then(() => {
         question.delete().catch(() => {});
       }).catch(e => {
-        Bastion.log.error(e);
+        Kara.log.error(e);
       });
     }
 

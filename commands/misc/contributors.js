@@ -4,8 +4,8 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
-  let contributors = await Bastion.methods.getContributors();
+exports.exec = async (Kara, message, args) => {
+  let contributors = await Kara.methods.getContributors();
   contributors = contributors.map(contributor => `**${contributor.username}** - ${contributor.contributions} contributions`);
 
   let noOfPages = contributors.length / 25;

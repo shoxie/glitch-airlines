@@ -5,8 +5,8 @@
  */
 // I don't understand why this is even needed, but some fellows like this.
 
-exports.exec = async (Bastion, message) => {
-  let guildModel = await Bastion.database.models.guild.findOne({
+exports.exec = async (Kara, message) => {
+  let guildModel = await Kara.database.models.guild.findOne({
     attributes: [ 'farewell' ],
     where: {
       guildID: message.guild.id
@@ -15,7 +15,7 @@ exports.exec = async (Bastion, message) => {
 
   let color, farewellStats;
   if (guildModel.dataValues.farewell === message.channel.id) {
-    await Bastion.database.models.guild.update({
+    await Kara.database.models.guild.update({
       farewell: null
     },
     {
@@ -24,11 +24,11 @@ exports.exec = async (Bastion, message) => {
       },
       fields: [ 'farewell' ]
     });
-    color = Bastion.colors.RED;
-    farewellStats = Bastion.i18n.info(message.guild.language, 'disableFarewellMessages', message.author.tag);
+    color = Kara.colors.RED;
+    farewellStats = Kara.i18n.info(message.guild.language, 'disableFarewellMessages', message.author.tag);
   }
   else {
-    await Bastion.database.models.guild.update({
+    await Kara.database.models.guild.update({
       farewell: message.channel.id
     },
     {
@@ -37,8 +37,8 @@ exports.exec = async (Bastion, message) => {
       },
       fields: [ 'farewell' ]
     });
-    color = Bastion.colors.GREEN;
-    farewellStats = Bastion.i18n.info(message.guild.language, 'enableFarewellMessages', message.author.tag);
+    color = Kara.colors.GREEN;
+    farewellStats = Kara.i18n.info(message.guild.language, 'enableFarewellMessages', message.author.tag);
   }
 
   await message.channel.send({
@@ -47,7 +47,7 @@ exports.exec = async (Bastion, message) => {
       description: farewellStats
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

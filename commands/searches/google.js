@@ -7,14 +7,14 @@
 const request = xrequire('request-promise-native');
 const cheerio = xrequire('cheerio');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.query) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   let options = {
     headers: {
-      'User-Agent': `Kara: Discord Bot (https://bastionbot.org, ${Bastion.package.version})`
+      'User-Agent': `Kara: Discord Bot (https://bastionbot.org, ${Kara.package.version})`
     },
     url: 'http://google.com/search',
     qs: {
@@ -42,7 +42,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: `Search results for ${args.query.join(' ')}`,
       url: `https://www.google.com/search?q=${encodeURIComponent(args.query.join(' '))}`,
       fields: results,

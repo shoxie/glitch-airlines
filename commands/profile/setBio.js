@@ -4,20 +4,20 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.length) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
   args = args.join(' ');
 
   let charLimit = 160;
-  let info = await Bastion.utils.compressString(args);
+  let info = await Kara.utils.compressString(args);
 
   if (info.length > charLimit) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'infoRange', charLimit), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'infoRange', charLimit), message.channel);
   }
 
-  let userModel = await Bastion.database.models.user.findOne({
+  let userModel = await Kara.database.models.user.findOne({
     attributes: [ 'info' ],
     where: {
       userID: message.author.id
@@ -30,11 +30,11 @@ exports.exec = async (Bastion, message, args) => {
         description: `<@${args.id}> you didn't had a profile yet. I've now created your profile. Now you can use the command again to set your info.`
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
   }
 
-  await Bastion.database.models.user.update({
+  await Kara.database.models.user.update({
     info: info
   },
   {
@@ -46,7 +46,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.GREEN,
+      color: Kara.colors.GREEN,
       title: 'Info Set',
       description: args,
       footer: {
@@ -54,7 +54,7 @@ exports.exec = async (Bastion, message, args) => {
       }
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

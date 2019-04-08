@@ -4,9 +4,9 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!/^\d{4}$/.test(args[0])) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   let members = message.guild.members.filter(m => m.user.discriminator === args[0]).map(m => m.user.tag);
@@ -15,7 +15,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: 'Discriminator search',
       description: `Found **${total}** users with discriminator **${args[0]}**`,
       fields: [

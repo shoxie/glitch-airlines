@@ -4,9 +4,9 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.id) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   let user;
@@ -14,7 +14,7 @@ exports.exec = async (Bastion, message, args) => {
     user = message.mentions.users.first();
   }
   else if (args.id) {
-    user = await Bastion.utils.fetchMember(message.guild, args.id);
+    user = await Kara.utils.fetchMember(message.guild, args.id);
     if (user) {
       user = user.user;
     }
@@ -23,21 +23,21 @@ exports.exec = async (Bastion, message, args) => {
     user = message.author;
   }
 
-  let member = await Bastion.utils.fetchMember(message.guild, user.id);
-  if (message.author.id !== message.guild.ownerID && message.member.highestRole.comparePositionTo(member.highestRole) <= 0) return Bastion.log.info(Bastion.i18n.error(message.guild.language, 'lowerRole'));
+  let member = await Kara.utils.fetchMember(message.guild, user.id);
+  if (message.author.id !== message.guild.ownerID && message.member.highestRole.comparePositionTo(member.highestRole) <= 0) return Kara.log.info(Kara.i18n.error(message.guild.language, 'lowerRole'));
 
   await member.removeRoles(member.roles);
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.RED,
-      description: Bastion.i18n.info(message.guild.language, 'removeAllRoles', message.author.tag, user.tag)
+      color: Kara.colors.RED,
+      description: Kara.i18n.info(message.guild.language, 'removeAllRoles', message.author.tag, user.tag)
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 
-  Bastion.emit('moderationLog', message, this.help.name, user);
+  Kara.emit('moderationLog', message, this.help.name, user);
 };
 
 exports.config = {

@@ -4,10 +4,10 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   await message.channel.send({
     embed: {
-      color: Bastion.colors.GOLD,
+      color: Kara.colors.GOLD,
       title: 'Kara Bot',
       description: 'Need help installing and setting up Private Kara Bot? No worries, we have made an amazing guide to help you out on that. And if you don\'t understand that or you need any more help or maybe if you just have a simple question, just join the Kara HQ on Discord.',
       fields: [

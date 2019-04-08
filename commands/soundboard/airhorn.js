@@ -4,50 +4,50 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   if (message.guild.voiceConnection) {
     if (!message.guild.voiceConnection.channel.permissionsFor(message.member).has(this.help.userTextPermission)) {
-      return Bastion.emit('userMissingPermissions', this.help.userTextPermission);
+      return Kara.emit('userMissingPermissions', this.help.userTextPermission);
     }
 
     if (message.guild.voiceConnection.speaking) {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'isSpeaking'), message.channel);
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'isSpeaking'), message.channel);
     }
 
     if (!message.guild.voiceConnection.channel.speakable) {
-      return Bastion.emit('bastionMissingPermissions', 'SPEAK', message);
+      return Kara.emit('bastionMissingPermissions', 'SPEAK', message);
     }
 
     message.guild.voiceConnection.playFile('./assets/airhorn.wav', {
-      passes: (Bastion.configurations.music && Bastion.configurations.music.passes) || 1,
+      passes: (Kara.configurations.music && Kara.configurations.music.passes) || 1,
       bitrate: 'auto'
     });
   }
   else if (message.member.voiceChannel) {
     if (!message.member.voiceChannel.permissionsFor(message.member).has(this.help.userTextPermission)) {
-      return Bastion.emit('userMissingPermissions', this.help.userTextPermission);
+      return Kara.emit('userMissingPermissions', this.help.userTextPermission);
     }
 
     if (!message.member.voiceChannel.joinable) {
-      return Bastion.emit('bastionMissingPermissions', 'CONNECT', message);
+      return Kara.emit('bastionMissingPermissions', 'CONNECT', message);
     }
 
     if (!message.member.voiceChannel.speakable) {
-      return Bastion.emit('bastionMissingPermissions', 'SPEAK', message);
+      return Kara.emit('bastionMissingPermissions', 'SPEAK', message);
     }
 
     let connection = await message.member.voiceChannel.join();
 
-    connection.on('error', Bastion.log.error);
-    connection.on('failed', Bastion.log.error);
+    connection.on('error', Kara.log.error);
+    connection.on('failed', Kara.log.error);
 
     const dispatcher = connection.playFile('./assets/airhorn.wav', {
-      passes: (Bastion.configurations.music && Bastion.configurations.music.passes) || 1,
+      passes: (Kara.configurations.music && Kara.configurations.music.passes) || 1,
       bitrate: 'auto'
     });
 
     dispatcher.on('error', error => {
-      Bastion.log.error(error);
+      Kara.log.error(error);
     });
 
     dispatcher.on('end', () => {
@@ -55,7 +55,7 @@ exports.exec = async (Bastion, message) => {
     });
   }
   else {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'eitherOneInVC'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'eitherOneInVC'), message.channel);
   }
 };
 

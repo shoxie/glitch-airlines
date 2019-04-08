@@ -20,7 +20,7 @@
     "module": "Server Configuration"
   },
   "addTrigger": {
-    "description": "Adds a message trigger and a response. When a message is sent that contains that triggering word/phrase, Bastion replies with the response you have set.",
+    "description": "Adds a message trigger and a response. When a message is sent that contains that triggering word/phrase, Kara replies with the response you have set.",
     "module": "Server Configuration"
   },
   "addWhitelistDomains": {
@@ -28,7 +28,7 @@
     "module": "Server Configuration"
   },
   "afk": {
-    "description": "Sets you as Away From Keyboard (AFK). So when someone mentions you, Bastion will let them know that you're AFK. It'll be automatically disabled once you are back.",
+    "description": "Sets you as Away From Keyboard (AFK). So when someone mentions you, Kara will let them know that you're AFK. It'll be automatically disabled once you are back.",
     "module": "Profile"
   },
   "airhorn": {
@@ -44,7 +44,7 @@
     "module": "Fun"
   },
   "announce": {
-    "description": "Send a message to announcement channel of all the servers Bastion is connected to.",
+    "description": "Send a message to announcement channel of all the servers Kara is connected to.",
     "module": "Bot Owner"
   },
   "announcementChannel": {
@@ -60,7 +60,7 @@
     "module": "Game Server_stats"
   },
   "autoDisconnect": {
-    "description": "Toggles auto disconnect from voice channel. If enabled, Bastion will automatically leave the voice channel to save bandwidth when no one else is connected to it.",
+    "description": "Toggles auto disconnect from voice channel. If enabled, Kara will automatically leave the voice channel to save bandwidth when no one else is connected to it.",
     "module": "Music"
   },
   "autoPlay": {
@@ -152,7 +152,7 @@
     "module": "Fun"
   },
   "changelog": {
-    "description": "Shows the changes made in the current version of Bastion Bot.",
+    "description": "Shows the changes made in the current version of Kara Bot.",
     "module": "Misc"
   },
   "channelID": {
@@ -172,7 +172,7 @@
     "module": "Server Configuration"
   },
   "checkPermissions": {
-    "description": "Shows the permissions Bastion has in the server/channel.",
+    "description": "Shows the permissions Kara has in the server/channel.",
     "module": "Misc"
   },
   "choose": {
@@ -220,11 +220,11 @@
     "module": "Help"
   },
   "commands": {
-    "description": "Shows the list of command categories. And if a category is specified, Bastion will show a list of commands in that category.",
+    "description": "Shows the list of command categories. And if a category is specified, Kara will show a list of commands in that category.",
     "module": "Help"
   },
   "contributors": {
-    "description": "Shows the list of people who contribute to the development of The Bastion Bot Project on [GitHub](%github.org%).",
+    "description": "Shows the list of people who contribute to the development of The Kara Bot Project on [GitHub](%github.org%).",
     "module": "Misc"
   },
   "counterStrikeGlobalOffensive": {
@@ -296,7 +296,7 @@
     "module": "Server Configuration"
   },
   "disconnect": {
-    "description": "Disconnect Bastion from any voice connection in the Discord server.",
+    "description": "Disconnect Kara from any voice connection in the Discord server.",
     "module": "Music"
   },
   "discrim": {
@@ -308,7 +308,7 @@
     "module": "Images"
   },
   "donate": {
-    "description": "Instructions on how to financially support the development of the Bastion Bot project.",
+    "description": "Instructions on how to financially support the development of the Kara Bot project.",
     "module": "Misc"
   },
   "echo": {
@@ -460,7 +460,7 @@
     "module": "Server Configuration"
   },
   "guide": {
-    "description": "Shows you the guide on how to setup and install Private Bastion Bot. And links to the Bastion HQ.",
+    "description": "Shows you the guide on how to setup and install Private Kara Bot. And links to the Kara HQ.",
     "module": "Help"
   },
   "hello": {
@@ -484,31 +484,31 @@
     "module": "Misc"
   },
   "ignoreChannels": {
-    "description": "Adds or removes channels to/from the ignored channels' list. Bastion doesn't accept any commands in the channel that's being ignored.",
+    "description": "Adds or removes channels to/from the ignored channels' list. Kara doesn't accept any commands in the channel that's being ignored.",
     "module": "Server Configuration"
   },
   "ignoreInviteFilter": {
-    "description": "Add/remove channels/roles to/from the invite filter ignored list. Bastion will not filter invites posted in these channels or by these roles.",
+    "description": "Add/remove channels/roles to/from the invite filter ignored list. Kara will not filter invites posted in these channels or by these roles.",
     "module": "Server Configuration"
   },
   "ignoreLinkFilter": {
-    "description": "Add/remove channels/roles to/from the link filter ignored list. Bastion will not filter links posted in these channels or by these roles.",
+    "description": "Add/remove channels/roles to/from the link filter ignored list. Kara will not filter links posted in these channels or by these roles.",
     "module": "Server Configuration"
   },
   "ignoreMentionFilter": {
-    "description": "Add/remove channels/roles to/from the mention filter ignored list. Bastion will not filter mention spams in these channels or by these roles.",
+    "description": "Add/remove channels/roles to/from the mention filter ignored list. Kara will not filter mention spams in these channels or by these roles.",
     "module": "Server Configuration"
   },
   "ignoreRoles": {
-    "description": "Adds or removes roles to/from the ignored roles' list. Bastion doesn't accept any commands from the roles that are being ignored.",
+    "description": "Adds or removes roles to/from the ignored roles' list. Kara doesn't accept any commands from the roles that are being ignored.",
     "module": "Server Configuration"
   },
   "ignoreStarboard": {
-    "description": "Add/remove channels/roles to/from the starboard ignored list. Bastion will not log starred messages from these channels or roles.",
+    "description": "Add/remove channels/roles to/from the starboard ignored list. Kara will not log starred messages from these channels or roles.",
     "module": "Server Configuration"
   },
   "ignoreWordFilter": {
-    "description": "Add/remove channels/roles to/from the word filter ignored list. Bastion will not filter words posted in these channels or by these roles.",
+    "description": "Add/remove channels/roles to/from the word filter ignored list. Kara will not filter words posted in these channels or by these roles.",
     "module": "Server Configuration"
   },
   "ignoreXP": {
@@ -548,7 +548,7 @@
     "module": "Server Management"
   },
   "leave": {
-    "description": "Asks Bastion to leave a specified server.",
+    "description": "Asks Kara to leave a specified server.",
     "module": "Bot Owner"
   },
   "leet": {
@@ -584,7 +584,7 @@
     "module": "Server Configuration"
   },
   "listServers": {
-    "description": "Lists all Discord servers that Bastion is connected to, in the current shard.",
+    "description": "Lists all Discord servers that Kara is connected to, in the current shard.",
     "module": "Bot Owner"
   },
   "listTriggers": {
@@ -632,7 +632,7 @@
     "module": "Searches"
   },
   "membersOnly": {
-    "description": "Toggles Members Only mode of Bastion. If Members Only mode is enabled only users with at least one role in the server can use Bastion's Commands.",
+    "description": "Toggles Members Only mode of Kara. If Members Only mode is enabled only users with at least one role in the server can use Kara's Commands.",
     "module": "Server Configuration"
   },
   "mentionRole": {
@@ -640,11 +640,11 @@
     "module": "Server Management"
   },
   "messageChannel": {
-    "description": "Send a specified message to any specified text channel that Bastion has access to.",
+    "description": "Send a specified message to any specified text channel that Kara has access to.",
     "module": "Bot Owner"
   },
   "messageUser": {
-    "description": "Send a specified message to any specified user that Bastion has access to.",
+    "description": "Send a specified message to any specified user that Kara has access to.",
     "module": "Bot Owner"
   },
   "minecraft": {
@@ -672,7 +672,7 @@
     "module": "Music"
   },
   "musicChannel": {
-    "description": "Shows/Removes/Adds a voice channel specified by the ID and a text channel (the channel this command was used in) of you Discord server as default for the music module. Bastion will only accept music commands in that text channel and if anyone asks him to join a voice channel, it will automatically join the specified voice channel.",
+    "description": "Shows/Removes/Adds a voice channel specified by the ID and a text channel (the channel this command was used in) of you Discord server as default for the music module. Kara will only accept music commands in that text channel and if anyone asks him to join a voice channel, it will automatically join the specified voice channel.",
     "module": "Music"
   },
   "musicMasterRole": {
@@ -712,7 +712,7 @@
     "module": "Images"
   },
   "patrons": {
-    "description": "Shows the list of people who continuously supports the development of the Bastion Bot project, by being my patron, on [Patreon](%patreon%). But if you're hosting Bastion yourself, and you're a Patreon creator, it will show the list of your Patrons.",
+    "description": "Shows the list of people who continuously supports the development of the Kara Bot project, by being my patron, on [Patreon](%patreon%). But if you're hosting Kara yourself, and you're a Patreon creator, it will show the list of your Patrons.",
     "module": "Info"
   },
   "pause": {
@@ -728,7 +728,7 @@
     "module": "Utility"
   },
   "play": {
-    "description": "Plays a song or adds the song to the current music queue if Bastion is already playing in your Discord server, specified either by the name, or the link, or from your favorite songs list, or from a YouTube playlist link.",
+    "description": "Plays a song or adds the song to the current music queue if Kara is already playing in your Discord server, specified either by the name, or the link, or from your favorite songs list, or from a YouTube playlist link.",
     "module": "Music"
   },
   "playlist": {
@@ -748,7 +748,7 @@
     "module": "Productivity"
   },
   "profile": {
-    "description": "Shows Bastion user profile of a specified user of your Discord server.",
+    "description": "Shows Kara user profile of a specified user of your Discord server.",
     "module": "Profile"
   },
   "pubg": {
@@ -800,15 +800,15 @@
     "module": "Moderation"
   },
   "relayDirectMessages": {
-    "description": "Toggles relaying of direct messages, sent to Bastion, to your inbox.",
+    "description": "Toggles relaying of direct messages, sent to Kara, to your inbox.",
     "module": "Bot Owner"
   },
   "reloadSettings": {
-    "description": "Reloads Bastion settings, stored in the `settings` directory, from the cache. When you modify files in the `settings` directory, use this command to reload them without any need to restart.",
+    "description": "Reloads Kara settings, stored in the `settings` directory, from the cache. When you modify files in the `settings` directory, use this command to reload them without any need to restart.",
     "module": "Bot Owner"
   },
   "reminder": {
-    "description": "Bastion sets a reminder to remind you of specified message, via direct message, after a specified duration.",
+    "description": "Kara sets a reminder to remind you of specified message, via direct message, after a specified duration.",
     "module": "Utility"
   },
   "remove": {
@@ -952,7 +952,7 @@
     "module": "Bot Owner"
   },
   "searchServers": {
-    "description": "Searches for Discord servers, containing the specified text in their name, that Bastion is connected to.",
+    "description": "Searches for Discord servers, containing the specified text in their name, that Kara is connected to.",
     "module": "Bot Owner"
   },
   "selfDestruct": {
@@ -996,15 +996,15 @@
     "module": "Bot Owner"
   },
   "setBirthDate": {
-    "description": "Sets your birth date that shows up in the Bastion user profile. Don't worry Bastion will never show your age/year to public.",
+    "description": "Sets your birth date that shows up in the Kara user profile. Don't worry Kara will never show your age/year to public.",
     "module": "Profile"
   },
   "setColor": {
-    "description": "Sets your user color that is used in the Bastion user profile.",
+    "description": "Sets your user color that is used in the Kara user profile.",
     "module": "Profile"
   },
   "setInfo": {
-    "description": "Sets your info that shows up in the Bastion user profile.",
+    "description": "Sets your info that shows up in the Kara user profile.",
     "module": "Profile"
   },
   "setLanguage": {
@@ -1012,11 +1012,11 @@
     "module": "Server Configuration"
   },
   "setLocation": {
-    "description": "Sets your location that shows up in the Bastion user profile.",
+    "description": "Sets your location that shows up in the Kara user profile.",
     "module": "Profile"
   },
   "setNick": {
-    "description": "Sets the nickname of Bastion in the current Discord server.",
+    "description": "Sets the nickname of Kara in the current Discord server.",
     "module": "Bot Owner"
   },
   "setPrefix": {
@@ -1024,7 +1024,7 @@
     "module": "Server Configuration"
   },
   "setProfilePicture": {
-    "description": "Sets your profile picture that shows up in the Bastion user profile.",
+    "description": "Sets your profile picture that shows up in the Kara user profile.",
     "module": "Profile"
   },
   "setStatus": {
@@ -1128,11 +1128,11 @@
     "module": "Server Configuration"
   },
   "summon": {
-    "description": "Asks Bastion to join a voice channel in you Discord server. It joins the default voice channel (if one is set by the Bot Owner) or any channel you are in (if you are the Bot Owner or you are in the Music Master role).",
+    "description": "Asks Kara to join a voice channel in you Discord server. It joins the default voice channel (if one is set by the Bot Owner) or any channel you are in (if you are the Bot Owner or you are in the Music Master role).",
     "module": "Music"
   },
   "support": {
-    "description": "Sends the invite link to Bastion HQ.",
+    "description": "Sends the invite link to Kara HQ.",
     "module": "Help"
   },
   "sweep": {
@@ -1171,8 +1171,8 @@
     "description": "Tickle someone!",
     "module": "Images"
   },
-  "toggleBastion": {
-    "description": "Enable or disable Bastion in your server. Disabling Bastion will prevent everyone, including the server owner, from using it. But if you have enabled any settings that does not need user interaction, it will still work, like starboard, filters, auto assignable roles etc.",
+  "toggleKara": {
+    "description": "Enable or disable Kara in your server. Disabling Kara will prevent everyone, including the server owner, from using it. But if you have enabled any settings that does not need user interaction, it will still work, like starboard, filters, auto assignable roles etc.",
     "module": "Server Configuration"
   },
   "toggleLevelUps": {
@@ -1220,7 +1220,7 @@
     "module": "Moderation"
   },
   "uncoverSneakyLinks": {
-    "description": "Toggle uncovering of sneaky links in the messages sent in the server. If enabled, Bastion will show details of all link that contains redirects to other locations, in every message sent in the server.",
+    "description": "Toggle uncovering of sneaky links in the messages sent in the server. If enabled, Kara will show details of all link that contains redirects to other locations, in every message sent in the server.",
     "module": "Server Configuration"
   },
   "unturned": {

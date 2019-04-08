@@ -4,13 +4,13 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
-  let scheduledCommandModels = await Bastion.database.models.scheduledCommand.findAll({
+exports.exec = async (Kara, message, args) => {
+  let scheduledCommandModels = await Kara.database.models.scheduledCommand.findAll({
     attributes: [ 'cronExp', 'command', 'arguments' ]
   });
 
   if (scheduledCommandModels.length === 0) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'scheduledCommandsNotFound'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'scheduledCommandsNotFound'), message.channel);
   }
 
   let scheduledCommands = scheduledCommandModels.map((sc, i) => `${i + 1}. \`${sc.dataValues.cronExp} ${sc.dataValues.command} ${sc.dataValues.arguments}\``);
@@ -21,7 +21,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: 'List of Scheduled Commands',
       description: scheduledCommands.slice(i * 10, (i * 10) + 10).join('\n'),
       footer: {

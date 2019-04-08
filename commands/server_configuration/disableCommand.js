@@ -4,28 +4,28 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   let disabledCommands, title, description;
   if (args.name) {
     let command = args.name.toLowerCase();
 
-    if (Bastion.commands.has(command) || Bastion.aliases.has(command)) {
-      if (Bastion.commands.has(command)) {
-        command = Bastion.commands.get(command);
+    if (Kara.commands.has(command) || Kara.aliases.has(command)) {
+      if (Kara.commands.has(command)) {
+        command = Kara.commands.get(command);
       }
-      else if (Bastion.aliases.has(command)) {
-        command = Bastion.commands.get(Bastion.aliases.get(command).toLowerCase());
+      else if (Kara.aliases.has(command)) {
+        command = Kara.commands.get(Kara.aliases.get(command).toLowerCase());
       }
     }
     else {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'notFound', 'command'), message.channel);
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'notFound', 'command'), message.channel);
     }
 
     if ([ 'enablecommand', 'disablecommand' ].includes(command.help.name.toLowerCase()) || !command.config.ownerOnly) {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'commandNoDisable', command.help.name), message.channel);
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'commandNoDisable', command.help.name), message.channel);
     }
 
-    let guildModel = await Bastion.database.models.guild.findOne({
+    let guildModel = await Kara.database.models.guild.findOne({
       attributes: [ 'disabledCommands' ],
       where: {
         guildID: message.guild.id
@@ -42,9 +42,9 @@ exports.exec = async (Bastion, message, args) => {
     guildModel.dataValues.disabledCommands = [ ...new Set(guildModel.dataValues.disabledCommands) ];
 
     disabledCommands = guildModel.dataValues.disabledCommands;
-    description = Bastion.i18n.info(message.guild.language, 'disableCommand', message.author.tag, command.help.name);
+    description = Kara.i18n.info(message.guild.language, 'disableCommand', message.author.tag, command.help.name);
 
-    await Bastion.database.models.guild.update({
+    await Kara.database.models.guild.update({
       disabledCommands: disabledCommands
     },
     {
@@ -57,12 +57,12 @@ exports.exec = async (Bastion, message, args) => {
   else if (args.module) {
     args.module = args.module.join('_').toLowerCase();
     if ([ 'bot_owner' ].includes(args.module)) {
-      return Bastion.emit('error', '', 'You can\'t disable commands in this module.', message.channel);
+      return Kara.emit('error', '', 'You can\'t disable commands in this module.', message.channel);
     }
 
-    disabledCommands = Bastion.commands.filter(c => c.config.module === args.module && ![ 'enablecommand', 'disablecommand' ].includes(c.help.name.toLowerCase())).map(c => c.help.name.toLowerCase());
+    disabledCommands = Kara.commands.filter(c => c.config.module === args.module && ![ 'enablecommand', 'disablecommand' ].includes(c.help.name.toLowerCase())).map(c => c.help.name.toLowerCase());
 
-    let guildModel = await Bastion.database.models.guild.findOne({
+    let guildModel = await Kara.database.models.guild.findOne({
       attributes: [ 'disabledCommands' ],
       where: {
         guildID: message.guild.id
@@ -72,9 +72,9 @@ exports.exec = async (Bastion, message, args) => {
       disabledCommands = disabledCommands.concat(guildModel.dataValues.disabledCommands);
     }
 
-    description = Bastion.i18n.info(message.guild.language, 'disableModule', message.author.tag, args.module);
+    description = Kara.i18n.info(message.guild.language, 'disableModule', message.author.tag, args.module);
 
-    await Bastion.database.models.guild.update({
+    await Kara.database.models.guild.update({
       disabledCommands: disabledCommands
     },
     {
@@ -85,10 +85,10 @@ exports.exec = async (Bastion, message, args) => {
     });
   }
   else if (args.all) {
-    disabledCommands = Bastion.commands.filter(c => ![ 'enablecommand', 'disablecommand' ].includes(c.help.name.toLowerCase()) && !c.config.ownerOnly).map(c => c.help.name.toLowerCase());
-    description = Bastion.i18n.info(message.guild.language, 'disableAllCommands', message.author.tag);
+    disabledCommands = Kara.commands.filter(c => ![ 'enablecommand', 'disablecommand' ].includes(c.help.name.toLowerCase()) && !c.config.ownerOnly).map(c => c.help.name.toLowerCase());
+    description = Kara.i18n.info(message.guild.language, 'disableAllCommands', message.author.tag);
 
-    await Bastion.database.models.guild.update({
+    await Kara.database.models.guild.update({
       disabledCommands: disabledCommands
     },
     {
@@ -99,7 +99,7 @@ exports.exec = async (Bastion, message, args) => {
     });
   }
   else {
-    let guildModel = await Bastion.database.models.guild.findOne({
+    let guildModel = await Kara.database.models.guild.findOne({
       attributes: [ 'disabledCommands' ],
       where: {
         guildID: message.guild.id
@@ -111,12 +111,12 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.RED,
+      color: Kara.colors.RED,
       title: title,
       description: description
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

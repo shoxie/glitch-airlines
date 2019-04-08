@@ -4,10 +4,10 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: `${args.length ? `${args.join(' ')} is` : 'You are'} being removed.`,
       image: {
         url: 'https://resources.bastionbot.org/images/remove_button.gif'

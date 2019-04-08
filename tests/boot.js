@@ -1,11 +1,11 @@
 /**
- * @file Test script to test Bastion's successful booting
+ * @file Test script to test Kara's successful booting
  * @author Kara
  * @license GPL-3.0
  */
 
 const Tesseract = xrequire('tesseract');
-const BASTION = new Tesseract.Client({
+const KARA = new Tesseract.Client({
   settingsDirectory: './settings',
   disabledEvents: [
     'USER_NOTE_UPDATE',
@@ -15,48 +15,48 @@ const BASTION = new Tesseract.Client({
   ]
 });
 
-BASTION.package = xrequire('./package.json');
-BASTION.Constants = Tesseract.Constants;
-BASTION.colors = Tesseract.Constants.Colors;
-BASTION.permissions = Tesseract.Permissions.FLAGS;
+KARA.package = xrequire('./package.json');
+KARA.Constants = Tesseract.Constants;
+KARA.colors = Tesseract.Constants.Colors;
+KARA.permissions = Tesseract.Permissions.FLAGS;
 
 // xrequire('./prototypes/Array.prototype');
 xrequire('./prototypes/String.prototype');
 xrequire('./prototypes/Number.prototype');
 
 const WebhookHandler = xrequire('./handlers/webhookHandler.js');
-BASTION.webhook = new WebhookHandler(BASTION.credentials.webhooks);
-BASTION.log = xrequire('./handlers/logHandler');
-BASTION.methods = xrequire('./handlers/methodHandler');
+KARA.webhook = new WebhookHandler(KARA.credentials.webhooks);
+KARA.log = xrequire('./handlers/logHandler');
+KARA.methods = xrequire('./handlers/methodHandler');
 
 const StringHandler = xrequire('./handlers/stringHandler');
-BASTION.i18n = new StringHandler();
+KARA.i18n = new StringHandler();
 
 const Sequelize = xrequire('sequelize');
-BASTION.database = new Sequelize(BASTION.credentials.database.URI, {
+KARA.database = new Sequelize(KARA.credentials.database.URI, {
   operatorsAliases: false,
   logging: false
 });
-BASTION.database.authenticate().then(() => {
+KARA.database.authenticate().then(() => {
   // Populate Database/Implement model definitions
-  xrequire('./utils/models')(Sequelize, BASTION.database);
+  xrequire('./utils/models')(Sequelize, KARA.database);
 
-  // Load Bastion Events
-  xrequire('./handlers/eventHandler')(BASTION);
+  // Load Kara Events
+  xrequire('./handlers/eventHandler')(KARA);
 
-  // Load Bastion Modules
+  // Load Kara Modules
   const Modules = xrequire('./handlers/moduleHandler');
-  BASTION.commands = Modules.commands;
-  BASTION.aliases = Modules.aliases;
+  KARA.commands = Modules.commands;
+  KARA.aliases = Modules.aliases;
 
-  if (BASTION.commands && BASTION.aliases) {
-    BASTION.log.info(`Successfully loaded ${BASTION.commands.size} commands`);
+  if (KARA.commands && KARA.aliases) {
+    KARA.log.info(`Successfully loaded ${KARA.commands.size} commands`);
   }
   else {
-    BASTION.log.error('Failed to load commands.');
+    KARA.log.error('Failed to load commands.');
     process.exit(1);
   }
 }).catch(e => {
-  BASTION.log.error(e.stack);
+  KARA.log.error(e.stack);
   process.exit(1);
 });

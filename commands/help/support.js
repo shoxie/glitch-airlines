@@ -4,10 +4,10 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   await message.channel.send({
     embed: {
-      color: Bastion.colors.GOLD,
+      color: Kara.colors.GOLD,
       title: 'Kara Airlines',
       url: 'https://discord.gg/ZyBEENv',
       description: 'Need help or support with Kara Discord Bot?\nJoin Kara Support Server for any help you need.\nhttps://discord.gg/ZyBEENv',

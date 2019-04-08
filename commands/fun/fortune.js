@@ -6,10 +6,10 @@
 
 const fortuneCookies = xrequire('./assets/fortuneCookies.json');
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: 'Your fortune says...',
       description: fortuneCookies.getRandom()
     }

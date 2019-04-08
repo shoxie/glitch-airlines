@@ -6,10 +6,10 @@
 
 let giveaway, activeGuilds = [];
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!activeGuilds.includes(message.guild.id)) {
     if (!args.amount || isNaN(args.amount)) {
-      return Bastion.emit('commandUsage', message, this.help);
+      return Kara.emit('commandUsage', message, this.help);
     }
 
     /**
@@ -25,7 +25,7 @@ exports.exec = async (Bastion, message, args) => {
 
     let giveawayMessage = await message.channel.send({
       embed: {
-        color: Bastion.colors.BLUE,
+        color: Kara.colors.BLUE,
         title: 'GIVEAWAY! 🎉',
         description: `Giveaway event started. React to this message with ${reaction} to get a chance to win **${args.amount}** $.`,
         footer: {
@@ -38,7 +38,7 @@ exports.exec = async (Bastion, message, args) => {
     let giveawayMessageID = giveawayMessage.id;
     activeGuilds.push(message.guild.id);
 
-    giveaway = Bastion.setTimeout(async () => {
+    giveaway = Kara.setTimeout(async () => {
       try {
         let giveawayMessage = await message.channel.fetchMessage(giveawayMessageID);
 
@@ -53,15 +53,15 @@ exports.exec = async (Bastion, message, args) => {
         while (!winner && winners.length) {
           winner = winners[Math.floor(Math.random() * winners.length)];
           winners.splice(winners.indexOf(winner), 1);
-          winner = await Bastion.fetchUser(winner).catch(() => {});
+          winner = await Kara.fetchUser(winner).catch(() => {});
         }
 
         if (winner) {
-          Bastion.emit('userDebit', message.guild.members.get(winner.id), args.amount);
+          Kara.emit('userDebit', message.guild.members.get(winner.id), args.amount);
 
           await giveawayMessage.edit('', {
             embed: {
-              color: Bastion.colors.BLUE,
+              color: Kara.colors.BLUE,
               title: 'Giveaway Event Ended',
               description: `${winner} won the giveaway! And has been awarded with **${args.amount}** $.\nThank you everyone for participating. Better luck next time.`
             }
@@ -69,7 +69,7 @@ exports.exec = async (Bastion, message, args) => {
 
           await winner.send({
             embed: {
-              color: Bastion.colors.BLUE,
+              color: Kara.colors.BLUE,
               title: 'Congratulations',
               description: `You won the giveaway in **${message.guild.name}** Server! And you've been awarded with **${args.amount}** $.`
             }
@@ -78,39 +78,39 @@ exports.exec = async (Bastion, message, args) => {
         else {
           await giveawayMessage.edit('', {
             embed: {
-              color: Bastion.colors.RED,
+              color: Kara.colors.RED,
               title: 'Giveaway Event Ended',
               description: 'Unfortunately, no one participated and apparently there\'s no winner. 😕'
             }
           }).catch(e => {
-            Bastion.log.error(e);
+            Kara.log.error(e);
           });
         }
 
         activeGuilds.splice(activeGuilds.indexOf(message.guild.id), 1);
       }
       catch (e) {
-        Bastion.log.error(e);
+        Kara.log.error(e);
       }
     }, TIMEOUT * 60 * 60 * 1000);
   }
   else {
     if (args.end) {
-      Bastion.clearTimeout(giveaway);
+      Kara.clearTimeout(giveaway);
       activeGuilds.splice(activeGuilds.indexOf(message.guild.id), 1);
 
       await message.channel.send({
         embed: {
-          color: Bastion.colors.RED,
+          color: Kara.colors.RED,
           title: 'Giveaway Event Ended',
           description: `The giveaway event was abruptly ended by ${message.author.tag}. Sorry, no giveaways this time!`
         }
       }).catch(e => {
-        Bastion.log.error(e);
+        Kara.log.error(e);
       });
     }
     else {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'isEventInUse', 'giveaway'), message.channel);
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'isEventInUse', 'giveaway'), message.channel);
     }
   }
 };

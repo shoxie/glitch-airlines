@@ -4,9 +4,9 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.number || !args.reason) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   let guildModel = await message.client.database.models.guild.findOne({
@@ -62,11 +62,11 @@ exports.exec = async (Bastion, message, args) => {
 
       await message.channel.send({
         embed: {
-          color: Bastion.colors.GREEN,
-          description: Bastion.i18n.info(message.guild.language, 'updateReason', message.author.tag, newEmbed.footer.text, args.reason)
+          color: Kara.colors.GREEN,
+          description: Kara.i18n.info(message.guild.language, 'updateReason', message.author.tag, newEmbed.footer.text, args.reason)
         }
       }).catch(e => {
-        Bastion.log.error(e);
+        Kara.log.error(e);
       });
     }
   }

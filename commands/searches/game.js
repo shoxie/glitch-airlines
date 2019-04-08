@@ -4,23 +4,23 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.name || !args.name.length) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   args.name = args.name.join(' ');
 
-  let games = await Bastion.methods.makeBWAPIRequest(`/games/search/${args.name}`);
+  let games = await Kara.methods.makeBWAPIRequest(`/games/search/${args.name}`);
   let game = games[0];
 
   if (!game) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'notFound', 'game'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'notFound', 'game'), message.channel);
   }
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: game.name,
       url: game.url,
       description: game.summary,

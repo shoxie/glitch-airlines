@@ -16,7 +16,7 @@ let Aliases = new Collection();
 let modules = fs.readdirSync('./commands/').filter(file => fs.statSync(path.join('./commands/', file)).isDirectory());
 
 for (let module of modules) {
-  process.stdout.write(`${color.cyan('[Bastion]:')} Loading ${module} module...\n`);
+  process.stdout.write(`${color.cyan('[Kara]:')} Loading ${module} module...\n`);
 
   let commandFiles = fs.readdirSync(path.resolve(`./commands/${module}`)).
     filter(file => !fs.statSync(path.resolve('./commands/', module, file)).isDirectory()).
@@ -24,7 +24,7 @@ for (let module of modules) {
 
   for (let file of commandFiles) {
     file = file.substr(0, file.length - 3);
-    process.stdout.write(`${color.cyan('[Bastion]:')} Loading ${file} command...\n`);
+    process.stdout.write(`${color.cyan('[Kara]:')} Loading ${file} command...\n`);
 
     file = xrequire('./commands/', module, file);
     Commands.set(file.help.name.toLowerCase(), file);

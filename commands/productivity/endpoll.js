@@ -4,7 +4,7 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   if (message.channel.poll && message.channel.poll.collector) {
     await message.channel.poll.collector.stop();
   }

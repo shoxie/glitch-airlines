@@ -4,7 +4,7 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (args.additiveModifier === undefined) args.additiveModifier = 0;
   if (args.multiplier === undefined) args.multiplier = 1;
 
@@ -48,7 +48,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: 'Rolled',
       description: outcome
     }

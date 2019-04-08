@@ -6,14 +6,14 @@
 
 const request = xrequire('request-promise-native');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.name || !args.name.length) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   let options = {
     headers: {
-      'User-Agent': `Kara: Discord Bot (https://bastionbot.org, ${Bastion.package.version})`
+      'User-Agent': `Kara: Discord Bot (https://bastionbot.org, ${Kara.package.version})`
     },
     url: `https://api.coinmarketcap.com/v1/ticker/${encodeURIComponent(args.name.join('-').toLowerCase())}`,
     json: true
@@ -24,7 +24,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: response.name,
       fields: [
         {

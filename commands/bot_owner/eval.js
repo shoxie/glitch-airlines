@@ -4,17 +4,17 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   try {
     if (!args.code) {
-      return Bastion.emit('commandUsage', message, this.help);
+      return Kara.emit('commandUsage', message, this.help);
     }
 
     args.code = args.code.join(' ');
 
     let evaled;
-    if (args.broadcast && Bastion.shard) {
-      evaled = await Bastion.shard.broadcastEval(args.code);
+    if (args.broadcast && Kara.shard) {
+      evaled = await Kara.shard.broadcastEval(args.code);
     }
     else {
       evaled = eval(args.code);
@@ -26,7 +26,7 @@ exports.exec = async (Bastion, message, args) => {
 
     let output = await message.channel.send({
       embed: {
-        color: Bastion.colors.GREEN,
+        color: Kara.colors.GREEN,
         fields: [
           {
             name: ':inbox_tray:  INPUT',
@@ -34,7 +34,7 @@ exports.exec = async (Bastion, message, args) => {
           },
           {
             name: ':outbox_tray:  OUTPUT',
-            value: `\`\`\`js\n${clean(Bastion, evaled)}\n\`\`\``
+            value: `\`\`\`js\n${clean(Kara, evaled)}\n\`\`\``
           }
         ]
       }
@@ -48,11 +48,11 @@ exports.exec = async (Bastion, message, args) => {
   catch(e) {
     let error = await message.channel.send({
       embed: {
-        color: Bastion.colors.RED,
+        color: Kara.colors.RED,
         fields: [
           {
             name: ':no_entry:  ERROR',
-            value: `\`\`\`js\n${clean(Bastion, e)}\n\`\`\``
+            value: `\`\`\`js\n${clean(Kara, e)}\n\`\`\``
           }
         ]
       }
@@ -83,7 +83,7 @@ exports.help = {
   userTextPermission: '',
   userVoicePermission: '',
   usage: 'eval <JavaScript code> [--delete]',
-  example: [ 'eval message.guild.members.size', 'eval Bastion.users.size --delete' ]
+  example: [ 'eval message.guild.members.size', 'eval Kara.users.size --delete' ]
 };
 
 /**
@@ -93,10 +93,10 @@ exports.help = {
  * @param {string} text The evaled result/error before cleaning.
  * @returns {string} The evaled result/error after cleaning.
  */
-function clean(Bastion, text) {
+function clean(Kara, text) {
   text = text.toString();
-  if (text.includes(Bastion.token)) {
-    text = text.replace(Bastion.token, 'Not for your evil :eyes:!');
+  if (text.includes(Kara.token)) {
+    text = text.replace(Kara.token, 'Not for your evil :eyes:!');
   }
   if (typeof(text) === 'string') {
     return text.replace(/`/g, `\`${String.fromCharCode(8203)}`).replace(/@/g, `@${String.fromCharCode(8203)}`);

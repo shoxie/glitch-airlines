@@ -4,17 +4,17 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   let responseMessage = await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       description: 'PINGing...'
     }
   });
   await responseMessage.edit({
     embed: {
-      color: Bastion.colors.BLUE,
-      title: `${Bastion.user.username} PING Statistics`,
+      color: Kara.colors.BLUE,
+      title: `${Kara.user.username} PING Statistics`,
       fields: [
         {
           name: 'Response Time',
@@ -23,7 +23,7 @@ exports.exec = async (Bastion, message) => {
         },
         {
           name: 'WebSocket PING',
-          value: `${Bastion.ping}ms`,
+          value: `${Kara.ping}ms`,
           inline: true
         }
       ]

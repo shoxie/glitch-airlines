@@ -4,9 +4,9 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.role || !(args.price || args.remove)) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   args.role = args.role.join(' ');
@@ -19,11 +19,11 @@ exports.exec = async (Bastion, message, args) => {
     role = message.guild.roles.find(role => role.name === args.role);
   }
   if (!role) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'roleNotFound'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'roleNotFound'), message.channel);
   }
 
   if (args.remove) {
-    await Bastion.database.models.role.update({
+    await Kara.database.models.role.update({
       price: null
     },
     {
@@ -36,15 +36,15 @@ exports.exec = async (Bastion, message, args) => {
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.RED,
+        color: Kara.colors.RED,
         description: `Unlisted **${role}** role from the Role Store.`
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
   }
   else {
-    await Bastion.database.models.role.upsert({
+    await Kara.database.models.role.upsert({
       roleID: role.id,
       guildID: message.guild.id,
       price: Math.abs(args.price)
@@ -59,11 +59,11 @@ exports.exec = async (Bastion, message, args) => {
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.GREEN,
+        color: Kara.colors.GREEN,
         description: `Listed **${role.name}** role for sale in the Role Store for **${args.price}** $.`
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
   }
 };

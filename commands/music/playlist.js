@@ -8,12 +8,12 @@ const util = xrequire('util');
 const youtubeDL = xrequire('youtube-dl');
 const getSongInfo = util.promisify(youtubeDL.getInfo);
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!message.guild.music.enabled) {
-    if (Bastion.user.id === '267035345537728512') {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'musicDisabledPublic'), message.channel);
+    if (Kara.user.id === '267035345537728512') {
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'musicDisabledPublic'), message.channel);
     }
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'musicDisabled'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'musicDisabled'), message.channel);
   }
 
 
@@ -29,7 +29,7 @@ exports.exec = async (Bastion, message, args) => {
      * specifically if one transaction inserts and another tries to select
      * before the first one has committed. TimeoutError is thrown instead.
      */
-    let [ playlistModel, initialized ] = await Bastion.database.models.playlist.findOrBuild({
+    let [ playlistModel, initialized ] = await Kara.database.models.playlist.findOrBuild({
       where: {
         guildID: message.guild.id,
         name: message.author.id,
@@ -55,7 +55,7 @@ exports.exec = async (Bastion, message, args) => {
         '--simulate',
         '--no-warnings',
         '--format=bestaudio[protocol^=http]',
-        `--user-agent=KaraDiscordBot/v${Bastion.package.version} (https://bastionbot.org)`,
+        `--user-agent=KaraDiscordBot/v${Kara.package.version} (https://bastionbot.org)`,
         '--referer=https://bastionbot.org',
         '--youtube-skip-dash-manifest'
       ];
@@ -87,15 +87,15 @@ exports.exec = async (Bastion, message, args) => {
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors[args.remove ? 'RED' : 'GREEN'],
+        color: Kara.colors[args.remove ? 'RED' : 'GREEN'],
         description: args.remove ? `Removed all songs, matching **${args.song}**, from your playlist.` : `Added **${args.song}** to your playlist.`
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
   }
   else {
-    let playlistModel = await Bastion.database.models.playlist.findOne({
+    let playlistModel = await Kara.database.models.playlist.findOne({
       attributes: [ 'songs' ],
       where: {
         guildID: message.guild.id,
@@ -105,14 +105,14 @@ exports.exec = async (Bastion, message, args) => {
     });
 
     if (!playlistModel || !playlistModel.dataValues.songs.length) {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'playlistNotFound'), message.channel);
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'playlistNotFound'), message.channel);
     }
 
     let songs = playlistModel.dataValues.songs.map(song => song && song.title);
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.BLUE,
+        color: Kara.colors.BLUE,
         title: 'Kara Music Playlist',
         description: songs.join('\n'),
         footer: {

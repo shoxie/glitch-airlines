@@ -4,13 +4,13 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.user || !args.reason) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
 
-  let guildModel = await Bastion.database.models.guild.findOne({
+  let guildModel = await Kara.database.models.guild.findOne({
     attributes: [ 'reportChannel' ],
     where: {
       guildID: message.guild.id
@@ -30,7 +30,7 @@ exports.exec = async (Bastion, message, args) => {
     }
 
     if (!user) {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'notFound', 'user'), message.channel);
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'notFound', 'user'), message.channel);
     }
 
     if (message.author.id === user.id) return;
@@ -41,7 +41,7 @@ exports.exec = async (Bastion, message, args) => {
     let reportChannel = message.guild.channels.get(guildModel.dataValues.reportChannel);
     await reportChannel.send({
       embed: {
-        color: Bastion.colors.ORANGE,
+        color: Kara.colors.ORANGE,
         title: 'User Report',
         fields: [
           {
@@ -69,22 +69,22 @@ exports.exec = async (Bastion, message, args) => {
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.GREEN,
+        color: Kara.colors.GREEN,
         title: 'User Reported',
-        description: Bastion.i18n.info(message.guild.language, 'report', message.author.tag, user.tag, args.reason)
+        description: Kara.i18n.info(message.guild.language, 'report', message.author.tag, user.tag, args.reason)
       }
     }).then(successMessage => {
       if (message.deletable) message.delete().catch(() => {});
       successMessage.delete(10000).catch(() => {});
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
   }
   else {
     await message.channel.send({
       embed: {
-        color: Bastion.colors.RED,
-        description: Bastion.i18n.error(message.guild.language, 'noReportChannel', message.author.tag)
+        color: Kara.colors.RED,
+        description: Kara.i18n.error(message.guild.language, 'noReportChannel', message.author.tag)
       }
     });
     if (message.deletable) message.delete().catch(() => {});

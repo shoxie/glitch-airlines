@@ -4,32 +4,32 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (args.name) {
     args.name = args.name.join(' ');
 
-    await Bastion.user.setActivity(args.name, { type: args.type });
+    await Kara.user.setActivity(args.name, { type: args.type });
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.GREEN,
+        color: Kara.colors.GREEN,
         description: `My activity is now set to **${args.type} ${args.name}**`
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
   }
   else {
-    let game = typeof Bastion.configurations.game.name === 'string' ? Bastion.configurations.game.name : Bastion.configurations.game.name.length ? Bastion.configurations.game.name[0] : null;
-    await Bastion.user.setActivity(game, { type: Bastion.configurations.game.type });
+    let game = typeof Kara.configurations.game.name === 'string' ? Kara.configurations.game.name : Kara.configurations.game.name.length ? Kara.configurations.game.name[0] : null;
+    await Kara.user.setActivity(game, { type: Kara.configurations.game.type });
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.GREEN,
-        description: `My activity has been reset to the default: **${Bastion.configurations.game.type} ${game}**`
+        color: Kara.colors.GREEN,
+        description: `My activity has been reset to the default: **${Kara.configurations.game.type} ${game}**`
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
   }
 };

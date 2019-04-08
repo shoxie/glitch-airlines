@@ -4,13 +4,13 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
-  if (Bastion.methods.isPublicKara(Kara)) {
-    return Bastion.emit('error', '', 'This command is temporarily disabled in the public Bastion. For details, please contact [Kara Support](https://discord.gg/fzx8fkt).', message.channel);
+exports.exec = async (Kara, message, args) => {
+  if (Kara.methods.isPublicKara(Kara)) {
+    return Kara.emit('error', '', 'This command is temporarily disabled in the public Kara. For details, please contact [Kara Support](https://discord.gg/fzx8fkt).', message.channel);
   }
 
   if (!args.color || !/^#?(?:[0-9a-f]{3}|[0-9a-f]{6})$/i.test(args.color)) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
 
@@ -18,7 +18,7 @@ exports.exec = async (Bastion, message, args) => {
   args.color = args.color.length === 3 ? args.color.replace(/(.)/g, '$1$1') : args.color;
   let color = parseInt(args.color, 16);
 
-  await Bastion.database.models.user.update({
+  await Kara.database.models.user.update({
     color: color
   },
   {
@@ -31,11 +31,11 @@ exports.exec = async (Bastion, message, args) => {
 
   message.channel.send({
     embed: {
-      color: Bastion.colors.GREEN,
+      color: Kara.colors.GREEN,
       description: `${message.author}, your User Color has been set to **#${args.color}** and will be used in appropriate places.`
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

@@ -16,13 +16,13 @@ module.exports = async (member, amount) => {
 
     /*
      * If the user doesn't have a profile, yet, we don't allow
-     * to deduct Bastion Currencies from them.
+     * to deduct Kara Currencies from them.
      */
     if (!guildMemberModel) return;
 
     /*
-     * Deduct the given amount of Bastion Currencies from the user's account.
-     * Yes, if they have less Bastion Currencies then the given amount,
+     * Deduct the given amount of Kara Currencies from the user's account.
+     * Yes, if they have less Kara Currencies then the given amount,
      * that will still be deducted from their account.
      */
     await member.client.database.models.guildMember.update({

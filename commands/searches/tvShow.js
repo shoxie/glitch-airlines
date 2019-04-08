@@ -4,17 +4,17 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.tvshow) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
-  let tvShow = await Bastion.methods.makeBWAPIRequest(`/tvshows/search/${args.tvshow}`);
+  let tvShow = await Kara.methods.makeBWAPIRequest(`/tvshows/search/${args.tvshow}`);
 
   tvShow = tvShow.results[0];
 
   if (!tvShow) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'notFound', 'TV show'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'notFound', 'TV show'), message.channel);
   }
 
   // Hard coded genre IDs because they are not likely to change for v3 and dynamically getting them would mean sending another request, since it's a seperate endpoint.
@@ -22,7 +22,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: tvShow.name,
       url: `https://themoviedb.org/tv/${tvShow.id}`,
       description: tvShow.overview,

@@ -4,8 +4,8 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
-  let guildModel = await Bastion.database.models.guild.findOne({
+exports.exec = async (Kara, message) => {
+  let guildModel = await Kara.database.models.guild.findOne({
     attributes: [ 'filterLinks' ],
     where: {
       guildID: message.guild.id
@@ -14,7 +14,7 @@ exports.exec = async (Bastion, message) => {
 
   let color, filterLinkStats;
   if (guildModel.dataValues.filterLinks) {
-    await Bastion.database.models.guild.update({
+    await Kara.database.models.guild.update({
       filterLinks: false
     },
     {
@@ -23,11 +23,11 @@ exports.exec = async (Bastion, message) => {
       },
       fields: [ 'filterLinks' ]
     });
-    color = Bastion.colors.RED;
-    filterLinkStats = Bastion.i18n.info(message.guild.language, 'disableLinkFilter', message.author.tag);
+    color = Kara.colors.RED;
+    filterLinkStats = Kara.i18n.info(message.guild.language, 'disableLinkFilter', message.author.tag);
   }
   else {
-    await Bastion.database.models.guild.update({
+    await Kara.database.models.guild.update({
       filterLinks: true
     },
     {
@@ -36,8 +36,8 @@ exports.exec = async (Bastion, message) => {
       },
       fields: [ 'filterLinks' ]
     });
-    color = Bastion.colors.GREEN;
-    filterLinkStats = Bastion.i18n.info(message.guild.language, 'enableLinkFilter', message.author.tag);
+    color = Kara.colors.GREEN;
+    filterLinkStats = Kara.i18n.info(message.guild.language, 'enableLinkFilter', message.author.tag);
   }
 
   await message.channel.send({
@@ -46,7 +46,7 @@ exports.exec = async (Bastion, message) => {
       description: filterLinkStats
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

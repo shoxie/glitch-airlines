@@ -4,7 +4,7 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   args.amount = Math.abs(args.amount);
 
   let color, mentionSpamStats;
@@ -13,7 +13,7 @@ exports.exec = async (Bastion, message, args) => {
       args.action = null;
     }
 
-    await Bastion.database.models.guild.update({
+    await Kara.database.models.guild.update({
       filterMentions: true,
       mentionSpamThreshold: args.amount,
       mentionSpamAction: args.action
@@ -25,11 +25,11 @@ exports.exec = async (Bastion, message, args) => {
       fields: [ 'filterMentions', 'mentionSpamThreshold', 'mentionSpamAction' ]
     });
 
-    color = Bastion.colors.GREEN;
-    mentionSpamStats = Bastion.i18n.info(message.guild.language, 'enableMentionSpamFilter', message.author.tag, args.amount, args.action);
+    color = Kara.colors.GREEN;
+    mentionSpamStats = Kara.i18n.info(message.guild.language, 'enableMentionSpamFilter', message.author.tag, args.amount, args.action);
   }
   else {
-    await Bastion.database.models.guild.update({
+    await Kara.database.models.guild.update({
       filterMentions: false,
       mentionSpamThreshold: null,
       mentionSpamAction: null
@@ -40,8 +40,8 @@ exports.exec = async (Bastion, message, args) => {
       },
       fields: [ 'filterMentions', 'mentionSpamThreshold', 'mentionSpamAction' ]
     });
-    color = Bastion.colors.RED;
-    mentionSpamStats = Bastion.i18n.info(message.guild.language, 'disableMentionSpamFilter', message.author.tag);
+    color = Kara.colors.RED;
+    mentionSpamStats = Kara.i18n.info(message.guild.language, 'disableMentionSpamFilter', message.author.tag);
   }
 
   await message.channel.send({
@@ -50,7 +50,7 @@ exports.exec = async (Bastion, message, args) => {
       description: mentionSpamStats
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

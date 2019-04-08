@@ -4,30 +4,30 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.name) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   let minLength = 2, maxLength = 100;
   args.name = args.name.join(' ');
 
   if (!args.name.length.inRange(minLength, maxLength)) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'channelNameLength', minLength, maxLength), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'channelNameLength', minLength, maxLength), message.channel);
   }
 
   let category = await message.guild.createChannel(args.name, 'category');
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.GREEN,
-      description: Bastion.i18n.info(message.guild.language, 'createChannel', message.author.tag, 'category', category.name),
+      color: Kara.colors.GREEN,
+      description: Kara.i18n.info(message.guild.language, 'createChannel', message.author.tag, 'category', category.name),
       footer: {
         text: `ID: ${category.id}`
       }
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

@@ -6,12 +6,12 @@
 
 const request = xrequire('request-promise-native');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   let membershipType = -1;
 
   let options = {
     headers: {
-      'X-API-Key': `${Bastion.credentials.bungieAPIKey}`
+      'X-API-Key': `${Kara.credentials.bungieAPIKey}`
     },
     url: `https://www.bungie.net/Platform/Destiny2/SearchDestinyPlayer/${membershipType}/${encodeURIComponent(args.name)}/`,
     json: true
@@ -19,31 +19,31 @@ exports.exec = async (Bastion, message, args) => {
   let player = await request(options);
 
   if (player.ErrorCode !== 1) {
-    return Bastion.emit('error', player.ErrorStatus, player.Message, message.channel);
+    return Kara.emit('error', player.ErrorStatus, player.Message, message.channel);
   }
   if (!player.Response.length) {
-    return Bastion.emit('error', 'Not Found', 'No players were found for the given name.', message.channel);
+    return Kara.emit('error', 'Not Found', 'No players were found for the given name.', message.channel);
   }
 
   player = player.Response[0];
 
   options = {
     headers: {
-      'X-API-Key': `${Bastion.credentials.bungieAPIKey}`
+      'X-API-Key': `${Kara.credentials.bungieAPIKey}`
     },
     url: `https://www.bungie.net/Platform/Destiny2/${player.membershipType}/Account/${player.membershipId}/Stats?groups=General,Medals`,
     json: true
   };
   let stats = await request(options);
   if (stats.ErrorCode !== 1) {
-    return Bastion.emit('error', stats.ErrorStatus, stats.Message, message.channel);
+    return Kara.emit('error', stats.ErrorStatus, stats.Message, message.channel);
   }
 
   stats = stats.Response.mergedAllCharacters.merged.allTime;
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: player.displayName,
       description: `Played for ${stats.secondsPlayed.basic.displayValue} and has an efficiency of ${stats.efficiency.basic.displayValue}.`,
       fields: [

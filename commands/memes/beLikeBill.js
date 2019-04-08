@@ -6,7 +6,7 @@
 
 const request = xrequire('request-promise-native');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   let options = {
     url: 'https://belikebill.ga/billgen-API.php',
     qs: {

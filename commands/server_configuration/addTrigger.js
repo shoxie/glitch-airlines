@@ -6,9 +6,9 @@
 
 const emojis = xrequire('./assets/emojis.json');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.trigger || !(args.text || args.embed || args.reaction)) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   let triggerModels = await message.client.database.models.trigger.findAll({
@@ -18,8 +18,8 @@ exports.exec = async (Bastion, message, args) => {
     }
   });
 
-  if (!Bastion.credentials.ownerId.includes(message.author.id) && triggerModels && triggerModels.dataValues.noOfTriggers >= 10) {
-    return Bastion.emit('error', 'forbidden', 'You can\'t set more than 10 triggers per server, for now. This limit will be increased in the future.', message.channel);
+  if (!Kara.credentials.ownerId.includes(message.author.id) && triggerModels && triggerModels.dataValues.noOfTriggers >= 10) {
+    return Kara.emit('error', 'forbidden', 'You can\'t set more than 10 triggers per server, for now. This limit will be increased in the future.', message.channel);
   }
 
   let responseObject = {};
@@ -38,12 +38,12 @@ exports.exec = async (Bastion, message, args) => {
 
     if (!emojis.includes(args.reaction)) {
       if (!Object.keys(responseObject).size) {
-        return Bastion.emit('error', 'invalidInput', 'The emoji you entered is invalid. Note that custom emojis aren\'t supported currently.', message.channel);
+        return Kara.emit('error', 'invalidInput', 'The emoji you entered is invalid. Note that custom emojis aren\'t supported currently.', message.channel);
       }
     }
   }
 
-  await Bastion.database.models.trigger.create({
+  await Kara.database.models.trigger.create({
     guildID: message.guild.id,
     trigger: args.trigger.join(' '),
     responseMessage: responseObject,
@@ -55,7 +55,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.GREEN,
+      color: Kara.colors.GREEN,
       title: 'New Trigger Added',
       fields: [
         {
@@ -75,7 +75,7 @@ exports.exec = async (Bastion, message, args) => {
       ]
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

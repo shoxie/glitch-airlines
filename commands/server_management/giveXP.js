@@ -4,16 +4,16 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.id || !args.points) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   if (message.mentions.users.size) {
     args.id = message.mentions.users.first().id;
   }
 
-  let guildMemberModel = await Bastion.database.models.guildMember.findOne({
+  let guildMemberModel = await Kara.database.models.guildMember.findOne({
     attributes: [ 'experiencePoints' ],
     where: {
       userID: args.id,
@@ -21,12 +21,12 @@ exports.exec = async (Bastion, message, args) => {
     }
   });
   if (!guildMemberModel) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'profileNotCreated', `<@${args.id}>`), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'profileNotCreated', `<@${args.id}>`), message.channel);
   }
 
   args.points = `${parseInt(guildMemberModel.dataValues.experiencePoints) + parseInt(args.points)}`;
 
-  await Bastion.database.models.guildMember.update({
+  await Kara.database.models.guildMember.update({
     experiencePoints: args.points
   },
   {
@@ -39,11 +39,11 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.GREEN,
+      color: Kara.colors.GREEN,
       description: `<@${args.id}> has been awarded with **${args.points}** experience points.`
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

@@ -4,12 +4,12 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.name) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
-  let manga = await Bastion.methods.makeBWAPIRequest('/kitsu/manga', {
+  let manga = await Kara.methods.makeBWAPIRequest('/kitsu/manga', {
     qs: {
       name: args.name
     }
@@ -19,7 +19,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: Object.values(manga.titles)[0],
       url: `https://kitsu.io/manga/${manga.slug}`,
       description: manga.synopsis,

@@ -4,23 +4,23 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!/^((https:\/\/)(www\.)?(twitch\.tv)\/[a-z0-9-._]+)$/i.test(args[0]) || args.slice(1).join(' ').length < 1) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
-  await Bastion.user.setActivity(args.slice(1).join(' '), {
+  await Kara.user.setActivity(args.slice(1).join(' '), {
     type: 1,
     url: args[0]
   });
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.GREEN,
-      description: `${Bastion.user.username} is now streaming **${args.slice(1).join(' ')}**`
+      color: Kara.colors.GREEN,
+      description: `${Kara.user.username} is now streaming **${args.slice(1).join(' ')}**`
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

@@ -14,7 +14,7 @@ module.exports = async  (oldMessage, newMessage) => {
     // If message content hasn't been changed, do nothing
     if (oldMessage.content === newMessage.content) return;
 
-    // Filter Bastion's credentials from the message
+    // Filter Kara's credentials from the message
     credentialsFilter(newMessage);
 
     if (!oldMessage.guild) return;

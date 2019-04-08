@@ -4,9 +4,9 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.pollMessage || !/^(.+( ?; ?.+[^;])+)$/i.test(args.pollMessage.join(' '))) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   if (!message.channel.hasOwnProperty('poll')) {
@@ -29,7 +29,7 @@ exports.exec = async (Bastion, message, args) => {
 
     let pollStatus = await message.channel.send({
       embed: {
-        color: Bastion.colors.BLUE,
+        color: Kara.colors.BLUE,
         title: 'Poll started',
         description: `A poll has been started by ${message.author}.\n\n**${message.channel.poll.message[0]}**`,
         fields: answers,
@@ -47,7 +47,7 @@ exports.exec = async (Bastion, message, args) => {
     message.channel.poll.collector.on('collect', (msg, votes) => {
       if (msg.deletable) {
         msg.delete().catch(e => {
-          Bastion.log.error(e);
+          Kara.log.error(e);
         });
       }
       msg.channel.send({
@@ -60,7 +60,7 @@ exports.exec = async (Bastion, message, args) => {
       }).then(m => {
         message.channel.poll.usersVoted.push(msg.author.id);
         m.delete(5000).catch(e => {
-          Bastion.log.error(e);
+          Kara.log.error(e);
         });
       });
     });
@@ -71,17 +71,17 @@ exports.exec = async (Bastion, message, args) => {
       if (pollRes.length === 0) {
         return message.channel.send({
           embed: {
-            color: Bastion.colors.RED,
+            color: Kara.colors.RED,
             title: 'Poll Ended',
             description: 'Unfortunately, no votes were given.'
           }
         }).then(() => {
           pollStatus.delete().catch(e => {
-            Bastion.log.error(e);
+            Kara.log.error(e);
           });
           delete message.channel.poll;
         }).catch(e => {
-          Bastion.log.error(e);
+          Kara.log.error(e);
         });
       }
 
@@ -105,23 +105,23 @@ exports.exec = async (Bastion, message, args) => {
 
       message.channel.send({
         embed: {
-          color: Bastion.colors.BLUE,
+          color: Kara.colors.BLUE,
           title: 'Poll Ended',
           description: `Poll results for **${message.channel.poll.message[0]}**`,
           fields: result
         }
       }).then(() => {
         pollStatus.delete().catch(e => {
-          Bastion.log.error(e);
+          Kara.log.error(e);
         });
         delete message.channel.poll;
       }).catch(e => {
-        Bastion.log.error(e);
+        Kara.log.error(e);
       });
     });
   }
   else {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'isEventInUse', 'poll'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'isEventInUse', 'poll'), message.channel);
   }
 };
 

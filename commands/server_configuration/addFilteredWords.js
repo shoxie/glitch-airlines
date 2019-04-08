@@ -4,12 +4,12 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.length) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
-  let guildModel = await Bastion.database.models.guild.findOne({
+  let guildModel = await Kara.database.models.guild.findOne({
     attributes: [ 'filteredWords' ],
     where: {
       guildID: message.guild.id
@@ -23,7 +23,7 @@ exports.exec = async (Bastion, message, args) => {
   filteredWords = filteredWords.concat(args);
   filteredWords = [ ...new Set(filteredWords) ];
 
-  await Bastion.database.models.guild.update({
+  await Kara.database.models.guild.update({
     filteredWords: filteredWords
   },
   {
@@ -35,12 +35,12 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.GREEN,
+      color: Kara.colors.GREEN,
       title: 'Added Words to Filter List',
       description: args.join(', ')
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

@@ -4,7 +4,7 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (args.remove) {
     await message.channel.overwritePermissions(message.guild.id, {
       SEND_MESSAGES: null,
@@ -13,7 +13,7 @@ exports.exec = async (Bastion, message, args) => {
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.GREEN,
+        color: Kara.colors.GREEN,
         title: 'Channel Lockdown Removed',
         description: 'The lockdown on this channel has now been removed, you can now send messages in this channel.',
         footer: {
@@ -21,7 +21,7 @@ exports.exec = async (Bastion, message, args) => {
         }
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
   }
   else {
@@ -32,7 +32,7 @@ exports.exec = async (Bastion, message, args) => {
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.RED,
+        color: Kara.colors.RED,
         title: 'Channel Lockdown Initiated',
         description: 'This text channel is in lockdown. You do not have permissions to send message in this channel unless you are explicitly allowed.\nAdministrators can remove the lockdown using the `lockdown --remove` command.',
         footer: {
@@ -40,7 +40,7 @@ exports.exec = async (Bastion, message, args) => {
         }
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
   }
 };

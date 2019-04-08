@@ -1,14 +1,14 @@
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (args.length < 1) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       description: args.join(' '),
       footer: {
-        text: `${Bastion.credentials.ownerId.includes(message.author.id) ? '' : Bastion.i18n.info(message.guild.language, 'endorsementMessage')}`
+        text: `${Kara.credentials.ownerId.includes(message.author.id) ? '' : Kara.i18n.info(message.guild.language, 'endorsementMessage')}`
       }
     }
   });

@@ -4,12 +4,12 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
-  if (!Bastion.shard) {
-    return Bastion.emit('error', '', 'Kara is not sharded. Run Kara using the sharding manager.', message.channel);
+exports.exec = async (Kara, message) => {
+  if (!Kara.shard) {
+    return Kara.emit('error', '', 'Kara is not sharded. Run Kara using the sharding manager.', message.channel);
   }
 
-  let uptime = Bastion.uptime;
+  let uptime = Kara.uptime;
   let seconds = uptime / 1000;
   let days = parseInt(seconds / 86400);
   seconds = seconds % 86400;
@@ -31,13 +31,13 @@ exports.exec = async (Bastion, message) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: 'Shard Stats',
-      url: Bastion.package.url,
+      url: Kara.package.url,
       fields: [
         {
           name: 'Shard ID',
-          value: Bastion.shard.id,
+          value: Kara.shard.id,
           inline: true
         },
         {
@@ -47,14 +47,14 @@ exports.exec = async (Bastion, message) => {
         },
         {
           name: 'WebSocket PING',
-          value: `${Bastion.ping.toFixed(2)}ms`,
+          value: `${Kara.ping.toFixed(2)}ms`,
           inline: true
         },
         {
           name: 'Presence',
-          value: `${Bastion.guilds.size.toHumanString()} Servers\n`
-          + `${Bastion.channels.filter(channel => channel.type === 'text').size.toHumanString()} Text Channels\n`
-          + `${Bastion.channels.filter(channel => channel.type === 'voice').size.toHumanString()} Voice Channels`,
+          value: `${Kara.guilds.size.toHumanString()} Servers\n`
+          + `${Kara.channels.filter(channel => channel.type === 'text').size.toHumanString()} Text Channels\n`
+          + `${Kara.channels.filter(channel => channel.type === 'voice').size.toHumanString()} Voice Channels`,
           inline: true
         },
         {
@@ -65,7 +65,7 @@ exports.exec = async (Bastion, message) => {
         }
       ],
       footer: {
-        text: `Total Shards: ${Bastion.shard.count}`
+        text: `Total Shards: ${Kara.shard.count}`
       },
       timestamp: new Date()
     }

@@ -1,18 +1,18 @@
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (args.roles) {
     args.roles = args.roles.filter(role => message.guild.roles.has(role));
 
     if (!args.roles.length) {
       return await message.channel.send({
         embed: {
-          color: Bastion.colors.RED,
+          color: Kara.colors.RED,
           description: 'Please use valid role IDs'
         }
       });
     }
 
     for (let roleID of args.roles) {
-      await Bastion.database.models.role.upsert({
+      await Kara.database.models.role.upsert({
         roleID: roleID,
         guildID: message.guild.id,
         exclusive: !args.remove
@@ -31,16 +31,16 @@ exports.exec = async (Bastion, message, args) => {
 
     await message.channel.send({
       embed: {
-        color: args.remove ? Bastion.colors.RED : Bastion.colors.GREEN,
+        color: args.remove ? Kara.colors.RED : Kara.colors.GREEN,
         title: args.remove ? 'Exclusive Roles Removed' : 'Exclusive Roles Added',
         description: args.roles.join('\n')
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
   }
   else {
-    let roleModels = await Bastion.database.models.role.findAll({
+    let roleModels = await Kara.database.models.role.findAll({
       fields: [ 'roleID' ],
       where: {
         guildID: message.guild.id,
@@ -56,7 +56,7 @@ exports.exec = async (Bastion, message, args) => {
     if (exclusiveRoles.length) {
       await message.channel.send({
         embed: {
-          color: Bastion.colors.BLUE,
+          color: Kara.colors.BLUE,
           title: 'Exclusive Roles',
           description: exclusiveRoles.join('\n')
         }
@@ -65,7 +65,7 @@ exports.exec = async (Bastion, message, args) => {
     else {
       await message.channel.send({
         embed: {
-          color: Bastion.colors.BLUE,
+          color: Kara.colors.BLUE,
           title: 'Exclusive Roles',
           description: 'No exclusive roles have been set.'
         }

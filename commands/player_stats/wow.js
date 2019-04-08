@@ -4,13 +4,13 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   try {
     if (!args.character || !args.realm) {
-      return Bastion.emit('commandUsage', message, this.help);
+      return Kara.emit('commandUsage', message, this.help);
     }
 
-    let profile = await Bastion.methods.makeBWAPIRequest(`/gamestats/wow/${args.region}/${args.realm}/${args.character}`);
+    let profile = await Kara.methods.makeBWAPIRequest(`/gamestats/wow/${args.region}/${args.realm}/${args.character}`);
 
     let stats = [
       {
@@ -41,7 +41,7 @@ exports.exec = async (Bastion, message, args) => {
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.BLUE,
+        color: Kara.colors.BLUE,
         author: {
           name: profile.name,
           url: `https://worldofwarcraft.com/${args.region.toLowerCase() === 'us' ? 'en-us' : 'en-gb'}/character/${args.realm}/${args.character}`,
@@ -60,7 +60,7 @@ exports.exec = async (Bastion, message, args) => {
   catch (e) {
     if (e.name === 'StatusCodeError') {
       if (e.statusCode === '404') {
-        return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'notFound', 'player'), message.channel);
+        return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'notFound', 'player'), message.channel);
       }
     }
     throw e;

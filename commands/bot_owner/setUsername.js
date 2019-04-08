@@ -4,17 +4,17 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (args.join(' ').length >= 1) {
-    await Bastion.user.setUsername(args.join(' '));
+    await Kara.user.setUsername(args.join(' '));
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.GREEN,
-        description: `${Bastion.user.username}'s username is now set to **${args.join(' ')}**`
+        color: Kara.colors.GREEN,
+        description: `${Kara.user.username}'s username is now set to **${args.join(' ')}**`
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
   }
 };

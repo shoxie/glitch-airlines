@@ -4,8 +4,8 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
-  await Bastion.database.models.trigger.destroy({
+exports.exec = async (Kara, message) => {
+  await Kara.database.models.trigger.destroy({
     where: {
       guildID: message.guild.id
     }
@@ -13,11 +13,11 @@ exports.exec = async (Bastion, message) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.RED,
+      color: Kara.colors.RED,
       description: 'Deleted all the triggers and responses.'
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

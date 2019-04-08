@@ -4,20 +4,20 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.length) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
-  let guilds = Bastion.guilds.filter(g => g.name.toLowerCase().includes(args.join(' ').toLowerCase())).map(g => `${g.name} - ${g.id}`);
+  let guilds = Kara.guilds.filter(g => g.name.toLowerCase().includes(args.join(' ').toLowerCase())).map(g => `${g.name} - ${g.id}`);
   let total = guilds.length;
   guilds = total > 0 ? guilds.slice(0, 10).join('\n') : 'None';
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: 'Server search',
-      description: `Found **${total}** servers${Bastion.shard ? `, in Shard ${Bastion.shard.id},` : ''} with **${args.join(' ')}** in it's name.`,
+      description: `Found **${total}** servers${Kara.shard ? `, in Shard ${Kara.shard.id},` : ''} with **${args.join(' ')}** in it's name.`,
       fields: [
         {
           name: 'Servers',

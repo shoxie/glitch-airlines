@@ -4,31 +4,31 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
-  let settingsModel = await Bastion.database.models.settings.findOne({
+exports.exec = async (Kara, message) => {
+  let settingsModel = await Kara.database.models.settings.findOne({
     attributes: [ 'relayDirectMessages' ],
     where: {
-      botID: Bastion.user.id
+      botID: Kara.user.id
     }
   });
 
-  await Bastion.database.models.settings.update({
+  await Kara.database.models.settings.update({
     relayDirectMessages: !settingsModel.dataValues.relayDirectMessages
   },
   {
     where: {
-      botID: Bastion.user.id
+      botID: Kara.user.id
     },
     fields: [ 'relayDirectMessages' ]
   });
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors[settingsModel.dataValues.relayDirectMessages ? 'RED' : 'GREEN'],
-      description: Bastion.i18n.info(message.guild.language, settingsModel.dataValues.relayDirectMessages ? 'disableDirectMessageReyals' : 'enableDirectMessageReyals', message.author.tag)
+      color: Kara.colors[settingsModel.dataValues.relayDirectMessages ? 'RED' : 'GREEN'],
+      description: Kara.i18n.info(message.guild.language, settingsModel.dataValues.relayDirectMessages ? 'disableDirectMessageReyals' : 'enableDirectMessageReyals', message.author.tag)
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 
@@ -40,7 +40,7 @@ exports.config = {
 
 exports.help = {
   name: 'relayDirectMessages',
-  description: 'Toggles relaying of direct messages, sent to Bastion, to your inbox.',
+  description: 'Toggles relaying of direct messages, sent to Kara, to your inbox.',
   botPermission: '',
   userTextPermission: '',
   userVoicePermission: '',

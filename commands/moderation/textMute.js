@@ -4,20 +4,20 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   let user;
   if (message.mentions.users.size) {
     user = message.mentions.users.first();
   }
   else if (args.id) {
-    user = await Bastion.fetchUser(args.id);
+    user = await Kara.fetchUser(args.id);
   }
   if (!user) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
-  let member = await Bastion.utils.fetchMember(message.guild, user.id);
-  if (message.author.id !== message.guild.ownerID && message.member.highestRole.comparePositionTo(member.highestRole) <= 0) return Bastion.log.info(Bastion.i18n.error(message.guild.language, 'lowerRole'));
+  let member = await Kara.utils.fetchMember(message.guild, user.id);
+  if (message.author.id !== message.guild.ownerID && message.member.highestRole.comparePositionTo(member.highestRole) <= 0) return Kara.log.info(Kara.i18n.error(message.guild.language, 'lowerRole'));
 
   args.reason = args.reason.join(' ');
 
@@ -44,8 +44,8 @@ exports.exec = async (Bastion, message, args) => {
 
       if (!args.timeout || args.timeout > 1440) args.timeout = 1440;
 
-      Bastion.setTimeout(() => {
-        member.removeRole(mutedRole, 'User auto unmuted after timeout.').catch(Bastion.log.error);
+      Kara.setTimeout(() => {
+        member.removeRole(mutedRole, 'User auto unmuted after timeout.').catch(Kara.log.error);
       }, args.timeout * 60 * 1000);
     }
   }
@@ -60,10 +60,10 @@ exports.exec = async (Bastion, message, args) => {
 
       if (!args.timeout || args.timeout > 1440) args.timeout = 1440;
 
-      Bastion.setTimeout(() => {
+      Kara.setTimeout(() => {
         let permissionOverwrites = message.channel.permissionOverwrites.get(user.id);
         if (permissionOverwrites) {
-          permissionOverwrites.delete().catch(Bastion.log.error);
+          permissionOverwrites.delete().catch(Kara.log.error);
         }
       }, args.timeout * 60 * 1000);
     }
@@ -71,14 +71,14 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.ORANGE,
+      color: Kara.colors.ORANGE,
       description: `${message.author.tag} text-muted ${user.tag}${args.timeout ? ` for ${args.timeout} minutes ` : ' '}with reason **${args.reason}**`
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 
-  Bastion.emit('moderationLog', message, this.help.name, user, args.reason, {
+  Kara.emit('moderationLog', message, this.help.name, user, args.reason, {
     channel: message.channel
   });
 };

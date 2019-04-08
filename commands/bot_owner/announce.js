@@ -4,12 +4,12 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.length) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
-  let guildModels = await Bastion.database.models.guild.findAll({
+  let guildModels = await Kara.database.models.guild.findAll({
     attributes: [ 'announcementChannel' ]
   });
 
@@ -17,8 +17,8 @@ exports.exec = async (Bastion, message, args) => {
   let announcementMessage = args.join(' ');
 
   for (let channel of announcementChannels) {
-    if (Bastion.shard) {
-      await Bastion.shard.broadcastEval(`
+    if (Kara.shard) {
+      await Kara.shard.broadcastEval(`
         let channel = this.channels.get('${channel}');
         if (channel) {
           channel.send({
@@ -31,9 +31,9 @@ exports.exec = async (Bastion, message, args) => {
       `);
     }
     else {
-      await Bastion.channels.get(channel).send({
+      await Kara.channels.get(channel).send({
         embed: {
-          color: Bastion.colors.BLUE,
+          color: Kara.colors.BLUE,
           description: announcementMessage
         }
       }).catch(() => {});
@@ -42,12 +42,12 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.GREEN,
+      color: Kara.colors.GREEN,
       title: 'Announced',
       description: announcementMessage
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

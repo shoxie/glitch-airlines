@@ -6,7 +6,7 @@
 
 const request = xrequire('request-promise-native');
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   let options = {
     method: 'HEAD',
     url: 'https://thecatapi.com/api/images/get',

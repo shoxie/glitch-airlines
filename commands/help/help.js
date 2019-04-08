@@ -4,15 +4,15 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (args.command) {
     let channel, command = args.command.toLowerCase();
-    if (Bastion.commands.has(command) || Bastion.aliases.has(command)) {
-      if (Bastion.commands.has(command)) {
-        command = Bastion.commands.get(command);
+    if (Kara.commands.has(command) || Kara.aliases.has(command)) {
+      if (Kara.commands.has(command)) {
+        command = Kara.commands.get(command);
       }
-      else if (Bastion.aliases.has(command)) {
-        command = Bastion.commands.get(Bastion.aliases.get(command).toLowerCase());
+      else if (Kara.aliases.has(command)) {
+        command = Kara.commands.get(Kara.aliases.get(command).toLowerCase());
       }
       let example = [];
       if (command.help.example.length < 1) {
@@ -33,7 +33,7 @@ exports.exec = async (Bastion, message, args) => {
 
       await channel.send({
         embed: {
-          color: Bastion.colors.GOLD,
+          color: Kara.colors.GOLD,
           fields: [
             {
               name: 'Command',
@@ -52,7 +52,7 @@ exports.exec = async (Bastion, message, args) => {
             },
             {
               name: 'Description',
-              value: Bastion.i18n.command(message.guild.language, command.help.name).description,
+              value: Kara.i18n.command(message.guild.language, command.help.name).description,
               inline: false
             },
             {
@@ -83,13 +83,13 @@ exports.exec = async (Bastion, message, args) => {
       });
     }
     else {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'notFound', 'command'), message.channel);
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'notFound', 'command'), message.channel);
     }
   }
   else {
     await message.channel.send({
       embed: {
-        color: Bastion.colors.GOLD,
+        color: Kara.colors.GOLD,
         title: 'Help',
         description: `To get the list of commands, type \`${message.guild.prefix[0]}commands\`.` +
                      `\nTo get help about a specific command, type \`${message.guild.prefix[0]}help <command_name>\`.` +
@@ -102,15 +102,15 @@ exports.exec = async (Bastion, message, args) => {
           },
           {
             name: 'Kara Bot',
-            value: `[Invite](https://discordapp.com/oauth2/authorize?client_id=${Bastion.user.id}&scope=bot&permissions=8)`,
+            value: `[Invite](https://discordapp.com/oauth2/authorize?client_id=${Kara.user.id}&scope=bot&permissions=8)`,
             inline: true
           }
         ],
         thumbnail: {
-          url: Bastion.user.displayAvatarURL
+          url: Kara.user.displayAvatarURL
         },
         footer: {
-          text: `Server Prefix: ${message.guild.prefix.join(' ')} • Total Commands: ${Bastion.commands.size}`
+          text: `Server Prefix: ${message.guild.prefix.join(' ')} • Total Commands: ${Kara.commands.size}`
         }
       }
     });

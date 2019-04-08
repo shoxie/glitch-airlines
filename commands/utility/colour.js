@@ -6,7 +6,7 @@
 
 const convert = xrequire('color-convert');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (args.color && /^#?[0-9a-f]{6}$/i.test(args.color)) {
     args.color = args.color.replace('#', '');
   }
@@ -14,7 +14,7 @@ exports.exec = async (Bastion, message, args) => {
     args.color = '000000'.replace(/0/g, () => (~~(Math.random() * 16)).toString(16));
   }
   else {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
 

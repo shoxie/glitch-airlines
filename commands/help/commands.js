@@ -4,13 +4,13 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
-  let categories = Bastion.commands.map(c => c.config.module.toLowerCase()).unique();
+exports.exec = async (Kara, message, args) => {
+  let categories = Kara.commands.map(c => c.config.module.toLowerCase()).unique();
 
   if (!args.category) {
     return await message.channel.send({
       embed: {
-        color: Bastion.colors.GOLD,
+        color: Kara.colors.GOLD,
         title: 'List of Command Categories',
         fields: [
           {
@@ -19,7 +19,7 @@ exports.exec = async (Bastion, message, args) => {
           }
         ],
         footer: {
-          text: `Did you know? There are ${Bastion.commands.size} commands in this version of Kara!`
+          text: `Did you know? There are ${Kara.commands.size} commands in this version of Kara!`
         }
       }
     });
@@ -29,19 +29,19 @@ exports.exec = async (Bastion, message, args) => {
   if (!categories.includes(args.category)) {
     return await message.channel.send({
       embed: {
-        color: Bastion.colors.RED,
+        color: Kara.colors.RED,
         title: 'Invalid Command Cateogry',
         description: 'Use the `commands` command without any arguments to get a list of all the available command categories.'
       }
     });
   }
 
-  let commands = Bastion.commands.filter(c => c.config.module === args.category);
+  let commands = Kara.commands.filter(c => c.config.module === args.category);
   args.category = args.category.replace(/_/g, ' ').toTitleCase();
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.GOLD,
+      color: Kara.colors.GOLD,
       title: `List of Commands in ${args.category} category`,
       description: `Use the \`commands\` command to get a list of all the ${categories.length} command categories.`,
       fields: [
@@ -56,7 +56,7 @@ exports.exec = async (Bastion, message, args) => {
         
       ],
       footer: {
-        text: `Did you know? There are ${Bastion.commands.size} commands in this version of Kara!`
+        text: `Did you know? There are ${Kara.commands.size} commands in this version of Kara!`
       }
     }
   });

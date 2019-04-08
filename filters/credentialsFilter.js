@@ -5,7 +5,7 @@
  */
 
 /**
- * Handles filtering of Bastion's credentials contained in messages
+ * Handles filtering of Kara's credentials contained in messages
  * @param {Message} message Discord.js message object
  * @returns {Promise<boolean>} Whether any credentials was found or not
  */

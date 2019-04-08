@@ -6,15 +6,15 @@
 
 const request = xrequire('request-promise-native');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.player) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   let options = {
     uri: 'https://api.roblox.com/users/get-by-username',
     headers: {
-      'User-Agent': `Kara/${Bastion.package.version} (${Bastion.user.tag}; ${Bastion.user.id}) https://bastionbot.org`
+      'User-Agent': `Kara/${Kara.package.version} (${Kara.user.tag}; ${Kara.user.id}) https://bastionbot.org`
     },
     qs: {
       username: encodeURIComponent(args.player)
@@ -25,12 +25,12 @@ exports.exec = async (Bastion, message, args) => {
   let response = await request(options);
 
   if (response.errorMessage) {
-    return Bastion.emit('error', 'Roblox', response.errorMessage, message.channel);
+    return Kara.emit('error', 'Roblox', response.errorMessage, message.channel);
   }
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: 'Roblox Player',
       description: response.IsOnline ? 'Online' : 'Offline',
       fields: [

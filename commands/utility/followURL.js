@@ -4,12 +4,12 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!/^(http[s]?:\/\/)(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)$/i.test(args.url)) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'invalidInput', 'URL'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'invalidInput', 'URL'), message.channel);
   }
 
-  let url = await Bastion.methods.makeBWAPIRequest('/url/follow', {
+  let url = await Kara.methods.makeBWAPIRequest('/url/follow', {
     qs: {
       url: args.url
     }
@@ -17,7 +17,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       fields: [
         {
           name: 'Original URL',

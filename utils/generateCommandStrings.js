@@ -46,7 +46,7 @@ writeFile(path.resolve('./data', 'commands.json'), JSON.stringify(sortedCommands
   then(() => console.log('Successfully generated command list for website.')).
   catch(console.error);
 
-// Generate commands file that will be used by Bastion's String Handler
+// Generate commands file that will be used by Kara's String Handler
 for (let command in sortedCommands) {
   if (sortedCommands.hasOwnProperty(command)) {
     delete sortedCommands[command].module;

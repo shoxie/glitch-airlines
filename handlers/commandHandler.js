@@ -10,7 +10,7 @@ const _ = xrequire('lodash/core');
 const activeUsers = {};
 
 /**
- * Handles Bastion's commands
+ * Handles Kara's commands
  * @param {Message} message Discord.js message object
  * @returns {void}
  */
@@ -233,11 +233,11 @@ module.exports = async message => {
       }
     }
 
-    // Checks if Bastion has the required permission
+    // Checks if Kara has the required permission
     if (cmd.help.botPermission) {
       if (!message.channel.permissionsFor(message.guild.me) || !message.channel.permissionsFor(message.guild.me).has(cmd.help.botPermission)) {
         /**
-        * Bastion has missing permissions.
+        * Kara has missing permissions.
         * @fires bastionMissingPermissions
         */
         return message.client.emit('bastionMissingPermissions', cmd.help.botPermission, message);

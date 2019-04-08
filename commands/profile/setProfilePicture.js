@@ -4,17 +4,17 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
-  if (Bastion.methods.isPublicKara(Kara)) {
-    return Bastion.emit('error', '', 'This command is temporarily disabled in the public Bastion. For details, please contact [Kara Support](https://discord.gg/fzx8fkt).', message.channel);
+exports.exec = async (Kara, message, args) => {
+  if (Kara.methods.isPublicKara(Kara)) {
+    return Kara.emit('error', '', 'This command is temporarily disabled in the public Kara. For details, please contact [Kara Support](https://discord.gg/fzx8fkt).', message.channel);
   }
 
   args = args.join(' ');
   if (!/^(https?:\/\/)((([-a-z0-9]{1,})?(-?)+[-a-z0-9]{1,})(\.))+([a-z]{1,63})\/((([a-z0-9._\-~#%])+\/)+)?([a-z0-9._\-~#%]+)\.(jpg|jpeg|gif|png|bmp)$/i.test(args)) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
-  let userModel = await Bastion.database.models.user.findOne({
+  let userModel = await Kara.database.models.user.findOne({
     attributes: [ 'avatar' ],
     where: {
       userID: message.author.id
@@ -23,7 +23,7 @@ exports.exec = async (Bastion, message, args) => {
 
   if (!userModel) return;
 
-  await Bastion.database.models.user.update({
+  await Kara.database.models.user.update({
     avatar: args
   },
   {
@@ -35,7 +35,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.GREEN,
+      color: Kara.colors.GREEN,
       title: 'Profile Picture Set',
       image: {
         url: args
@@ -45,7 +45,7 @@ exports.exec = async (Bastion, message, args) => {
       }
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

@@ -4,13 +4,13 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   let user;
   if (message.mentions.users.size) {
     user = message.mentions.users.first();
   }
   else if (args.id) {
-    user = await Bastion.fetchUser(args.id);
+    user = await Kara.fetchUser(args.id);
   }
 
   if (user) {
@@ -25,7 +25,7 @@ exports.exec = async (Bastion, message, args) => {
     if (!guildMemberModel.dataValues.warnings) {
       return await message.channel.send({
         embed: {
-          color: Bastion.colors.GREEN,
+          color: Kara.colors.GREEN,
           description: `<@${user.id}> hasn't been warned yet.`
         }
       });
@@ -47,7 +47,7 @@ exports.exec = async (Bastion, message, args) => {
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.ORANGE,
+        color: Kara.colors.ORANGE,
         title: `Warnings for ${message.author.tag}`,
         fields: warnings,
         footer: {
@@ -62,7 +62,7 @@ exports.exec = async (Bastion, message, args) => {
       where: {
         guildID: message.guild.id,
         warnings: {
-          [Bastion.database.Op.not]: null
+          [Kara.database.Op.not]: null
         }
       }
     });
@@ -73,7 +73,7 @@ exports.exec = async (Bastion, message, args) => {
     if (!warnedMembers.length) {
       return await message.channel.send({
         embed: {
-          color: Bastion.colors.GREEN,
+          color: Kara.colors.GREEN,
           description: 'No one has been warned yet.'
         }
       });
@@ -96,7 +96,7 @@ exports.exec = async (Bastion, message, args) => {
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.ORANGE,
+        color: Kara.colors.ORANGE,
         title: 'Warning List',
         description: membersList.slice(i * 10, (i * 10) + 10).join('\n'),
         footer: {

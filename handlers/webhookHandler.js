@@ -8,7 +8,7 @@ const Discord = xrequire('discord.js');
 
 module.exports = class WebhookHandler {
   /**
-   * Handles the webhooks sent by Bastion.
+   * Handles the webhooks sent by Kara.
    * @constructor
    * @param {Object} webhooks The webhooks object in the `credentials.yaml` file.
    */

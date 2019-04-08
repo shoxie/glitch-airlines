@@ -6,9 +6,9 @@
 
 const request = xrequire('request-promise-native');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.length) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   let options = {
@@ -19,11 +19,11 @@ exports.exec = async (Bastion, message, args) => {
   let response = await request(options);
 
   let color, description = '', data = [], thumbnail = '';
-  color = Bastion.colors.BLUE;
+  color = Kara.colors.BLUE;
   response = response.query.pages[0];
 
   if (response.missing) {
-    color = Bastion.colors.RED;
+    color = Kara.colors.RED;
     description = `**${args.join(' ')}** was not found in Wikipedia.`;
   }
   else {

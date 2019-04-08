@@ -6,9 +6,9 @@
 
 const request = xrequire('request-promise-native');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.book) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
 
@@ -16,7 +16,7 @@ exports.exec = async (Bastion, message, args) => {
     method: 'GET',
     url: 'https://www.googleapis.com/books/v1/volumes',
     qs: {
-      key: Bastion.credentials.googleAPIkey,
+      key: Kara.credentials.googleAPIkey,
       q: encodeURIComponent(args.book.join(' '))
     },
     json: true
@@ -26,7 +26,7 @@ exports.exec = async (Bastion, message, args) => {
 
   // Check if the book was found
   if (books.totalItems < 1) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'notFound', 'book'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'notFound', 'book'), message.channel);
   }
 
   const { items: [ book ] } = books;
@@ -34,7 +34,7 @@ exports.exec = async (Bastion, message, args) => {
   await message.channel.send({
     embed: createEmbed(book.volumeInfo, Kara)
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 
@@ -47,7 +47,7 @@ exports.exec = async (Bastion, message, args) => {
  */
 const createEmbed = (volumeInfo, Kara) => {
   const embed = {
-    color: Bastion.colors.BLUE,
+    color: Kara.colors.BLUE,
     title: volumeInfo.title,
     description: `${volumeInfo.description.substring(0, 150)}...`,
     fields: [

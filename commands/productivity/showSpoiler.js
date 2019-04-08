@@ -4,16 +4,16 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.lengt) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   await message.author.send({
     embed: {
       color: message.client.colors.BLUE,
       title: 'SPOILER ALERT!',
-      description: Bastion.methods.rot(args.join(' '), 13),
+      description: Kara.methods.rot(args.join(' '), 13),
       footer: {
         text: 'You chose to view this spoiler. Don\'t blame me!'
       }
@@ -26,7 +26,7 @@ exports.exec = async (Bastion, message, args) => {
       description: 'Check your direct messages from me to see the spoiler.'
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

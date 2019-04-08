@@ -75,10 +75,10 @@ const statStrings = {
   upgrades: [ 'troops', 'spells', 'heroes' ]
 };
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   try {
     if (!args.needle) {
-      return Bastion.emit('commandUsage', message, this.help);
+      return Kara.emit('commandUsage', message, this.help);
     }
 
     if (
@@ -86,10 +86,10 @@ exports.exec = async (Bastion, message, args) => {
       (args.needle.charAt(0) !== '#' && `${args.needle} ${args._unknown && args._unknown.join(' ')}`.length  <= 3)
     ) {
       // API requires search string to be longer than three characters
-      return Bastion.emit(
+      return Kara.emit(
         'error',
         '',
-        Bastion.i18n.error(message.guild.language, 'needleTooShort', '4'),
+        Kara.i18n.error(message.guild.language, 'needleTooShort', '4'),
         message.channel
       );
     }
@@ -118,22 +118,22 @@ exports.exec = async (Bastion, message, args) => {
     let options = {
       uri: COC_API + searchUri,
       headers: {
-        Authorization: `Bearer ${Bastion.credentials.clashOfClansAPIKey}`,
-        'User-Agent': `Kara/${Bastion.package.version} (${
-          Bastion.user.tag
-        }; ${Bastion.user.id}) https://bastionbot.org`
+        Authorization: `Bearer ${Kara.credentials.clashOfClansAPIKey}`,
+        'User-Agent': `Kara/${Kara.package.version} (${
+          Kara.user.tag
+        }; ${Kara.user.id}) https://bastionbot.org`
       },
       json: true
     };
 
     let result = await request(options);
     if (result.error) {
-      return Bastion.emit('error', 'Error', result.error, message.channel);
+      return Kara.emit('error', 'Error', result.error, message.channel);
     }
 
     // Create embed
     let embed = new Discord.RichEmbed().
-      setColor(Bastion.colors.BLUE).
+      setColor(Kara.colors.BLUE).
       setTimestamp();
 
     if (!tagSearch) {
@@ -283,10 +283,10 @@ exports.exec = async (Bastion, message, args) => {
   catch (e) {
     if (e.name === 'StatusCodeError') {
       if (e.statusCode === 404) {
-        return Bastion.emit('error', 'No search results', '', message.channel);
+        return Kara.emit('error', 'No search results', '', message.channel);
       }
       else if (e.statusCode === 400) {
-        return Bastion.emit(
+        return Kara.emit(
           'error',
           'Incorrect parameters',
           '',
@@ -294,7 +294,7 @@ exports.exec = async (Bastion, message, args) => {
         );
       }
       else if (e.statusCode === 429) {
-        return Bastion.emit(
+        return Kara.emit(
           'error',
           'Request was throttled',
           '',
@@ -302,10 +302,10 @@ exports.exec = async (Bastion, message, args) => {
         );
       }
       else if (e.statusCode === 500) {
-        return Bastion.emit('error', 'Unknown error', '', message.channel);
+        return Kara.emit('error', 'Unknown error', '', message.channel);
       }
       else if (e.statusCode === 503) {
-        return Bastion.emit(
+        return Kara.emit(
           'error',
           'Server temporary unavailable',
           '',
@@ -313,13 +313,13 @@ exports.exec = async (Bastion, message, args) => {
         );
       }
       else if (e.error === 'invalidIp') {
-        return Bastion.emit(
+        return Kara.emit(
           'error', 'Your IP address is not allowed to use the API key',
           '',
           message.channel
         );
       }
-      return Bastion.emit(
+      return Kara.emit(
         'error',
         e.statusCode,
         e.message,

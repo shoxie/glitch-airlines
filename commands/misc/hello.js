@@ -4,10 +4,10 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       description: 'Hi! I\'m **Kara**. \u{1F609}\n' +
                    'I\'m a BOT that is going to make your time in this Discord Server amazing!',
       footer: {

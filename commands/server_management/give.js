@@ -4,9 +4,9 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.amount) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   let user;
@@ -14,49 +14,49 @@ exports.exec = async (Bastion, message, args) => {
     user = message.mentions.users.first();
   }
   else if (args.id) {
-    user = await Bastion.utils.fetchMember(message.guild, args.id);
+    user = await Kara.utils.fetchMember(message.guild, args.id);
     if (user) {
       user = user.user;
     }
   }
   if (!user) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'giveNoUser'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'giveNoUser'), message.channel);
   }
 
   args.amount = Math.abs(args.amount);
   if (message.author.id === message.guild.ownerID) {
-    Bastion.emit('userDebit', message.guild.members.get(user.id), args.amount);
+    Kara.emit('userDebit', message.guild.members.get(user.id), args.amount);
 
     // Send a message in the channel to let the Guild Owner know that the operation was successful.
     await message.channel.send({
       embed: {
-        color: Bastion.colors.GREEN,
+        color: Kara.colors.GREEN,
         description: `You've awarded **${args.amount}** $ to <@${user.id}>.`
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
 
     // Let the user know by DM that their account has been debited.
     await user.send({
       embed: {
-        color: Bastion.colors.GREEN,
+        color: Kara.colors.GREEN,
         description: `Your account, in **${message.guild.name}** Server, has been debited with **${args.amount}** $.`
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
   }
   else {
     if (message.author.id === user.id) {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'giveYourself'), message.channel);
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'giveYourself'), message.channel);
     }
 
     if (message.guild.transactions && message.guild.transactions[message.author.id] === 3) {
-      return Bastion.emit('error', '', `${message.author.displayName}, you've reached your transaction limit for today. You can only do 3 transactions in 24 hours.`, message.channel);
+      return Kara.emit('error', '', `${message.author.displayName}, you've reached your transaction limit for today. You can only do 3 transactions in 24 hours.`, message.channel);
     }
 
-    let guildMemberModel = await Bastion.database.models.guildMember.findOne({
+    let guildMemberModel = await Kara.database.models.guildMember.findOne({
       attributes: [ 'bastionCurrencies' ],
       where: {
         userID: message.author.id,
@@ -66,16 +66,16 @@ exports.exec = async (Bastion, message, args) => {
     guildMemberModel.dataValues.bastionCurrencies = parseInt(guildMemberModel.dataValues.bastionCurrencies);
 
     if (guildMemberModel.dataValues.bastionCurrencies < args.amount) {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'insufficientBalance', guildMemberModel.dataValues.bastionCurrencies), message.channel);
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'insufficientBalance', guildMemberModel.dataValues.bastionCurrencies), message.channel);
     }
 
     let giveLimit = 0.5;
     if (args.amount >= giveLimit * guildMemberModel.dataValues.bastionCurrencies) {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'giveLimit', giveLimit * 100), message.channel);
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'giveLimit', giveLimit * 100), message.channel);
     }
 
-    Bastion.emit('userDebit', message.guild.members.get(user.id), args.amount);
-    Bastion.emit('userCredit', message.member, args.amount);
+    Kara.emit('userDebit', message.guild.members.get(user.id), args.amount);
+    Kara.emit('userCredit', message.member, args.amount);
 
     // Transaction cooldown
     if (!('transactions' in message.guild)) message.guild.transactions = {};
@@ -91,31 +91,31 @@ exports.exec = async (Bastion, message, args) => {
     // Send a message in the channel to let the user know that the operation was successful.
     await message.channel.send({
       embed: {
-        color: Bastion.colors.GREEN,
+        color: Kara.colors.GREEN,
         description: `You have given **${args.amount}** $ to <@${user.id}>.`
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
 
     // Let the user receiving $ know by DM that their account has been debited.
     await user.send({
       embed: {
-        color: Bastion.colors.GREEN,
+        color: Kara.colors.GREEN,
         description: `Your account, in **${message.guild.name}** Server, has been debited with **${args.amount}** $.`
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
 
     // Let the user sending $ know by DM that their account has been credited.
     await message.author.send({
       embed: {
-        color: Bastion.colors.RED,
+        color: Kara.colors.RED,
         description: `Your account, in **${message.guild.name}** Server, has been credited with **${args.amount}** $.`
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
   }
 };

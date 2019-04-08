@@ -4,7 +4,7 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   let user = message.mentions.users.first();
   if (!user) {
     user = message.author;
@@ -12,7 +12,7 @@ exports.exec = async (Bastion, message) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       fields: [
         {
           name: `${user.bot ? 'Bot' : 'User'}`,

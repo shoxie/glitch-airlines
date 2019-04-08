@@ -4,10 +4,10 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   try {
     if (!args.id) {
-      return Bastion.emit('commandUsage', message, this.help);
+      return Kara.emit('commandUsage', message, this.help);
     }
 
     args.reason = args.reason.join(' ');
@@ -16,18 +16,18 @@ exports.exec = async (Bastion, message, args) => {
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.GREEN,
-        description: Bastion.i18n.info(message.guild.language, 'unban', message.author.tag, user.tag, args.reason)
+        color: Kara.colors.GREEN,
+        description: Kara.i18n.info(message.guild.language, 'unban', message.author.tag, user.tag, args.reason)
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
 
-    Bastion.emit('moderationLog', message, this.help.name, user, args.reason);
+    Kara.emit('moderationLog', message, this.help.name, user, args.reason);
   }
   catch (e) {
     if (e.code === 10013) {
-      Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'notFound', 'user'), message.channel);
+      Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'notFound', 'user'), message.channel);
     }
     else {
       throw e;

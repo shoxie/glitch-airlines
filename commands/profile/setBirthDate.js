@@ -4,28 +4,28 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.date) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   args.date = Date.parse(args.date.join(' '));
 
   if (!args.date) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'invalidInput', 'date'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'invalidInput', 'date'), message.channel);
   }
 
   let age = Date.now() - args.date;
   let year = 31556952000;
 
   if (age > 100 * year) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'ageAbove100'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'ageAbove100'), message.channel);
   }
   else if (age < 13 * year) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'ageBelow13'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'ageBelow13'), message.channel);
   }
 
-  let userModel = await Bastion.database.models.user.findOne({
+  let userModel = await Kara.database.models.user.findOne({
     attributes: [ 'birthDate' ],
     where: {
       userID: message.author.id
@@ -38,11 +38,11 @@ exports.exec = async (Bastion, message, args) => {
         description: `<@${message.author.id}> you didn't had a profile yet. I've now created your profile. Now you can use the command again to set your birth date.`
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
   }
 
-  await Bastion.database.models.user.update({
+  await Kara.database.models.user.update({
     birthDate: args.date
   },
   {
@@ -54,12 +54,12 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.GREEN,
+      color: Kara.colors.GREEN,
       title: 'Birth Date Set',
       description: `See you on your Birthday, ${message.author.tag}!`
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

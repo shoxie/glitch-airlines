@@ -10,10 +10,10 @@ const path = xrequire('path');
 /**
  * Handles/Loads all the events.
  * @module eventHandler
- * @param {object} Bastion The Bastion Object.
+ * @param {object} Kara The Kara Object.
  * @returns {void}
  */
-module.exports = Bastion => {
+module.exports = Kara => {
   const DISCORD_EVENTS_PATH = './events/discord/';
   const SELF_EVENTS_PATH = './events/self/';
 
@@ -31,16 +31,16 @@ module.exports = Bastion => {
     event = event.replace(/\.js$/i, '');
 
     if (event === 'ready') {
-      Bastion.on(event, () => xrequire(DISCORD_EVENTS_PATH, event)(Bastion));
+      Kara.on(event, () => xrequire(DISCORD_EVENTS_PATH, event)(Kara));
     }
     else {
-      Bastion.on(event, xrequire(DISCORD_EVENTS_PATH, event));
+      Kara.on(event, xrequire(DISCORD_EVENTS_PATH, event));
     }
   }
 
   for (let event of SelfEvents) {
     event = event.replace(/\.js$/i, '');
 
-    Bastion.on(event, xrequire(SELF_EVENTS_PATH, event));
+    Kara.on(event, xrequire(SELF_EVENTS_PATH, event));
   }
 };

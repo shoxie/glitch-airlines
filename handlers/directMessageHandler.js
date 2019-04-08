@@ -5,7 +5,7 @@
  */
 
 /**
- * Handles direct messages sent to Bastion
+ * Handles direct messages sent to Kara
  * @param {Message} message Discord.js message object
  * @returns {void}
  */
@@ -17,16 +17,16 @@ module.exports = async message => {
       return message.channel.send({
         embed: {
           color: message.client.colors.BLUE,
-          title: 'The Bastion Bot',
+          title: 'The Kara Bot',
           url: 'https://bastionbot.org',
-          description: 'Join [**Bastion HQ**](https://discord.gg/fzx8fkt) to test Bastion and it\'s commands, for giveaway events, for chatting and for a lot of fun!',
+          description: 'Join [**Kara HQ**](https://discord.gg/fzx8fkt) to test Kara and it\'s commands, for giveaway events, for chatting and for a lot of fun!',
           fields: [
             {
-              name: 'Bastion HQ Invite Link',
+              name: 'Kara HQ Invite Link',
               value: 'https://discord.gg/fzx8fkt'
             },
             {
-              name: 'Bastion Bot Invite Link',
+              name: 'Kara Bot Invite Link',
               value: `https://discordapp.com/oauth2/authorize?client_id=${message.client.user.id}&scope=bot&permissions=2146958463`
             }
           ],

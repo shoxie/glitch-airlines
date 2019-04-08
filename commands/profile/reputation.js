@@ -1,7 +1,7 @@
 let recentUsers = [];
 const COOLDOWN = 12;
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (/^tay(?:lor)?(?: alison)?(?: swift)?$/i.test(args.length && args.join(' '))) {
     let reputationLyrics = [
       'Big **reputation**, big **reputation**\nOoh, you and me, we got big **reputations**, ah\nAnd you heard about me, ooh',
@@ -20,7 +20,7 @@ exports.exec = async (Bastion, message, args) => {
     let user = message.mentions.users.first();
     if (!user) return;
     if (user.id === message.author.id) {
-      return Bastion.emit('error', '', 'You can\'t give karma to yourself!', message.channel);
+      return Kara.emit('error', '', 'You can\'t give karma to yourself!', message.channel);
     }
 
     let [ guildMemberModel, initialized ] = await message.client.database.models.guildMember.findOrBuild({
@@ -56,15 +56,15 @@ exports.exec = async (Bastion, message, args) => {
 
     await message.channel.send({
       embed: {
-        color: Bastion.colors.GREEN,
+        color: Kara.colors.GREEN,
         description: `You have given one karma to ${user.tag}`
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
   }
   else {
-    return Bastion.emit('error', '', `You have recently given karma to someone, please wait at least ${COOLDOWN} hours before giving karma again.`, message.channel);
+    return Kara.emit('error', '', `You have recently given karma to someone, please wait at least ${COOLDOWN} hours before giving karma again.`, message.channel);
   }
 };
 

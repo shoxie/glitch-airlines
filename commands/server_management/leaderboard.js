@@ -4,16 +4,16 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
-  let guildMemberModels = await Bastion.database.models.guildMember.findAll({
+exports.exec = async (Kara, message) => {
+  let guildMemberModels = await Kara.database.models.guildMember.findAll({
     attributes: [ 'userID', 'bastionCurrencies', 'experiencePoints', 'level' ],
     where: {
       guildID: message.guild.id
     },
     order: [
-      [ Bastion.database.fn('ABS', Bastion.database.col('level')), 'DESC' ],
-      [ Bastion.database.fn('ABS', Bastion.database.col('experiencePoints')), 'DESC' ],
-      [ Bastion.database.fn('ABS', Bastion.database.col('bastionCurrencies')), 'DESC' ]
+      [ Kara.database.fn('ABS', Kara.database.col('level')), 'DESC' ],
+      [ Kara.database.fn('ABS', Kara.database.col('experiencePoints')), 'DESC' ],
+      [ Kara.database.fn('ABS', Kara.database.col('bastionCurrencies')), 'DESC' ]
     ],
     limit: 10
   });
@@ -39,7 +39,7 @@ exports.exec = async (Bastion, message) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: 'Leaderboard',
       description: 'These are the users topping the chart!',
       fields: fields

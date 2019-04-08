@@ -4,42 +4,42 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   let user;
   if (message.mentions.users.size) {
     user = message.mentions.users.first();
   }
   else if (args.id) {
-    user = await Bastion.fetchUser(args.id);
+    user = await Kara.fetchUser(args.id);
   }
   if (!user) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
-  let member = await Bastion.utils.fetchMember(message.guild, user.id);
-  if (message.author.id !== message.guild.ownerID && message.member.highestRole.comparePositionTo(member.highestRole) <= 0) return Bastion.log.info(Bastion.i18n.error(message.guild.language, 'lowerRole'));
+  let member = await Kara.utils.fetchMember(message.guild, user.id);
+  if (message.author.id !== message.guild.ownerID && message.member.highestRole.comparePositionTo(member.highestRole) <= 0) return Kara.log.info(Kara.i18n.error(message.guild.language, 'lowerRole'));
 
   let color;
   let nickStat = '';
   if (message.guild.ownerID === message.author.id) {
-    color = Bastion.colors.RED;
+    color = Kara.colors.RED;
     nickStat = 'Can\'t change server owner\'s nickname.';
   }
   else {
     args.nick = args.nick.join(' ');
 
     if (args.nick > 32) {
-      color = Bastion.colors.RED;
+      color = Kara.colors.RED;
       nickStat = 'Nickname can\'t be longer than 32 characters.';
     }
     else {
       if (args.nick < 1) {
-        color = Bastion.colors.RED;
-        nickStat = Bastion.i18n.info(message.guild.language, 'removeNickname', message.author.tag, user.tag);
+        color = Kara.colors.RED;
+        nickStat = Kara.i18n.info(message.guild.language, 'removeNickname', message.author.tag, user.tag);
       }
       else {
-        color = Bastion.colors.GREEN;
-        nickStat = Bastion.i18n.info(message.guild.language, 'setNickname', message.author.tag, user.tag, args.nick);
+        color = Kara.colors.GREEN;
+        nickStat = Kara.i18n.info(message.guild.language, 'setNickname', message.author.tag, user.tag, args.nick);
       }
     }
     await member.setNickname(args.nick);
@@ -51,7 +51,7 @@ exports.exec = async (Bastion, message, args) => {
       description: nickStat
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

@@ -4,15 +4,15 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   if (!message.guild.music.enabled) {
-    if (Bastion.user.id === '267035345537728512') {
-      return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'musicDisabledPublic'), message.channel);
+    if (Kara.user.id === '267035345537728512') {
+      return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'musicDisabledPublic'), message.channel);
     }
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'musicDisabled'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'musicDisabled'), message.channel);
   }
 
-  let guildModel = await Bastion.database.models.guild.findOne({
+  let guildModel = await Kara.database.models.guild.findOne({
     attributes: [ 'musicAutoDisconnect' ],
     where: {
       guildID: message.guild.id
@@ -22,16 +22,16 @@ exports.exec = async (Bastion, message) => {
   let enabled, color, autoDisconnectStatus;
   if (guildModel.dataValues.musicAutoDisconnect) {
     enabled = false;
-    color = Bastion.colors.RED;
-    autoDisconnectStatus = Bastion.i18n.info(message.guild.language, 'disableMusicAutoDisconnect', message.author.tag);
+    color = Kara.colors.RED;
+    autoDisconnectStatus = Kara.i18n.info(message.guild.language, 'disableMusicAutoDisconnect', message.author.tag);
   }
   else {
     enabled = true;
-    color = Bastion.colors.GREEN;
-    autoDisconnectStatus = Bastion.i18n.info(message.guild.language, 'enableMusicAutoDisconnect', message.author.tag);
+    color = Kara.colors.GREEN;
+    autoDisconnectStatus = Kara.i18n.info(message.guild.language, 'enableMusicAutoDisconnect', message.author.tag);
   }
 
-  await Bastion.database.models.guild.update({
+  await Kara.database.models.guild.update({
     musicAutoDisconnect: enabled
   },
   {
@@ -47,7 +47,7 @@ exports.exec = async (Bastion, message) => {
       description: autoDisconnectStatus
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

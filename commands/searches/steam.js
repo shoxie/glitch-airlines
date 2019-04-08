@@ -6,9 +6,9 @@
 
 const request = xrequire('request-promise-native');
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.category) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   args.category = args.category.join('_').toLowerCase();
@@ -20,7 +20,7 @@ exports.exec = async (Bastion, message, args) => {
   let response = await request(options);
 
   if (!Object.keys(response).includes(args.category)) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'notFound', 'category'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'notFound', 'category'), message.channel);
   }
 
   let games = response[args.category].items.map(item => `[${item.name}](https://store.steampowered.com/app/${item.id})`);
@@ -31,7 +31,7 @@ exports.exec = async (Bastion, message, args) => {
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       author: {
         name: 'Steam',
         url: 'https://store.steampowered.com'

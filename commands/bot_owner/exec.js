@@ -7,10 +7,10 @@
 const util = xrequire('util');
 const exec = util.promisify(xrequire('child_process').exec);
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   try {
     if (!args.length) {
-      return Bastion.emit('commandUsage', message, this.help);
+      return Kara.emit('commandUsage', message, this.help);
     }
     args = args.join(' ');
 
@@ -25,21 +25,21 @@ exports.exec = async (Bastion, message, args) => {
     let color;
 
     if (stdout) {
-      color = Bastion.colors.GREEN;
+      color = Kara.colors.GREEN;
       output.push({
         name: ':outbox_tray: OUTPUT',
         value: `\`\`\`bash\n${sanitize(stdout)}\`\`\``
       });
     }
     else if (stderr) {
-      color = Bastion.colors.RED;
+      color = Kara.colors.RED;
       output.push({
         name: ':no_entry: ERROR',
         value: `\`\`\`bash\n${sanitize(stdout)}\`\`\``
       });
     }
     else {
-      color = Bastion.colors.GREEN;
+      color = Kara.colors.GREEN;
       output.push({
         name: ':outbox_tray: OUTPUT',
         value: '```bash\n# Command executed successfully but returned no output.```'
@@ -52,7 +52,7 @@ exports.exec = async (Bastion, message, args) => {
         fields: output
       }
     }).catch(e => {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     });
   }
   catch (e) {
@@ -66,21 +66,21 @@ exports.exec = async (Bastion, message, args) => {
       let color;
 
       if (e.stdout) {
-        color = Bastion.colors.GREEN;
+        color = Kara.colors.GREEN;
         output.push({
           name: ':outbox_tray: OUTPUT',
           value: `\`\`\`bash\n${sanitize(e.stdout)}\`\`\``
         });
       }
       else if (e.stderr) {
-        color = Bastion.colors.RED;
+        color = Kara.colors.RED;
         output.push({
           name: ':no_entry: ERROR',
           value: `\`\`\`bash\n${sanitize(e.stderr)}\`\`\``
         });
       }
       else {
-        color = Bastion.colors.RED;
+        color = Kara.colors.RED;
         output.push({
           name: ':outbox_tray: OUTPUT',
           value: '```bash\n# Command was terminated after running for 1 minute and returned no output.```'
@@ -93,11 +93,11 @@ exports.exec = async (Bastion, message, args) => {
           fields: output
         }
       }).catch(e => {
-        Bastion.log.error(e);
+        Kara.log.error(e);
       });
     }
     else {
-      Bastion.log.error(e);
+      Kara.log.error(e);
     }
   }
 };

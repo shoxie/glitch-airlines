@@ -4,8 +4,8 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message) => {
-  let guildModel = await Bastion.database.models.guild.findOne({
+exports.exec = async (Kara, message) => {
+  let guildModel = await Kara.database.models.guild.findOne({
     attributes: [ 'filterEmojis' ],
     where: {
       guildID: message.guild.id
@@ -15,16 +15,16 @@ exports.exec = async (Bastion, message) => {
   let enabled, color, emojiFilterStatus;
   if (guildModel.dataValues.filterEmojis) {
     enabled = false;
-    color = Bastion.colors.RED;
-    emojiFilterStatus = Bastion.i18n.info(message.guild.language, 'disableEmojiFilter', message.author.tag);
+    color = Kara.colors.RED;
+    emojiFilterStatus = Kara.i18n.info(message.guild.language, 'disableEmojiFilter', message.author.tag);
   }
   else {
     enabled = true;
-    color = Bastion.colors.GREEN;
-    emojiFilterStatus = Bastion.i18n.info(message.guild.language, 'enableEmojiFilter', message.author.tag);
+    color = Kara.colors.GREEN;
+    emojiFilterStatus = Kara.i18n.info(message.guild.language, 'enableEmojiFilter', message.author.tag);
   }
 
-  await Bastion.database.models.guild.update({
+  await Kara.database.models.guild.update({
     filterEmojis: enabled
   },
   {
@@ -40,7 +40,7 @@ exports.exec = async (Bastion, message) => {
       description: emojiFilterStatus
     }
   }).catch(e => {
-    Bastion.log.error(e);
+    Kara.log.error(e);
   });
 };
 

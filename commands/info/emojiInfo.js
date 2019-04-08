@@ -4,24 +4,24 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   if (!args.length) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   args = args[0].split(':')[1];
   if (!args) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
   args = message.guild.emojis.find(emoji => emoji.name === args);
 
   if (!args) {
-    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'notFound', 'emoji'), message.channel);
+    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'notFound', 'emoji'), message.channel);
   }
 
   await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: 'Emoji info',
       fields: [
         {

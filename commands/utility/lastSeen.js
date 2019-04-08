@@ -4,19 +4,19 @@
  * @license GPL-3.0
  */
 
-exports.exec = async (Bastion, message, args) => {
+exports.exec = async (Kara, message, args) => {
   let user;
   if (message.mentions.users.size) {
     user = message.mentions.users.first();
   }
   else if (args.id) {
-    user = await Bastion.utils.fetchMember(message.guild, args.id);
+    user = await Kara.utils.fetchMember(message.guild, args.id);
     if (user) {
       user = user.user;
     }
   }
   if (!user) {
-    return Bastion.emit('commandUsage', message, this.help);
+    return Kara.emit('commandUsage', message, this.help);
   }
 
   let color, description;
@@ -41,12 +41,12 @@ exports.exec = async (Bastion, message, args) => {
       lastSeen = `${minutes}m ${seconds}s`;
     }
 
-    color = Bastion.colors.BLUE;
-    description = Bastion.i18n.info(message.guild.language, 'lastSeen', user.tag, lastSeen);
+    color = Kara.colors.BLUE;
+    description = Kara.i18n.info(message.guild.language, 'lastSeen', user.tag, lastSeen);
   }
   else {
-    color = Bastion.colors.RED;
-    description = Bastion.i18n.info(message.guild.language, 'notSeen', user.tag);
+    color = Kara.colors.RED;
+    description = Kara.i18n.info(message.guild.language, 'notSeen', user.tag);
   }
 
   await message.channel.send({

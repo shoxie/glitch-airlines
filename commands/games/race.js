@@ -6,7 +6,7 @@
 
 const ProgressBar = xrequire('./utils/progress');
 
-exports.exec = async (Bastion, message) => {
+exports.exec = async (Kara, message) => {
   let racers = [ [], [] ];
   const STEPS = 20;
   for (let i = 0; i < racers.length; i++) {
@@ -31,11 +31,11 @@ exports.exec = async (Bastion, message) => {
 
   let raceStatusMessage = await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: Kara.colors.BLUE,
       title: 'Race',
       fields: [
         {
-          name: Bastion.user.tag,
+          name: Kara.user.tag,
           value: `:vertical_traffic_light: ${racers[0].join('')}:checkered_flag:`
         },
         {
@@ -73,11 +73,11 @@ exports.exec = async (Bastion, message) => {
 
       raceStatusMessage.edit({
         embed: {
-          color: Bastion.colors.BLUE,
+          color: Kara.colors.BLUE,
           title: result,
           fields: [
             {
-              name: Bastion.user.tag,
+              name: Kara.user.tag,
               value: progressKara
             },
             {

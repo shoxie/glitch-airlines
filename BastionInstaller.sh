@@ -1,12 +1,12 @@
 #!/bin/bash
 #
-# Copyright 2018 The Bastion Bot Project.
+# Copyright 2018 The Kara Bot Project.
 # Licensed under the GNU General Public License, Version 3.0
 # <https://www.gnu.org/licenses/gpl.txt>.
 #
 # This is just a little script that can be downloaded from the internet to
-# install Bastion on a linux based operating system with the apt package
-# manager. It installs Bastion and all the required dependencies and packages.
+# install Kara on a linux based operating system with the apt package
+# manager. It installs Kara and all the required dependencies and packages.
 
 # Exit immediately if a pipeline, which may consist of a single simple command,
 # a list, or a compound command returns a non-zero status
@@ -22,15 +22,15 @@ ORANGE='\033[0;33m'
 CYAN='\033[0;36m'
 
 # Set local variables for use in script
-BASTION_DIR="$HOME/Bastion"
-BASTION_SETTINGS_DIR="$BASTION_DIR/settings"
-BASTION_REPO="https://github.com/TheBastionBot/Bastion.git"
+KARA_DIR="$HOME/Kara"
+KARA_SETTINGS_DIR="$KARA_DIR/settings"
+KARA_REPO="https://github.com/TheKaraBot/Kara.git"
 
-# Function to print message from Bastion
+# Function to print message from Kara
 # Params:
 #   $@ The message string
 function print::bastion() {
-  echo -e "${CYAN}[Bastion]: ${NC}$@${NC}"
+  echo -e "${CYAN}[Kara]: ${NC}$@${NC}"
 }
 
 # Function to print warning (to STDERR)
@@ -40,14 +40,14 @@ function print::warning() {
   echo -e "${ORANGE}[WARNING]: $@${NC}" >&2
 }
 
-# Function to print error (to STDERR) & link to Bastion HQ and exit the script
+# Function to print error (to STDERR) & link to Kara HQ and exit the script
 # Params:
 #   $@ The error string
 function print::error() {
   echo
   echo -e "${RED}[ERROR]: $@${NC}" >&2
   echo
-  echo "Join Bastion HQ and ask for help!"
+  echo "Join Kara HQ and ask for help!"
   echo -e "${CYAN}https://discord.gg/fzx8fkt${NC}"
   echo "And our amazing support staff will help you out."
   echo
@@ -82,7 +82,7 @@ function check_sudo() {
     print::warning "The installer doesn't require superuser permission."
     echo
 
-    print::bastion "Are you sure you want to install Bastion with superuser permission?"
+    print::bastion "Are you sure you want to install Kara with superuser permission?"
     print::bastion "Proceed if and only if you know what you are doing."
 
     prompt::user "[Yes/NO]"
@@ -117,7 +117,7 @@ function install::package_group() {
     print::error "Unable to download and install $@."
 }
 
-# Function to install system packages required by Bastion
+# Function to install system packages required by Kara
 # List of packages:
 #   1. curl
 #   2. wget
@@ -157,55 +157,55 @@ function install::nodejs() {
   print::done
 }
 
-# Function to relocate previous installation of Bastion and clone the latest
+# Function to relocate previous installation of Kara and clone the latest
 # stable version from GitHub
 function install::bastion() {
-  print::bastion "Installing Bastion..."
+  print::bastion "Installing Kara..."
 
   cd "$HOME"
 
-  if [ -d "Bastion" ]; then
-    if [ -d "Bastion-Old" ]; then sudo rm -rf Bastion-Old; fi
-    sudo mv -f Bastion Bastion-Old
+  if [ -d "Kara" ]; then
+    if [ -d "Kara-Old" ]; then sudo rm -rf Kara-Old; fi
+    sudo mv -f Kara Kara-Old
   fi
 
-  git clone -b stable -q --depth 1 "$BASTION_REPO" || \
-    print::error "Unable to download Bastion system files."
+  git clone -b stable -q --depth 1 "$KARA_REPO" || \
+    print::error "Unable to download Kara system files."
 
   print::done
 }
 
-# Function to install all the dependencies of Bastion
+# Function to install all the dependencies of Kara
 function bastion::dependencies() {
-  print::bastion "Installing Bastion dependencies..."
+  print::bastion "Installing Kara dependencies..."
 
   install::package "ffmpeg"
 
   sudo npm install --global yarn 1>/dev/null || \
     print::error "Unable to download and install Yarn."
 
-  cd "$BASTION_DIR"
+  cd "$KARA_DIR"
   yarn install --production --no-lockfile 1>/dev/null || \
     print::error "Unable to download and install node modules."
 
   print::done
 }
 
-# Function to generate the configuration & credentials file of Bastion
+# Function to generate the configuration & credentials file of Kara
 function bastion::configure() {
   print::bastion "Finalizing..."
 
-  cp "$BASTION_SETTINGS_DIR/configurations.example.yaml" "$BASTION_SETTINGS_DIR/configurations.yaml"
-  cp "$BASTION_SETTINGS_DIR/credentials.example.yaml" "$BASTION_SETTINGS_DIR/credentials.yaml"
+  cp "$KARA_SETTINGS_DIR/configurations.example.yaml" "$KARA_SETTINGS_DIR/configurations.yaml"
+  cp "$KARA_SETTINGS_DIR/credentials.example.yaml" "$KARA_SETTINGS_DIR/credentials.yaml"
 
   print::done
 }
 
-# Function to print that Bastion was successfully installed
+# Function to print that Kara was successfully installed
 function bastion::ready {
   print::bastion "Ready to boot up and start running."
   echo
-  print::bastion "Join Bastion HQ: https://discord.gg/fzx8fkt"
+  print::bastion "Join Kara HQ: https://discord.gg/fzx8fkt"
   echo
 }
 
@@ -221,12 +221,12 @@ function main() {
   # Install Node.js
   install::nodejs
 
-  # Clone Bastion from GitHub
+  # Clone Kara from GitHub
   install::bastion
 
-  # Install Bastion dependencies
+  # Install Kara dependencies
   bastion::dependencies
-  # Configure Bastion settings
+  # Configure Kara settings
   bastion::configure
 
   # Successfully installed
