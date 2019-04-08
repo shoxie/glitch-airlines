@@ -3,10 +3,9 @@
     "",
     "\\commands",
     "\\commands\\games",
-    "\\commands\\music",
-    "\\events\\self",
-    "\\monitors\\modules"
+    "\\commands\\help",
+    "\\commands\\music"
   ],
-  "SelectedNode": "\\commands\\games\\acrophobia.js",
+  "SelectedNode": "\\commands\\games\\autochess.js",
   "PreviewInSolutionExplorer": false
 }
