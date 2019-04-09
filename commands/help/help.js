@@ -93,7 +93,7 @@ exports.exec = async (Kara, message, args) => {
         title: 'Help',
         description: `To get the list of commands, type \`${message.guild.prefix[0]}commands\`.` +
                      `\nTo get help about a specific command, type \`${message.guild.prefix[0]}help <command_name>\`.` +
-                     `\n\nNeed help or support with Kara Bot?\n${message.guild.id === '267022940967665664' ? 'Ask for help or DM <@155622262660268033>.' : 'Join [**Kara HQ**](https://discord.gg/ZyBEENv) for testing the commands or any help you need with the bot or maybe just for fun.\nhttps://discord.gg/fzx8fkt'}`,
+            `\n\nNeed help or support with Kara Bot?\n${message.guild.id === '267022940967665664' ? 'Ask for help or DM <@155622262660268033>.' : 'Join [**Kara HQ**](https://discord.gg/ZyBEENv) for testing the commands or any help you need with the bot or maybe just for fun.\nhttps://discord.gg/ZyBEENv'}`,
         fields: [
           {
             name: 'Kara HQ',
