@@ -4,8 +4,9 @@
     "\\commands",
     "\\commands\\games",
     "\\commands\\help",
-    "\\commands\\music"
+    "\\commands\\music",
+    "\\discord_bot"
   ],
-  "SelectedNode": "\\commands\\games\\autochess.js",
+  "SelectedNode": "\\discord_bot\\config.json",
   "PreviewInSolutionExplorer": false
 }
