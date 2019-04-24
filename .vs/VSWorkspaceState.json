@@ -1,12 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\commands",
     "\\commands\\games",
     "\\commands\\help",
     "\\commands\\music",
     "\\discord_bot"
   ],
-  "SelectedNode": "\\discord_bot\\config.json",
+  "SelectedNode": "\\discord_bot\\utility.js",
   "PreviewInSolutionExplorer": false
 }

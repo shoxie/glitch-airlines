@@ -33,6 +33,7 @@ function sendNews(msg) {
                 .setURL(link)
                 .setTimestamp(sendData.pubDate._text)
                 .setFooter("VNEXPRESS");
+            .setThumbnail()
             await msg.channel.send(embed);
         }
     });
@@ -94,8 +95,10 @@ function updateNews() {
 function convert_data(data) {
     const $ = cheerio.load(data);
     var link = $('a').first().attr('href');
+    const dom = new JSDOM('<img src="i-vnexpress.vnecdn.net">', { includeNodeLocations: true });
+    var thumnail = dom.window.document.querySelector("img").getAttribute('src');
     var desc = $.text();
-    return { link, desc }
+    return { link, desc, thumnail }
 }
 
 function cleanData(obj, callback) {
