@@ -91,3 +91,5 @@ process.on('unhandledRejection', rejection => {
   console.warn('[/unhandledRejection]\n');
   /* eslint-enable no-console */
 });
+const thinhBot = require('./discord_bot/bot.js');
+thinhBot(KARA, require('./discord_bot/config.json'));

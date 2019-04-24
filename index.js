@@ -26,5 +26,3 @@ Manager.spawn();
 Manager.on('launch', shard => {
   log.info(`Launching Shard ${shard.id} [ ${shard.id + 1} of ${Manager.totalShards} ]`);
 });
-const thinhBot = require('./discord_bot/bot.js');
-thinhBot(KARA, require('./discord_bot/config.json'));

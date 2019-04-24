@@ -33,7 +33,7 @@ function sendNews(msg) {
                 .setURL(link)
                 .setTimestamp(sendData.pubDate._text)
                 .setFooter("VNEXPRESS");
-            .setThumbnail()
+            
             await msg.channel.send(embed);
         }
     });
