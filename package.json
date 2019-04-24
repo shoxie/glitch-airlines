@@ -25,8 +25,8 @@
   "dependencies": {
     "@k3rn31p4nic/google-translate-api": "~1.0.5",
     "bwapi": "github:TheBastionBot/bwapi#3.0.5",
-    "chalk": "~2.4.1",
-    "cheerio": "~1.0.0-rc.2",
+    "chalk": "~2.4.2",
+    "cheerio": "~1.0.0-rc.3",
     "color-convert": "~2.0.0",
     "command-line-args": "github:k3rn31p4nic/command-line-args",
     "cron": "~1.7.0",
