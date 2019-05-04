@@ -15,7 +15,24 @@ const KARA = new Tesseract.Client({
     'RELATIONSHIP_REMOVE'
   ]
 });
-
+const serverStats = {
+  guildID: '335604901730058243',
+  totalUsersID: '574247526459375635',
+  memberCountID: '574247554611544109',
+  botCountID:'574247675168555058',
+}
+KARA.on('guildMemberAdd', => member {
+if (member.guild.id !== serverStats.guildID) return;
+KARA.channels.get(serverStats.totalUsersID).setName(`Total Users: ${member.guild.memberCount}`);
+KARA.channels.get(serverStats.memberCountID).setName(`Member Count: ${member.guild.members.filter(m => !m.bot).size}`);
+KARA.channels.get(serverStats.botCountID).setName(`BOT: ${member.guild.members.filter(m => m.user.bot).size}`);
+});
+KARA.on('guildMemberRemove', => member {
+  if (member.guild.id !== serverStats.guildID) return;
+  KARA.channels.get(serverStats.totalUsersID).setName(`Total Users: ${member.guild.memberCount}`);
+  KARA.channels.get(serverStats.memberCountID).setName(`Member Count: ${member.guild.members.filter(m => !m.bot).size}`);
+  KARA.channels.get(serverStats.botCountID).setName(`BOT: ${member.guild.members.filter(m => m.user.bot).size}`);
+  });
 if (KARA.shard) process.title = `Kara-Shard-${KARA.shard.id}`;
 else process.title = 'KaraBot';
 
