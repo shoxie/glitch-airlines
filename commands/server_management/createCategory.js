@@ -1,33 +1,33 @@
 /**
  * @file createCategory command
- * @author Kara
+ * @author Sankarsan Kampa (a.k.a k3rn31p4nic)
  * @license GPL-3.0
  */
 
-exports.exec = async (Kara, message, args) => {
+exports.exec = async (Bastion, message, args) => {
   if (!args.name) {
-    return Kara.emit('commandUsage', message, this.help);
+    return Bastion.emit('commandUsage', message, this.help);
   }
 
   let minLength = 2, maxLength = 100;
   args.name = args.name.join(' ');
 
   if (!args.name.length.inRange(minLength, maxLength)) {
-    return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'channelNameLength', minLength, maxLength), message.channel);
+    return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'channelNameLength', minLength, maxLength), message.channel);
   }
 
-  let category = await message.guild.createChannel(args.name, 'category');
+  let category = await message.guild.createChannel(args.name, { type: 'category' });
 
   await message.channel.send({
     embed: {
-      color: Kara.colors.GREEN,
-      description: Kara.i18n.info(message.guild.language, 'createChannel', message.author.tag, 'category', category.name),
+      color: Bastion.colors.GREEN,
+      description: Bastion.i18n.info(message.guild.language, 'createChannel', message.author.tag, 'category', category.name),
       footer: {
         text: `ID: ${category.id}`
       }
     }
   }).catch(e => {
-    Kara.log.error(e);
+    Bastion.log.error(e);
   });
 };
 
