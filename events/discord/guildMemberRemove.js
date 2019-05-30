@@ -1,3 +1,9 @@
+/**
+ * @file guildMemberRemove event
+ * @author Sankarsan Kampa (a.k.a k3rn31p4nic)
+ * @license GPL-3.0
+ */
+
 module.exports = async member => {
   try {
     let guildModel = await member.client.database.models.guild.findOne({
@@ -66,8 +72,8 @@ module.exports = async member => {
 
     if (guildModel.dataValues.serverLog) {
       if (member.guild.me && member.guild.me.hasPermission('BAN_MEMBERS')) {
-        let bannedUsers = await member.guild.fetchBans();
-        if (bannedUsers.has(member.id)) return;
+        let bannedMember = await member.guild.fetchBan(member);
+        if (bannedMember) return;
       }
 
       let logChannel = member.guild.channels.get(guildModel.dataValues.serverLog);
