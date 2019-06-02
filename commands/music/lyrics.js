@@ -32,7 +32,6 @@ exports.exec = (Kara, message, args) => {
             description: 'Searching for lyrics in NCT'
           }
         });
-        lyricsvietnam(args, message);
       }
       else {
         request(metroUrl, function (error, response, html) {
