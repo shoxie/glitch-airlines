@@ -1055,6 +1055,10 @@
     "description": "Lists/Adds/Removes items from your server's shop. Listed items in the shop can be bought by anyone, with %currency.name_plural%, in your server using the `buy` command. When users buy item, the server owner gets 90% of the profit.",
     "module": "Server Management"
   },
+  "setRateLimit": {
+    "description": "Sets the rate limit for users in the text/news channel of your Discord server. Members will be restricted to sending one message per this interval, unless they have Manage Channel or Manage Messages permissions.",
+    "module": "Server Management"
+  },
   "shorten": {
     "description": "Shortens a specified URL using Google URL Shortener.",
     "module": "Utility"
