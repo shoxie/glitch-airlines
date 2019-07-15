@@ -8,7 +8,7 @@ exports.exec = async (Kara, message) => {
   let owners = [];
   for (let userID of Kara.credentials.ownerId) {
     let user = await Kara.fetchUser(userID).catch(() => {});
-    owners.push(user.tag);
+    if (user) owners.push(user.tag);
   }
 
   let shardStats = Kara.shard ? await Kara.shard.broadcastEval('this.uptime') : 'None';
@@ -80,7 +80,7 @@ exports.exec = async (Kara, message) => {
         },
         {
           name: `Owner${Kara.credentials.ownerId.length > 1 ? 's' : ''}`,
-          value: owners.join('\n'),
+          value: owners.join('\n') || '-',
           inline: true
         },
         {
@@ -120,6 +120,11 @@ exports.exec = async (Kara, message) => {
           value: `${(rss / 1024 / 1024).toFixed(2)} MB RSS\n`
                  + `${(heapUsed / 1024 / 1024).toFixed(2)} MB Heap`,
           inline: true
+        },
+        {
+          name: 'Environment',
+          value: Kara.methods.isPublicKara(Kara) ? 'A secret space station' : `Node ${process.version} on ${process.platform} ${process.arch}`,
+          inline: true
         }
       ],
       thumbnail: {
@@ -140,7 +145,7 @@ exports.config = {
 
 exports.help = {
   name: 'stats',
-  description: 'Shows detailed stats and info of %bastion%.',
+  description: 'Shows detailed stats and info of %Kara%.',
   botPermission: '',
   userTextPermission: '',
   userVoicePermission: '',

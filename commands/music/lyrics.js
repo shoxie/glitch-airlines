@@ -6,92 +6,50 @@ var cheerio = require('cheerio');
 
 
 exports.exec = (Kara, message, args) => {
-  var query = args;
-  var searchUrl = "https://www.google.co.in/search?q=" + query + "+metrolyrics";
-  var metroUrl;
-  request(searchUrl, function (error, response, html) {
-    //  console.log(response);
-    if (!error) {
-      console.log(searchUrl);
-      var $ = cheerio.load(html);
-
-      var links = $('a', '.r');
-
-      $(links).each(function (i, link) {
-        var text = $(links).text();
-        if (text.search("MetroLyrics") !== -1) {
-          metroUrl = $(link).attr('href').substring(7);
-          console.log(metroUrl);
-          return false;
-        }
-      });
-      if (!metroUrl || metroUrl.length < 3) {
-        message.channel.send({
-          embed: {
-            color: 0xff0000,
-            description: 'Searching for lyrics in NCT'
-          }
-        });
-      }
-      else {
-        request(metroUrl, function (error, response, html) {
-
-          if (!error) {
-            var $ = cheerio.load(html);
-            var data = $('.verse');
-            var output = data.contents().text();
-            var myfields = [];
-            var array = output.split('\n');
-            var tmp = 0;
-            var sttmp = '';
-            for (var i = 0; i <= array.length; i++) {
-              sttmp += array[i] + ' \n ';
-              tmp++;
-              if (tmp == 18) {
-                myfields.push({ name: '------------------------------------------------', value: sttmp });
-                tmp = 0;
-                sttmp = '';
+  var replacedString = JSON.stringify(args);
+  replacedString = replacedString.replace(/ /g, '%20')
+  var searchLink = 'https://www.lyricsmode.com/search.php?search='+replacedString;
+  request(searchLink, function (error, repsonse, body) {
+          if(!error) {
+            var $ = cheerio.load(body);
+            var lyricsLink = $('a.lm-link.lm-link--primary.lm-link--highlight').attr('href');
+            var songTitle = $('a.lm-link.lm-link--primary.lm-link--highlight').first().text();
+            var foundLink = 'https://www.lyricsmode.com'+lyricsLink;
+            if(foundLink) {
+              request(foundLink, function(error, response, body) {
+                  var $ = cheerio.load(body);
+                  var data = $('div#lyrics_text').eq(0).text();
+                  var output = data.split("\n");
+                  var myfields = [];
+                  var tmp = 0;
+                  var sttmp = '';
+                  for (var i = 0; i <= output.length; i++) {
+                  sttmp += output[i] + ' \n ';
+                  tmp++;
+            if (tmp == 15) {
+              myfields.push({ name: '------------------------------------------------', value: sttmp });
+              tmp = 0;
+              sttmp = '';
+            }
+          };
+                var link = foundLink
+          message.channel.send({
+            embed: {
+              color: 3447003,
+              title: songTitle,
+              url: link,
+              fields: myfields,
+              footer: {
+                "icon_url": message.author.avatarURL,
+                text: "Requested by " + message.author.username + " || Powered by Nhaccuatui.com"
               }
             }
-
-            message.channel.send({
-              embed: {
-                color: 3447003,
-                title: "LYRICS FOUND",
-                fields: myfields,
-                footer: {
-                  "icon_url": message.author.avatarURL,
-                  text: "Requested by " + message.author.username + " || Powered by MetroLyrics"
-                }
-              }
-            });
-          }
-          else {
-            message.channel.send({
-              embed: {
-                color: 0xff0000,
-                description: 'Searching for lyrics in NCT'
-              }
-            });
-            lyricsvietnam(args, message);
-          }
-        });
-
-      }
-    }
-    else {
-      message.channel.send({
-        embed: {
-          color: 0xff0000,
-          description: 'Searching for lyrics in NCT'
-        }
-      });
-      lyricsvietnam(args, message);
-
-    }
+          });
+              });
+            };
+          };
   });
-
-}
+};
 
 exports.help = {
   name: 'lyrics',

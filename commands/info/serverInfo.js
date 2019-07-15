@@ -35,7 +35,7 @@ exports.exec = async (Kara, message) => {
         },
         {
           name: 'Premium',
-          value: `[${guildModel && guildModel.dataValues.premium}](https://bastionbot.org 'Premium servers & perks are coming soon™')`.toUpperCase(),
+          value: `[${guildModel && guildModel.dataValues.premium}]('Premium servers & perks are coming soon™')`.toUpperCase(),
           inline: true
         },
         {
@@ -60,7 +60,7 @@ exports.exec = async (Kara, message) => {
         },
         {
           name: 'Members',
-          value: `${message.guild.members.filter(m => !m.user.bot).size} Cached Users\n${message.guild.members.filter(m => m.user.bot).size} Cached BOTs`,
+          value: `${message.guild.memberCount} Total Members\n${message.guild.members.filter(m => !m.user.bot).size} Cached Users\n${message.guild.members.filter(m => m.user.bot).size} Cached Bots`,
           inline: true
         },
         {
