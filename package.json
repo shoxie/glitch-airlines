@@ -23,7 +23,7 @@
     "url": "https://github.com/shoxie/glitch-airlines/issues"
   },
   "dependencies": {
-    "@k3rn31p4nic/google-translate-api": "~1.0.5",
+    "@k3rn31p4nic/google-translate-api": "~1.0.6",
     "bwapi": "github:TheBastionBot/bwapi#3.0.5",
     "chalk": "~2.4.2",
     "cheerio": "~1.0.0-rc.3",
@@ -37,13 +37,13 @@
     "kitsu": "~7.0.4",
     "locke": "github:TheBastionBot/Locke#v0.9.0",
     "lzutf8": "~0.5.5",
-    "mathjs": "~6.0.2",
+    "mathjs": "~6.0.3",
     "node-opus": "~0.3.2",
     "pokedex-api": "~1.1.2",
     "rainbowsix-api-node": "~0.0.1",
     "request": "~2.88.0",
     "request-promise-native": "^1.0.7",
-    "sequelize": "~5.8.11",
+    "sequelize": "~5.10.1",
     "snekfetch": "~4.0.4",
     "sqlite": "~3.0.0",
     "sqlite3": "^4.0.9",
@@ -56,6 +56,6 @@
     "youtube-dl": "github:przemyslawpluta/node-youtube-dl"
   },
   "devDependencies": {
-    "eslint": "^5.16.0"
+    "eslint": "^6.0.1"
   }
 }
