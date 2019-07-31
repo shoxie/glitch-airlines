@@ -24,7 +24,7 @@ exports.exec = async (Bastion, message) => {
       return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'isSpeaking'), message.channel);
     }
     voiceChannel = voiceConnection.channel;
-  }
+  }	
   else {
     if (Bastion.credentials.ownerId.includes(message.author.id) || message.member.roles.has(message.guild.music.masterRoleID)) {
       voiceChannel = message.member.voiceChannel;

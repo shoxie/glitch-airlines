@@ -10,6 +10,9 @@ exports.exec = (Kara, message, args) => {
   replacedString = replacedString.replace(/ /g, '%20')
   var searchLink = 'https://www.lyricsmode.com/search.php?search='+replacedString;
   request(searchLink, function (error, repsonse, body) {
+          if(args[1] === 'vietnam') {
+            lyricsvietnam();
+          }
           if(!error) {
             var $ = cheerio.load(body);
             var lyricsLink = $('a.lm-link.lm-link--primary.lm-link--highlight').attr('href');
