@@ -56,6 +56,6 @@
     "youtube-dl": "github:przemyslawpluta/node-youtube-dl"
   },
   "devDependencies": {
-    "eslint": "^6.2.1"
+    "eslint": "^6.3.0"
   }
 }
