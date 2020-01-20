@@ -29,7 +29,7 @@
     "cheerio": "~1.0.0-rc.3",
     "color-convert": "~2.0.1",
     "command-line-args": "github:k3rn31p4nic/command-line-args",
-    "cron": "~1.7.2",
+    "cron": "~1.8.1",
     "discord.js": "~11.5.1",
     "express": "^4.17.1",
     "gamedig": "~2.0.20",
