@@ -6,6 +6,10 @@ exports.exec = (Kara, message, args) => {
         if (!user.has.roles(args[0])) user.addRole(args[0])
     });
 }
+exports.config = {
+    aliases: ['rolechange'],
+    enabled: true
+};
 exports.help = {
     name: "bulkRoleAdd",
     description: "Change role of everyone in the server"

@@ -6,6 +6,10 @@ exports.exec = (Kara, message, args) => {
         user.setNickname(args[0], args[1])
     });
 }
+exports.config = {
+    aliases: ['namechange'],
+    enabled: true
+};
 exports.help = {
     name: "bulkNickname",
     description: "Change nickname of everyone in the server",
