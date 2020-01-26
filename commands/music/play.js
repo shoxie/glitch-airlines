@@ -1,8 +1,14 @@
+/**
+ * @file play command
+ * @author Sankarsan Kampa (a.k.a k3rn31p4nic)
+ * @license GPL-3.0
+ */
+
 const util = xrequire('util');
 const youtubeDL = xrequire('youtube-dl');
 const getSongInfo = util.promisify(youtubeDL.getInfo);
 
-exports.exec = async(Kara, message, args) => {
+exports.exec = async (Kara, message, args) => {
   try {
     if (!message.guild.music.enabled) {
       if (Kara.user.id === '267035345537728512') {
@@ -29,8 +35,7 @@ exports.exec = async(Kara, message, args) => {
       textChannel = message.guild.music.textChannel || message.channel;
 
       vcStats = Kara.i18n.error(message.guild.language, 'userNoSameVC', message.author.tag);
-    }
-    else {
+    } else {
       if (message.guild.music.textChannelID && message.guild.music.voiceChannelID) {
         voiceChannel = message.guild.channels.filter(c => c.type === 'voice').get(message.guild.music.voiceChannelID);
         textChannel = message.guild.channels.filter(c => c.type === 'text').get(message.guild.music.textChannelID);
@@ -40,16 +45,14 @@ exports.exec = async(Kara, message, args) => {
         }
 
         vcStats = Kara.i18n.error(message.guild.language, 'userNoMusicChannel', message.author.tag, voiceChannel.name);
-      }
-      else if (Kara.credentials.ownerId.includes(message.author.id) || message.member.roles.has(message.guild.music.masterRoleID)) {
+      } else if (Kara.credentials.ownerId.includes(message.author.id) || message.member.roles.has(message.guild.music.masterRoleID)) {
         voiceChannel = message.member.voiceChannel;
         textChannel = message.channel;
 
         if (!voiceChannel) {
           return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'userNoVC', message.author.tag), message.channel);
         }
-      }
-      else {
+      } else {
         return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'musicChannelNotFound'), message.channel);
       }
 
@@ -122,8 +125,7 @@ exports.exec = async(Kara, message, args) => {
       }).catch(e => {
         Kara.log.error(e);
       });
-    }
-    else {
+    } else {
       let playlist = false;
       args.song = args.song.join(' ');
       if (/^http[s]?:[/]{2}(?:www\.)?youtube\.com\/(?:(?:playlist|watch)\?(?:[a-z0-9-_=&.]{1,2021})?list=[a-z0-9-_]{1,64}(?:[a-z0-9-_=&.]{1,2021})?)$/i.test(args.song)) {
@@ -139,8 +141,8 @@ exports.exec = async(Kara, message, args) => {
         '--simulate',
         '--no-warnings',
         '--format=bestaudio[protocol^=http]',
-        `--user-agent=KaraDiscordBot/v${Kara.package.version} (https://bastionbot.org)`,
-        '--referer=https://bastionbot.org',
+        `--user-agent=KaraDiscordBot/v${Kara.package.version} (https://bastion.traction.one)`,
+        '--referer=https://bastion.traction.one',
         '--youtube-skip-dash-manifest'
       ];
 
@@ -174,8 +176,7 @@ exports.exec = async(Kara, message, args) => {
         }).catch(e => {
           Kara.log.error(e);
         });
-      }
-      else {
+      } else {
         message.guild.music.songs.push({
           url: songInfo.url,
           id: songInfo.id,
@@ -211,8 +212,7 @@ exports.exec = async(Kara, message, args) => {
 
     voiceConnection.on('error', Kara.log.error);
     voiceConnection.on('failed', Kara.log.error);
-  }
-  catch (e) {
+  } catch (e) {
     Kara.log.error(e);
     return Kara.emit('error', '', Kara.i18n.error(message.guild.language, 'notFound', 'result'), message.channel);
   }
@@ -221,9 +221,17 @@ exports.exec = async(Kara, message, args) => {
 exports.config = {
   aliases: [],
   enabled: true,
-  argsDefinitions: [
-    { name: 'song', type: String, multiple: true, defaultOption: true },
-    { name: 'playlist', type: Boolean, alias: 'p' }
+  argsDefinitions: [{
+      name: 'song',
+      type: String,
+      multiple: true,
+      defaultOption: true
+    },
+    {
+      name: 'playlist',
+      type: Boolean,
+      alias: 'p'
+    }
   ]
 };
 
@@ -255,8 +263,8 @@ async function startStreamDispatcher(guild, connection) {
       '--simulate',
       '--no-warnings',
       '--format=bestaudio[protocol^=http]',
-      '--user-agent=KaraDiscordBot (https://bastionbot.org)',
-      '--referer=https://bastionbot.org',
+      '--user-agent=KaraDiscordBot (https://bastion.traction.one)',
+      '--referer=https://bastion.traction.one',
       '--youtube-skip-dash-manifest'
     ];
 
@@ -274,10 +282,9 @@ async function startStreamDispatcher(guild, connection) {
       duration: songInfo.duration,
       requester: guild.client.user.tag
     });
-  }
-  else if (!guild.music.songs[0] || connection.channel.members.size <= 1) {
+  } else if (!guild.music.songs[0] || connection.channel.members.size <= 1) {
     if (guild.client.configurations.music && guild.client.configurations.music.status) {
-      guild.client.user.setActivity(typeof guild.client.configurations.game.name === 'string' ? guild.client.configurations.game.name : guild.client.configurations.game.name.length ? guild.client.configurations.game.name[0] : null, {
+      guild.client.user.setActivity(typeof guild.client.configurations.game.name === 'string' ? guild.client.configurations.game.name : guild.client.configurations.game.name instanceof Array ? guild.client.configurations.game.name[0] : null, {
         type: guild.client.configurations.game.type,
         url: guild.client.configurations.game.url && guild.client.configurations.game.url.trim().length ? guild.client.configurations.game.url : null
       });
@@ -286,10 +293,7 @@ async function startStreamDispatcher(guild, connection) {
     let description;
     if (!guild.music.songs[0]) {
       description = 'Stopping playback.';
-      let textChannel = guild.music.textChannel;
-      textChannel.setTopic("Not Playing");
-    }
-    else {
+    } else {
       guild.music.songs = [];
       description = 'It appears I\'ve been by myself in this voice channel since the last song. The bandwidth patrol has asked me to stop the playback to save bandwidth. That stuff doesn\'t grow on trees!';
     }
@@ -331,21 +335,17 @@ async function startStreamDispatcher(guild, connection) {
   }).catch(e => {
     guild.client.log.error(e);
   });
-  let textChannel = guild.music.textChannel;
-  textChannel.setTopic(`Playing ${guild.music.songs[0].title} requested by ${guild.music.songs[0].requester}`);
 
   if (guild.client.configurations.music && guild.client.configurations.music.status) {
     guild.client.user.setActivity(guild.music.songs[0].title);
   }
 
   guild.music.dispatcher.on('end', () => {
-    textChannel.setTopic("Not Playing")
     guild.music.playing = false;
     guild.music.skipVotes = [];
     if (!guild.music.repeat) {
       guild.music.songs.shift();
-    }
-    else {
+    } else {
       guild.music.repeat = false;
     }
     setTimeout(() => {
