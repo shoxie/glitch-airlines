@@ -41,7 +41,7 @@
     "node-opus": "~0.3.3",
     "pokedex-api": "~1.1.2",
     "rainbowsix-api-node": "~0.0.1",
-    "request": "~2.88.0",
+    "request": "~2.88.2",
     "request-promise-native": "^1.0.8",
     "sequelize": "~5.21.3",
     "snekfetch": "~4.0.4",
