@@ -23,7 +23,7 @@
     "url": "https://github.com/shoxie/glitch-airlines/issues"
   },
   "dependencies": {
-    "@k3rn31p4nic/google-translate-api": "~1.1.0",
+    "@k3rn31p4nic/google-translate-api": "~1.1.1",
     "bwapi": "github:TheBastionBot/bwapi#3.0.6",
     "chalk": "~4.0.0",
     "cheerio": "~1.0.0-rc.3",
