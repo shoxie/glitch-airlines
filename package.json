@@ -32,7 +32,7 @@
     "cron": "~1.8.2",
     "discord.js": "~12.5.1",
     "express": "^4.17.1",
-    "gamedig": "~2.0.20",
+    "gamedig": "~2.0.28",
     "hirez.js": "~2.0.0",
     "kitsu": "~9.1.17",
     "locke": "github:TheBastionBot/Locke#v1.2.0",
