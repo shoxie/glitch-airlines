@@ -45,7 +45,7 @@
     "request-promise-native": "^1.0.8",
     "sequelize": "~5.21.5",
     "snekfetch": "~4.0.4",
-    "sqlite": "~4.0.18",
+    "sqlite": "~4.0.21",
     "sqlite3": "^4.1.1",
     "tesseract": "github:TheBastionBot/Tesseract#v2.0.0",
     "weather-js": "~2.0.0",
